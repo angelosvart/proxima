@@ -1,0 +1,70 @@
+<main class="productList">
+	<section class="productList__heading">
+		<div class="heading">
+			<div class="heading__breadcrumb">08028</div>
+			<h1 class="heading__title">Productos en 08028</h1>
+
+			<app-search></app-search>
+		</div>
+	</section>
+
+	<section class="productList__highlights">
+		<div class="highlights">
+			<h2 class="highlights__title">Lo más destacado</h2>
+
+			<app-category-slider></app-category-slider>
+		</div>
+	</section>
+
+	<div class="productList__layoutGrid">
+		<section class="productList__filterBar">
+			<div class="filterBar">
+				<p class="filterBar__results">335 resultados</p>
+				<div class="filterBar__filterButton">
+					<img
+						class="filterBar__icon"
+						src="../../../../assets/images/filter.svg"
+						alt="Filtrar"
+					/>
+					Filtrar
+				</div>
+			</div>
+		</section>
+
+		<section class="productList__filters"></section>
+
+		<section class="productList__productGrid">
+			<app-product-card></app-product-card>
+			<app-product-card></app-product-card>
+			<app-product-card></app-product-card>
+			<app-product-card></app-product-card>
+			<app-product-card></app-product-card>
+			<app-product-card></app-product-card>
+		</section>
+
+		<section class="productList__pagination">
+			<div class="pagination">
+				<div class="pagination__button previous">
+					<img src="../../../../assets/images/arrowLeft.svg" />
+					Anterior
+				</div>
+				<div class="pagination__button next">
+					Siguiente
+					<img src="../../../../assets/images/arrowRight.svg" />
+				</div>
+				<ul class="pagination__pageIndex">
+					<li class="pagination__page active"><a href="">1</a></li>
+					<li class="pagination__page"><a href="">2</a></li>
+					<li class="pagination__page"><a href="">3</a></li>
+					<li class="pagination__page"><a href="">4</a></li>
+					<li class="pagination__page"><a href="">5</a></li>
+					<li class="pagination__page"><a href="">6</a></li>
+					<li class="pagination__page"><a href="">7</a></li>
+					<li class="pagination__page"><a href="">8</a></li>
+					<li class="pagination__page"><a href="">9</a></li>
+					<li class="pagination__page"><a href="">10</a></li>
+				</ul>
+			</div>
+		</section>
+	</div>
+</main>

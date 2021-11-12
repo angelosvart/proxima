@@ -1,0 +1,44 @@
+@import "../../../../assets/styles/main.scss";
+
+.search {
+	background: $color-white;
+	border-radius: $border-radius;
+	border: 1px solid $color-grey-light;
+	box-shadow: $shadow;
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	transition: border 0.15s ease-in;
+	&__input {
+		border: none;
+		outline: none;
+		width: 100%;
+		font-size: inherit;
+		color: inherit;
+		font: inherit;
+		font-style: inherit;
+		font-weight: 400;
+		line-height: inherit;
+		font-family: inherit;
+		margin: 0;
+	}
+	&__icon {
+		margin-left: 0.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
+		cursor: pointer;
+		transition: filter 0.15s ease-in;
+		&:hover {
+			filter: invert(83%) sepia(18%) saturate(5301%) hue-rotate(318deg)
+				brightness(102%) contrast(82%);
+		}
+	}
+
+	&.active {
+		border: 1px solid $color-primary;
+	}
+	@media (min-width: $desktop) {
+		width: 550px;
+	}
+}

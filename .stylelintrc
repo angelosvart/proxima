@@ -1,0 +1,29 @@
+{
+	"extends": "stylelint-config-recommended-scss",
+	"rules": {
+		"font-family-no-duplicate-names": true,
+		"unit-no-unknown": true,
+		"property-no-unknown": true,
+		"block-no-empty": true,
+		"selector-type-no-unknown": true,
+		"selector-pseudo-class-no-unknown": true,
+		"selector-pseudo-element-no-unknown": true,
+		"no-duplicate-at-import-rules": true,
+		"no-duplicate-selectors": true,
+		"no-extra-semicolons": true,
+		"no-empty-source": true,
+		"length-zero-no-unit": true,
+		"unit-allowed-list": ["px", "rem", "s", "vw", "vh", "fr", "%"],
+		"declaration-block-no-redundant-longhand-properties": true,
+		"declaration-no-important": true,
+		"unit-case": "lower",
+		"declaration-block-semicolon-newline-after": "always",
+		"declaration-block-trailing-semicolon": "always",
+		"block-opening-brace-newline-after": "always",
+		"block-closing-brace-newline-after": "always",
+		"selector-attribute-brackets-space-inside": "never",
+		"selector-list-comma-space-after": "always",
+		"indentation": "tab",
+		"selector-class-pattern": "^.[a-z]([a-zA-Z0-9-]+)?(__([a-zA-Z0-9]+-?)+)?(--([a-zA-Z0-9]+-?)+){0,2}$"
+	}
+}

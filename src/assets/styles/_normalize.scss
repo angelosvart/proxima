@@ -1,0 +1,47 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	text-rendering: optimizeLegibility;
+	min-height: 100vh;
+	color: $color-black;
+	overflow-x: hidden;
+	@include textNormal();
+}
+
+ul {
+	list-style-type: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border: 0;
+}
+
+a {
+	color: $color-black;
+	cursor: pointer;
+	transition: color 0.15s ease-in;
+	text-decoration: none;
+	&:hover {
+		color: $color-primary;
+	}
+}
+
+main:not(.productList) {
+	padding: 1rem $padding-mobile 2rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 2rem $padding-desktop 4rem $padding-desktop;
+	}
+}

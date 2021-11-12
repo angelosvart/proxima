@@ -1,0 +1,67 @@
+@import "../../../../assets/styles/main.scss";
+
+.productCard {
+	border-radius: $border-radius;
+	box-shadow: $shadow;
+	transition: box-shadow 0.3s;
+	cursor: pointer;
+	&:hover {
+		box-shadow: $shadow-hover;
+	}
+	&__image {
+		border-radius: $border-radius $border-radius 0 0;
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
+	&__content {
+		padding: 1rem 0.5rem;
+	}
+	&__brand {
+		@include textProductCard();
+		font-weight: 700;
+		margin-bottom: 0.25rem;
+	}
+	&__productName {
+		@include textProductCard();
+		margin-bottom: 0.25rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	&__store {
+		@include textProductCard();
+		color: $color-grey-dark;
+		margin-bottom: 0.5rem;
+		span {
+			display: none;
+		}
+	}
+	&__price {
+		@include textProductCard();
+	}
+	@media (min-width: $desktop) {
+		&__content {
+			padding: 1rem;
+		}
+		&__brand {
+			@include textNormalBold();
+			margin-bottom: 0;
+		}
+		&__productName {
+			@include textNormal();
+			margin-bottom: 0;
+		}
+		&__store {
+			@include textNormal();
+			margin-bottom: 5px;
+			span {
+				display: inline;
+			}
+		}
+		&__price {
+			@include textNormal();
+		}
+	}
+}

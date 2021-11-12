@@ -1,0 +1,30 @@
+<div
+	class="postCodeSearch"
+	id="searchContainer"
+	[ngClass]="{
+		error: postCode.errors && postCode.dirty
+	}"
+>
+	<input
+		type="text"
+		name="postCode"
+		class="postCodeSearch__input"
+		min="0"
+		max="99999"
+		maxlength="5"
+		pattern="\d*"
+		[formControl]="postCode"
+		(blur)="toggleSearchBarStatus()"
+		(focus)="toggleSearchBarStatus()"
+		(keyup.enter)="submitForm()"
+	/>
+	<img
+		src="../../../assets/images/search.svg"
+		alt="Buscar"
+		class="postCodeSearch__icon"
+		(click)="submitForm()"
+	/>
+	<div *ngIf="postCode.errors && postCode.dirty" class="postCodeSearch__error">
+		Introduce un código postal de 5 números.
+	</div>
+</div>

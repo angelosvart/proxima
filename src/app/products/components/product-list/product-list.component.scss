@@ -1,0 +1,240 @@
+@import "../../../../assets/styles/main.scss";
+
+.productList {
+	padding: 1rem $padding-mobile 2rem $padding-mobile;
+	margin: 0 auto;
+	&__heading {
+		margin-bottom: 1.5rem;
+	}
+	&__highlights {
+		margin-bottom: 2rem;
+	}
+	&__filterBar {
+		margin-bottom: 1rem;
+	}
+	&__filters {
+		display: none;
+	}
+	&__productGrid {
+		margin-bottom: 2rem;
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		&.loading {
+			opacity: 0.5;
+		}
+	}
+	@media (min-width: $desktop) {
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 0 $padding-desktop 4rem $padding-desktop;
+		&__heading {
+			padding-top: 2rem;
+			padding-bottom: 2.5rem;
+			margin-bottom: 2.5rem;
+			position: relative;
+		}
+		&__highlights {
+			margin-bottom: 2.5rem;
+		}
+		&__layoutGrid {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			grid-column-gap: 3rem;
+			grid-template-areas:
+				"filters filterBar"
+				"filters products"
+				"filters pagination";
+		}
+		&__filterBar {
+			grid-area: filterBar;
+		}
+		&__filters {
+			display: block;
+			grid-area: filters;
+		}
+		&__productGrid {
+			grid-area: products;
+			margin-bottom: 2.5rem;
+			grid-gap: 2rem;
+			grid-template-columns: repeat(3, 1fr);
+		}
+		&__pagination {
+			grid-area: pagination;
+		}
+	}
+}
+
+.heading {
+	&__breadcrumb {
+		@include textSmall();
+		color: $color-grey-dark;
+		margin-bottom: 0.5rem;
+	}
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	@media (min-width: $desktop) {
+		&:before {
+			border-bottom: 1px solid $border-color;
+			content: "";
+			z-index: 1;
+			width: 100vw;
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			margin-left: -50vw;
+		}
+		&:after {
+			background: linear-gradient(rgba(54, 48, 62, 0.8), rgba(54, 48, 62, 0.8)),
+				url("../../../../assets/images/hero-image.jpg") center 35%;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			right: 50%;
+			bottom: 0;
+			content: "";
+			height: 100%;
+			margin-right: -50vw;
+			position: absolute;
+			width: 50vw;
+			border-radius: 300px 0 0 0;
+			z-index: -1;
+		}
+		&__breadcrumb {
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.highlights {
+	&__title {
+		@include titleH2();
+		margin-bottom: 1rem;
+		text-align: center;
+	}
+	@media (min-width: $desktop) {
+		&__title {
+			margin-bottom: 1.5rem;
+		}
+	}
+}
+
+.filterBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&__results {
+		@include textUppercase();
+	}
+	&__filterButton {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		border: 1px solid $color-primary;
+		padding: 5px 10px;
+		border-radius: $border-radius;
+		color: $color-primary;
+		transition: border 0.15s ease-in;
+		&:hover {
+			border: 1px solid $color-primary-darker;
+		}
+	}
+	&__icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		margin-right: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		&__filterButton {
+			display: none;
+		}
+	}
+}
+
+.pagination {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	&__button {
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid $color-grey-light;
+		border-radius: $border-radius;
+		padding: 0.5rem 0;
+		transition: border 0.15s ease-in;
+		flex-grow: 1;
+		width: calc(50% - 1rem);
+		margin-bottom: 1rem;
+		&:hover {
+			border: 1px solid $color-grey-dark;
+		}
+		&.previous {
+			img {
+				margin-right: 0.5rem;
+			}
+		}
+		&.next {
+			margin-left: 1rem;
+			img {
+				margin-left: 0.5rem;
+			}
+		}
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+	&__pageIndex {
+		display: flex;
+		justify-content: center;
+		order: 3;
+	}
+	&__page {
+		@include textPaginationSmall();
+		display: flex;
+		border-radius: 100%;
+		width: 1.5rem;
+		height: 1.5rem;
+		justify-content: center;
+		align-items: center;
+		margin-right: 0.5rem;
+		transition: background-color 0.15s ease-in, color 0.15s ease-in;
+		cursor: pointer;
+		&:last-child {
+			margin-right: 0;
+		}
+		&.active,
+		&:hover {
+			background-color: $color-primary;
+			a {
+				color: $color-white;
+			}
+		}
+	}
+	@media (min-width: $desktop) {
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: flex-start;
+		&__button {
+			margin-bottom: 0;
+		}
+		&__button {
+			width: 10rem;
+			padding: 0.5rem 2.5rem;
+			flex-grow: unset;
+			&.previous {
+				order: 1;
+				margin-right: 1rem;
+			}
+			&.next {
+				margin-left: 1rem;
+				order: 3;
+			}
+		}
+		&__pageIndex {
+			order: 2;
+		}
+	}
+}
