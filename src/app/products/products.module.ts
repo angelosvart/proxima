@@ -6,6 +6,8 @@ import { ProductListComponent } from "./components/product-list/product-list.com
 import { CategorySliderComponent } from "../shared/components/category-slider/category-slider.component";
 import { SearchComponent } from "../shared/components/search/search.component";
 import { ProductCardComponent } from "../shared/components/product-card/product-card.component";
+import { RouterModule } from "@angular/router";
+import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 
 @NgModule({
 	declarations: [
@@ -13,8 +15,9 @@ import { ProductCardComponent } from "../shared/components/product-card/product-
 		CategorySliderComponent,
 		SearchComponent,
 		ProductCardComponent,
+		ProductDetailComponent,
 	],
-	imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
-	exports: [ProductListComponent],
+	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
+	exports: [ProductListComponent, ProductDetailComponent],
 })
 export class ProductsModule {}

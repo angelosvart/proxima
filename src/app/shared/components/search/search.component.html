@@ -5,10 +5,12 @@
 		class="search__input"
 		(blur)="toggleSearchBarStatus()"
 		(focus)="toggleSearchBarStatus()"
+		(keyup.enter)="search()"
 	/>
 	<img
-		src="../../../assets/images/search.svg"
+		src="../../../assets/images/icons/search.svg"
 		alt="Buscar"
 		class="search__icon"
+		(click)="search()"
 	/>
 </div>

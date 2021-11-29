@@ -31,8 +31,7 @@
 		cursor: pointer;
 		transition: filter 0.15s ease-in;
 		&:hover {
-			filter: invert(83%) sepia(18%) saturate(5301%) hue-rotate(318deg)
-				brightness(102%) contrast(82%);
+			filter: $filter-hover-svg;
 		}
 	}
 	&__error {

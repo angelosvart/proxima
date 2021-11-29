@@ -17,6 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { PostcodeSearchComponent } from "./shared/components/postcode-search/postcode-search.component";
 import { HeaderComponent } from "./views/header/header.component";
 import { FooterComponent } from "./views/footer/footer.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { FooterComponent } from "./views/footer/footer.component";
 		}),
 		LoginModule,
 		ProductsModule,
+		RouterModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

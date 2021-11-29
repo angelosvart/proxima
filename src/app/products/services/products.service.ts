@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "../models/Product";
 
@@ -7,7 +7,8 @@ import { Product } from "../models/Product";
 	providedIn: "root",
 })
 export class ProductsService {
-	productsApi = "api/products";
+	productsApi = "http://localhost:3000/api/products";
+	categoriesApi = "http://localhost:3000/api/categories";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -15,9 +16,18 @@ export class ProductsService {
 
 	constructor(private http: HttpClient) {}
 
-	getProducts(userPostCode: string): Observable<Product[]> {
+	getProducts(userPostCode: string, filters?: object): Observable<Product[]> {
+		let params = new HttpParams();
+		params = params.append("postcode", userPostCode);
+
+		if (filters) {
+			for (let filter in filters) {
+				params = params.append(filter, filters[filter]);
+			}
+		}
+
 		return this.http
-			.get<Product[]>(`${this.productsApi}?postcode=${userPostCode}`)
+			.get<Product[]>(this.productsApi, { params: params })
 			.pipe();
 	}
 }

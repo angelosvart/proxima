@@ -8,25 +8,49 @@
 	}
 	&__highlights {
 		margin-bottom: 2rem;
+		opacity: 1;
+		transition: opacity 0.5s ease-in;
 	}
 	&__filterBar {
 		margin-bottom: 1rem;
 	}
 	&__filters {
 		display: none;
+		position: relative;
+		width: 100vw;
+		height: 80vh;
+		transform: translate3d(0, 100%, 0);
+		bottom: 0;
+		left: 0;
+		z-index: 2;
+		background-color: $color-white;
+		border-radius: 1rem 1rem 0 0;
+		box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+		&.openModal {
+			animation: showBelowModal 0.2s;
+			transform: translate3d(0, 0, 0);
+			overflow-y: scroll;
+			position: fixed;
+			display: block;
+		}
 	}
 	&__productGrid {
-		margin-bottom: 2rem;
+		opacity: 1;
 		display: grid;
 		grid-gap: 1rem;
-		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-		&.loading {
-			opacity: 0.5;
-		}
+		grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	}
+	&__emptyResults {
+		padding: 2em 0;
+		grid-column: 1 / -1;
+		text-align: center;
+		@include textNormalBold;
+	}
+	&__pagination {
+		grid-column: 1 / -1;
 	}
 	@media (min-width: $desktop) {
 		max-width: 1440px;
-		margin: 0 auto;
 		padding: 0 $padding-desktop 4rem $padding-desktop;
 		&__heading {
 			padding-top: 2rem;
@@ -39,12 +63,12 @@
 		}
 		&__layoutGrid {
 			display: grid;
-			grid-template-columns: 1fr auto;
+			grid-template-columns: 1fr 3fr;
+			grid-template-rows: auto 1fr;
 			grid-column-gap: 3rem;
 			grid-template-areas:
 				"filters filterBar"
-				"filters products"
-				"filters pagination";
+				"filters products";
 		}
 		&__filterBar {
 			grid-area: filterBar;
@@ -52,15 +76,22 @@
 		&__filters {
 			display: block;
 			grid-area: filters;
+			opacity: 1;
+			position: static;
+			width: auto;
+			height: auto;
+			transform: none;
+			box-shadow: none;
+			border-radius: 0;
 		}
 		&__productGrid {
 			grid-area: products;
-			margin-bottom: 2.5rem;
+			align-self: start;
 			grid-gap: 2rem;
 			grid-template-columns: repeat(3, 1fr);
 		}
-		&__pagination {
-			grid-area: pagination;
+		&__emptyResults {
+			padding: 5rem 0;
 		}
 	}
 }
@@ -70,10 +101,19 @@
 		@include textSmall();
 		color: $color-grey-dark;
 		margin-bottom: 0.5rem;
+		text-transform: capitalize;
+		a {
+			color: $color-grey-dark;
+			transition: color 0.15s ease-in;
+			&:hover {
+				color: $color-primary;
+			}
+		}
 	}
 	&__title {
 		@include titleH1();
 		margin-bottom: 1rem;
+		text-transform: capitalize;
 	}
 	@media (min-width: $desktop) {
 		&:before {
@@ -157,20 +197,9 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	&__button {
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border: 1px solid $color-grey-light;
-		border-radius: $border-radius;
-		padding: 0.5rem 0;
-		transition: border 0.15s ease-in;
 		flex-grow: 1;
 		width: calc(50% - 1rem);
 		margin-bottom: 1rem;
-		&:hover {
-			border: 1px solid $color-grey-dark;
-		}
 		&.previous {
 			img {
 				margin-right: 0.5rem;
@@ -208,9 +237,7 @@
 		&.active,
 		&:hover {
 			background-color: $color-primary;
-			a {
-				color: $color-white;
-			}
+			color: $color-white;
 		}
 	}
 	@media (min-width: $desktop) {
@@ -236,5 +263,158 @@
 		&__pageIndex {
 			order: 2;
 		}
+	}
+}
+
+.filters {
+	padding: 3.5rem 1.5rem 3rem;
+	&__title {
+		@include textUppercase();
+		font-size: 0.875rem;
+		margin-bottom: 1rem;
+	}
+	&__option {
+		border-bottom: 1px solid $border-color;
+		margin-bottom: 1rem;
+	}
+	&__optionTitle {
+		@include textNormalBold();
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		cursor: pointer;
+		margin-bottom: 1rem;
+		&:hover {
+			color: $color-primary;
+			img {
+				filter: $filter-hover-svg;
+			}
+		}
+	}
+	&__icon {
+		transition: transform 0.15s linear;
+		&.closed {
+			transform: scaleY(-1);
+		}
+	}
+	&__optionItems {
+		opacity: 1;
+		height: 100%;
+		transition: all 0.1s linear;
+		overflow: hidden;
+		&.closed {
+			opacity: 0;
+			height: 0;
+			transition: all 0.1s linear;
+		}
+	}
+	&__checkbox {
+		@include textLink();
+		display: grid;
+		align-items: center;
+		grid-template-columns: 1em auto;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		cursor: pointer;
+		&:last-child {
+			margin-bottom: 1rem;
+		}
+		input[type="checkbox"] {
+			display: grid;
+			place-content: center;
+			-webkit-appearance: none;
+			appearance: none;
+			background-color: $color-white;
+			margin: 0;
+			font: inherit;
+			color: $color-grey-light;
+			width: 1.15rem;
+			height: 1.15rem;
+			border: 0.15rem solid $color-grey-light;
+			border-radius: 0.15rem;
+			transform: translateY(-0.075rem);
+			&:before {
+				content: "";
+				width: 0.65rem;
+				height: 0.65rem;
+				transform: scale(0);
+			}
+			&:checked:before {
+				transform: scale(1);
+				box-shadow: inset 1rem 1rem $color-primary;
+			}
+			&:not(:checked):hover:before {
+				transform: scale(1);
+				box-shadow: inset 1rem 1rem $color-footer;
+			}
+		}
+	}
+	&__clear {
+		@include textLink();
+		text-transform: uppercase;
+		text-decoration: underline;
+		letter-spacing: 1px;
+	}
+	&__closeIcon {
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		transition: filter 0.15s ease-in;
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		&:hover {
+			filter: $filter-hover-svg;
+		}
+	}
+	&__viewResults {
+		position: sticky;
+		bottom: 0;
+		width: 100%;
+		padding: 1rem;
+		background-color: $color-white;
+		box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+		button {
+			width: 100%;
+		}
+	}
+	@media (min-width: $desktop) {
+		padding: 0;
+		&__closeIcon {
+			display: none;
+		}
+		&__viewResults {
+			display: none;
+		}
+	}
+}
+
+.modalOverlay {
+	opacity: 0;
+	transition: opacity 0.2s ease-in;
+	&.openModal {
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		opacity: 1;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.4);
+		transition: opacity 0.2s ease-in;
+	}
+}
+
+.loading {
+	opacity: 0.4;
+	transition: opacity 0.2s ease-in;
+}
+
+@keyframes showBelowModal {
+	from {
+		transform: translate3d(0, 100%, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
 	}
 }

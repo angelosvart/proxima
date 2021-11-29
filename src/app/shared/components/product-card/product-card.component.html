@@ -1,12 +1,23 @@
-<div class="productCard">
-	<img
-		class="productCard__image"
-		src="../../../../assets/images/categories/beauty.jpg"
-	/>
+<div class="productCard" routerLink="/product/{{ product._id }}">
+	<img class="productCard__image" src="{{ product.image }}" />
 	<div class="productCard__content">
-		<p class="productCard__brand">Sony</p>
-		<p class="productCard__productName">Auriculares de diadema negros</p>
-		<p class="productCard__store"><span>Vendido por: </span>Tienda Lorem</p>
-		<p class="productCard__price">34,90 €</p>
+		<p class="productCard__brand">{{ product.brand }}</p>
+		<a
+			routerLink="/product/{{ product._id }}"
+			class="productCard__productName"
+			>{{ product.name }}</a
+		>
+		<p class="productCard__store">
+			<span>Vendido por: </span>{{ product.owner.name }}
+		</p>
+		<p *ngIf="!product.isOffer" class="productCard__price">
+			{{ product.price }} €
+		</p>
+		<p *ngIf="product.isOffer" class="productCard__price">
+			{{ product.price }} €
+			<span class="productCard__previousPrice"
+				>{{ product.previousPrice }} €
+			</span>
+		</p>
 	</div>
 </div>

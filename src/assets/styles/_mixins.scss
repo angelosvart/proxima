@@ -99,6 +99,15 @@
 	font-size: 0.875rem;
 }
 
+@mixin textLink {
+	color: $color-black;
+	cursor: pointer;
+	transition: color 0.15s ease-in;
+	text-decoration: none;
+	&:hover {
+		color: $color-primary;
+	}
+}
 /*
  * Shadows
  */

@@ -1,9 +1,7 @@
 <div
 	class="postCodeSearch"
 	id="searchContainer"
-	[ngClass]="{
-		error: postCode.errors && postCode.dirty
-	}"
+	[class.error]="postCode.errors && postCode.dirty"
 >
 	<input
 		type="text"
@@ -19,7 +17,7 @@
 		(keyup.enter)="submitForm()"
 	/>
 	<img
-		src="../../../assets/images/search.svg"
+		src="../../../assets/images/icons/search.svg"
 		alt="Buscar"
 		class="postCodeSearch__icon"
 		(click)="submitForm()"

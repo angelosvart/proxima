@@ -1,1 +1,67 @@
-<p>header works!</p>
+<header class="header" *ngIf="router.url !== '/'">
+	<img
+		src="../../../assets/images/icons/menu-hamburger.svg"
+		alt="Ver el menú"
+		class="header__menuIcon"
+		(click)="menuModalToggle()"
+	/>
+
+	<a class="header__logo" routerLink="/products">
+		<img src="../../../assets/images/proxima-logo.svg" alt="Proxima Stores" />
+	</a>
+
+	<nav class="header__navigation">
+		<div class="header__navigationClose">
+			<img
+				class="header__closeIcon"
+				alt="Cerrar menú"
+				src="../../../assets/images/icons/cross.svg"
+				(click)="menuModalToggle()"
+			/>
+		</div>
+		<ul class="header__categories">
+			<li
+				class="header__category"
+				routerLink="/products/sales"
+				routerLinkActive="active"
+			>
+				<a routerLink="/products/sales" routerLinkActive="active">Ofertas</a>
+			</li>
+			<li
+				class="header__category"
+				*ngFor="let category of categoryState$.categories"
+				routerLink="/products/{{ category.path }}"
+				routerLinkActive="active"
+			>
+				<a routerLink="/products/{{ category.path }}">{{ category.name }}</a>
+			</li>
+			<li class="header__category mobileOnly">
+				<a href=""
+					>Mi Cuenta
+					<img
+						class="header__userIcon"
+						alt="Mi cuenta"
+						src="../../../assets/images/icons/user.svg"
+				/></a>
+			</li>
+			<li class="header__category mobileOnly">
+				<a href="">Atención al Cliente</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="header__actions">
+		<img
+			class="header__userIcon"
+			alt="Mi cuenta"
+			src="../../../assets/images/icons/user.svg"
+		/>
+		<img
+			class="header__cartIcon"
+			alt="Cesta de Compras"
+			src="../../../assets/images/icons/cart.svg"
+		/>
+	</div>
+</header>
+
+<div class="modalOverlay"></div>

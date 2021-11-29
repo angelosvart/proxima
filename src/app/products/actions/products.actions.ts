@@ -3,7 +3,7 @@ import { Product } from "../models/Product";
 
 export const getProducts = createAction(
 	"[PRODUCTS] Get products",
-	props<{ userPostCode: string }>()
+	props<{ userPostCode: string; filters?: object }>()
 );
 
 export const getProductsSuccess = createAction(
@@ -15,3 +15,5 @@ export const getProductsFailure = createAction(
 	"[PRODUCTS] Get products failure",
 	props<{ payload: any }>()
 );
+
+export const cancelGetProducts = createAction("[PRODUCTS] Cancel get products");

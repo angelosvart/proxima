@@ -13,12 +13,6 @@ export class PostcodeSearchComponent implements OnInit {
 	constructor(private router: Router) {}
 
 	ngOnInit(): void {
-		const userPostCode = localStorage.getItem("postCode");
-
-		if (userPostCode) {
-			this.router.navigate(["products"]);
-		}
-
 		this.postCode = new FormControl("", [
 			Validators.required,
 			Validators.maxLength(5),

@@ -1,14 +1,23 @@
 <main class="productList">
 	<section class="productList__heading">
 		<div class="heading">
-			<div class="heading__breadcrumb">08028</div>
-			<h1 class="heading__title">Productos en 08028</h1>
+			<div class="heading__breadcrumb">
+				<span *ngIf="!isCategoryPage && !isSearchPage">{{ postCode }}</span>
+				<span *ngIf="isCategoryPage || isSearchPage">
+					<a routerLink="/products">{{ postCode }}</a> /
+					<span>{{ pageTitle }}</span>
+				</span>
+			</div>
+			<h1 class="heading__title">{{ pageTitle }}</h1>
 
 			<app-search></app-search>
 		</div>
 	</section>
 
-	<section class="productList__highlights">
+	<section
+		class="productList__highlights"
+		*ngIf="!isCategoryPage && !isSearchPage"
+	>
 		<div class="highlights">
 			<h2 class="highlights__title">Lo más destacado</h2>
 
@@ -19,11 +28,17 @@
 	<div class="productList__layoutGrid">
 		<section class="productList__filterBar">
 			<div class="filterBar">
-				<p class="filterBar__results">335 resultados</p>
-				<div class="filterBar__filterButton">
+				<p class="filterBar__results">
+					{{ productsState$.products?.length }} resultados
+				</p>
+				<div
+					class="filterBar__filterButton"
+					*ngIf="productsState$.products?.length > 0"
+					(click)="filterModalToggle()"
+				>
 					<img
 						class="filterBar__icon"
-						src="../../../../assets/images/filter.svg"
+						src="../../../../assets/images/icons/filter.svg"
 						alt="Filtrar"
 					/>
 					Filtrar
@@ -31,40 +46,280 @@
 			</div>
 		</section>
 
-		<section class="productList__filters"></section>
+		<aside class="productList__filters">
+			<div class="filters">
+				<img
+					class="filters__closeIcon"
+					alt="Cerrar filtros"
+					src="../../../assets/images/icons/cross.svg"
+					(click)="filterModalToggle()"
+				/>
+				<p class="filters__title">Filtrar por:</p>
+				<form name="filterForm" id="filterForm" (change)="filterProducts()">
+					<fieldset
+						class="filters__option"
+						name="category"
+						*ngIf="
+							categoryState$ && categoryState$.categories && !isCategoryPage
+						"
+					>
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Categoría
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="sales" />
+										Ofertas
+									</label>
+								</li>
+								<li *ngFor="let category of categoryState$.categories">
+									<label class="filters__checkbox">
+										<input type="checkbox" value="{{ category._id }}" />
+										{{ category.name }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
 
-		<section class="productList__productGrid">
-			<app-product-card></app-product-card>
-			<app-product-card></app-product-card>
-			<app-product-card></app-product-card>
-			<app-product-card></app-product-card>
-			<app-product-card></app-product-card>
-			<app-product-card></app-product-card>
-		</section>
+					<fieldset
+						class="filters__option"
+						name="brand"
+						*ngIf="brandFilter && brandFilter.length"
+					>
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Marca
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li *ngFor="let brand of brandFilter">
+									<label class="filters__checkbox">
+										<input type="checkbox" value="{{ brand }}" />
+										{{ brand }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
 
-		<section class="productList__pagination">
-			<div class="pagination">
-				<div class="pagination__button previous">
-					<img src="../../../../assets/images/arrowLeft.svg" />
-					Anterior
-				</div>
-				<div class="pagination__button next">
-					Siguiente
-					<img src="../../../../assets/images/arrowRight.svg" />
-				</div>
-				<ul class="pagination__pageIndex">
-					<li class="pagination__page active"><a href="">1</a></li>
-					<li class="pagination__page"><a href="">2</a></li>
-					<li class="pagination__page"><a href="">3</a></li>
-					<li class="pagination__page"><a href="">4</a></li>
-					<li class="pagination__page"><a href="">5</a></li>
-					<li class="pagination__page"><a href="">6</a></li>
-					<li class="pagination__page"><a href="">7</a></li>
-					<li class="pagination__page"><a href="">8</a></li>
-					<li class="pagination__page"><a href="">9</a></li>
-					<li class="pagination__page"><a href="">10</a></li>
-				</ul>
+					<fieldset
+						class="filters__option"
+						name="subcategory"
+						*ngIf="subcategoryFilter && subcategoryFilter.length"
+					>
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Tipo
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li *ngFor="let subcategory of subcategoryFilter">
+									<label class="filters__checkbox">
+										<input type="checkbox" value="{{ subcategory }}" />
+										{{ subcategory }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
+
+					<fieldset
+						class="filters__option"
+						name="color"
+						*ngIf="colorFilter && colorFilter.length"
+					>
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Color
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li *ngFor="let color of colorFilter">
+									<label class="filters__checkbox">
+										<input type="checkbox" value="{{ color }}" />
+										{{ color }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
+
+					<fieldset class="filters__option" name="price">
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Precio
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="1" />
+										0 - 20 €
+									</label>
+								</li>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="2" />
+										20 - 50 €
+									</label>
+								</li>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="3" />
+										50 - 100 €
+									</label>
+								</li>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="4" />
+										200 - 500 €
+									</label>
+								</li>
+								<li>
+									<label class="filters__checkbox">
+										<input type="checkbox" value="5" />
+										Más de 500 €
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
+
+					<fieldset
+						class="filters__option"
+						name="store"
+						*ngIf="ownerFilter && ownerFilter.length"
+					>
+						<div
+							class="filters__optionTitle"
+							(click)="toggleOptions($event.target)"
+						>
+							Vendido por
+							<img
+								class="filters__icon"
+								src="../../../../assets/images/icons/chevron-down.svg"
+								alt="Expandir filtro"
+							/>
+						</div>
+						<div class="filters__optionItems">
+							<ul>
+								<li *ngFor="let owner of ownerFilter">
+									<label class="filters__checkbox">
+										<input type="checkbox" value="{{ owner }}" />
+										{{ owner }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</fieldset>
+
+					<p class="filters__clear" (click)="clearFilters()">Borrar todo</p>
+				</form>
 			</div>
+			<div class="filters__viewResults">
+				<button class="primary" (click)="filterModalToggle()">
+					Ver resultados
+				</button>
+			</div>
+		</aside>
+
+		<section class="productList__productGrid" [class.loading]="productPending">
+			<div
+				class="productList__emptyResults"
+				*ngIf="!productPending && productsState$.products?.length === 0"
+			>
+				No se han encontrado productos, ¡lo sentimos!
+			</div>
+			<ng-container
+				*ngFor="
+					let product of productsState$.products
+						| slice
+							: currentPaginatorPage * maxProductsPerPage
+							: (currentPaginatorPage + 1) * maxProductsPerPage;
+					let i = index
+				"
+			>
+				<app-product-card [product]="product"></app-product-card>
+			</ng-container>
+
+			<section
+				class="productList__pagination"
+				*ngIf="productsState$.products?.length > maxProductsPerPage"
+			>
+				<div class="pagination">
+					<button
+						class="pagination__button secondary previous"
+						*ngIf="currentPaginatorPage > 0"
+						(click)="handlePaginator(currentPaginatorPage - 1)"
+					>
+						<img src="../../../../assets/images/icons/arrowLeft.svg" />
+						Anterior
+					</button>
+					<button
+						class="pagination__button secondary next"
+						*ngIf="
+							productsState$.products &&
+							currentPaginatorPage < totalPages.length - 1
+						"
+						(click)="handlePaginator(currentPaginatorPage + 1)"
+					>
+						Siguiente
+						<img src="../../../../assets/images/icons/arrowRight.svg" />
+					</button>
+					<ul class="pagination__pageIndex" *ngIf="totalPages.length">
+						<ng-container *ngFor="let page of totalPages">
+							<li
+								class="pagination__page"
+								[class.active]="page === currentPaginatorPage"
+								(click)="handlePaginator(page)"
+							>
+								{{ page + 1 }}
+							</li>
+						</ng-container>
+					</ul>
+				</div>
+			</section>
 		</section>
 	</div>
 </main>
+
+<div class="modalOverlay"></div>

@@ -1,0 +1,64 @@
+@import "../../../assets/styles/main.scss";
+
+.footer {
+	background-color: $color-footer;
+	width: 100vw;
+	&__container {
+		padding: 1.5rem 1rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+	&__links {
+		a {
+			display: block;
+			margin-bottom: 0.5rem;
+			&:first-child {
+				font-weight: 700;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	&__logo {
+		justify-self: end;
+		align-self: start;
+		img {
+			width: 86px;
+			height: 42px;
+			border-radius: $border-radius;
+			display: block;
+		}
+	}
+	@media (min-width: $desktop) {
+		&__container {
+			padding: 1.5rem 2rem;
+			max-width: 1440px;
+			margin: 0 auto;
+		}
+		&__links {
+			a {
+				display: inline-block;
+				margin-bottom: 0;
+				margin-right: 0.5rem;
+				&:after {
+					content: "\00B7";
+					margin-left: 0.5rem;
+					font-weight: 700;
+				}
+				&:hover:after {
+					color: $color-black;
+				}
+				&:last-child::after {
+					content: "";
+				}
+			}
+		}
+		&__logo {
+			img {
+				width: 150px;
+				height: 75px;
+			}
+		}
+	}
+}

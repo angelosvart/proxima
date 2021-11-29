@@ -2,17 +2,20 @@
 
 .productCard {
 	border-radius: $border-radius;
-	box-shadow: $shadow;
+	box-shadow: $card-shadow;
 	transition: box-shadow 0.3s;
 	cursor: pointer;
+	min-height: 100%;
 	&:hover {
-		box-shadow: $shadow-hover;
+		box-shadow: $card-shadow-hover;
 	}
 	&__image {
 		border-radius: $border-radius $border-radius 0 0;
 		display: block;
 		height: 100%;
+		min-height: 10rem;
 		width: 100%;
+		object-fit: cover;
 	}
 	&__content {
 		padding: 1rem 0.5rem;
@@ -24,6 +27,7 @@
 	}
 	&__productName {
 		@include textProductCard();
+		@include textLink();
 		margin-bottom: 0.25rem;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
@@ -41,7 +45,17 @@
 	&__price {
 		@include textProductCard();
 	}
+	&__previousPrice {
+		@include textSmall();
+		display: inline-block;
+		margin-left: 0.5rem;
+		color: $color-grey-dark;
+		text-decoration: line-through;
+	}
 	@media (min-width: $desktop) {
+		&__image {
+			min-height: 15rem;
+		}
 		&__content {
 			padding: 1rem;
 		}

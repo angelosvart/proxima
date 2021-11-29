@@ -1,5 +1,5 @@
 export interface Product {
-	id: string;
+	_id: string;
 	image: string;
 	name: string;
 	brand: string;
@@ -8,8 +8,8 @@ export interface Product {
 	subcategory: string;
 	color: string;
 	price: number;
-	offerPrice: number;
+	previousPrice: number;
 	isOffer: boolean;
 	isAvailable: boolean;
-	owner: string;
+	owner: any;
 }

@@ -4,10 +4,10 @@ import {
 	getProducts,
 	getProductsSuccess,
 	getProductsFailure,
-} from "../actions";
+} from "../actions/products.actions";
 
 export interface ProductState {
-	products: Product[] | null;
+	products: Product[];
 	error: any;
 	pending: boolean;
 }

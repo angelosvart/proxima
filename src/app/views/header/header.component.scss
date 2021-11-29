@@ -1,0 +1,180 @@
+@import "../../../assets/styles/main.scss";
+
+.header {
+	margin: 0.8rem $padding-mobile 0 $padding-mobile;
+	padding-bottom: 0.8rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	&:before {
+		border-bottom: 1px solid $border-color;
+		content: "";
+		z-index: 1;
+		width: 100vw;
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		margin-left: -50vw;
+	}
+	&__menuIcon,
+	&__userIcon,
+	&__cartIcon,
+	&__closeIcon {
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		transition: filter 0.15s ease-in;
+		&:hover {
+			filter: $filter-hover-svg;
+		}
+	}
+	&__logo {
+		img {
+			width: 86px;
+			border-radius: $border-radius;
+			display: block;
+		}
+	}
+	&__navigation {
+		position: fixed;
+		width: 80vw;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		transform: translate3d(-120%, 0, 0);
+		background-color: $color-white;
+		box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+		&.openModal {
+			overflow-y: scroll;
+			animation: showLateralModal 0.2s;
+			transform: translate3d(0, 0, 0);
+		}
+	}
+	&__navigationClose {
+		margin: 1.25rem 0 0.5rem 1rem;
+	}
+	&__category {
+		padding: 1rem;
+		border-bottom: 1px solid $color-grey-light;
+		&.mobileOnly {
+			a {
+				display: flex;
+				align-items: center;
+			}
+			img {
+				margin-left: 0.5rem;
+			}
+		}
+	}
+	&__actions {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 1rem;
+		justify-items: end;
+	}
+	@media (min-width: $desktop) {
+		max-width: 1440px;
+		margin: 1rem auto 0 auto;
+		padding: 0 $padding-desktop 1rem;
+		align-items: flex-end;
+		&__menuIcon {
+			display: none;
+		}
+		&__logo {
+			flex-shrink: 0;
+			img {
+				width: 150px;
+			}
+		}
+		&__navigation {
+			opacity: 1;
+			display: block;
+			position: static;
+			width: auto;
+			height: auto;
+			transform: none;
+			box-shadow: none;
+		}
+		&__navigationClose {
+			display: none;
+		}
+		&__category {
+			border-bottom: none;
+		}
+		&__categories {
+			display: flex;
+		}
+		&__category {
+			@include textNormal();
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+			padding: 0 0.5rem;
+			position: relative;
+			&:after {
+				content: "";
+				display: block;
+				position: absolute;
+				margin: auto;
+				height: 3px;
+				width: 0;
+				bottom: -1rem;
+				left: 0;
+				background: transparent;
+				transition: all 0.3s;
+			}
+			&:hover:after {
+				width: 100%;
+				background: $color-primary;
+			}
+			&.active:after {
+				width: 100%;
+				background: $color-primary;
+			}
+			&.mobileOnly {
+				display: none;
+			}
+		}
+		&__actions {
+			grid-template-columns: auto auto;
+			grid-column-gap: 1rem;
+		}
+		&__userIcon,
+		&__cartIcon {
+			width: 35px;
+			height: 35px;
+		}
+	}
+	@media (min-width: $desktop) and (max-width: 1200px) {
+		&__category {
+			letter-spacing: 0;
+			font-size: 0.8rem;
+		}
+	}
+}
+
+.modalOverlay {
+	opacity: 0;
+	transition: opacity 0.2s ease-in;
+	&.openModal {
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		opacity: 1;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.4);
+		transition: opacity 0.2s ease-in;
+	}
+}
+
+@keyframes showLateralModal {
+	from {
+		transform: translate3d(-120%, 0, 0);
+	}
+	to {
+		transform: translate3d(0%, 0, 0);
+	}
+}

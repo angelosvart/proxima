@@ -1,22 +1,23 @@
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
-import { map, catchError, exhaustMap } from "rxjs/operators";
-import * as ProductsActions from "../actions";
+import { map, catchError, exhaustMap, takeUntil } from "rxjs/operators";
+import * as ProductsActions from "../actions/products.actions";
 import { ProductsService } from "../services/products.service";
-
-import { Router } from "@angular/router";
 
 @Injectable()
 export class ProductsEffects {
 	getProducts$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(ProductsActions.getProducts),
-			exhaustMap(({ userPostCode }) =>
-				this.productsService.getProducts(userPostCode).pipe(
+			exhaustMap(({ userPostCode, filters }) =>
+				this.productsService.getProducts(userPostCode, filters).pipe(
 					map((products) => ProductsActions.getProductsSuccess({ products })),
 					catchError((error) =>
 						of(ProductsActions.getProductsFailure({ payload: error }))
+					),
+					takeUntil(
+						this.actions$.pipe(ofType(ProductsActions.cancelGetProducts))
 					)
 				)
 			)
@@ -25,7 +26,6 @@ export class ProductsEffects {
 
 	constructor(
 		private actions$: Actions,
-		private router: Router,
 		private productsService: ProductsService
 	) {}
 }

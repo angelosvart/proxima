@@ -1,6 +1,6 @@
 <div class="categorySlider">
 	<div class="categorySlider__sliderContainer">
-		<div class="categorySlider__item">
+		<div class="categorySlider__item" routerLink="/products/sales">
 			<picture class="categorySlider__image">
 				<source
 					type="image/webp"
@@ -8,57 +8,28 @@
 				/>
 				<img src="/assets/images/categories/sales.jpg" />
 			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
+			<a routerLink="/products/sales" class="categorySlider__link">Ofertas</a>
 		</div>
-		<div class="categorySlider__item">
-			<picture class="categorySlider__image">
-				<source
-					type="image/webp"
-					srcset="/assets/images/categories/sales.webp"
-				/>
-				<img src="/assets/images/categories/sales.jpg" />
-			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
-		</div>
-		<div class="categorySlider__item">
-			<picture class="categorySlider__image">
-				<source
-					type="image/webp"
-					srcset="/assets/images/categories/sales.webp"
-				/>
-				<img src="/assets/images/categories/sales.jpg" />
-			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
-		</div>
-		<div class="categorySlider__item">
-			<picture class="categorySlider__image">
-				<source
-					type="image/webp"
-					srcset="/assets/images/categories/sales.webp"
-				/>
-				<img src="/assets/images/categories/sales.jpg" />
-			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
-		</div>
-		<div class="categorySlider__item">
-			<picture class="categorySlider__image">
-				<source
-					type="image/webp"
-					srcset="/assets/images/categories/sales.webp"
-				/>
-				<img src="/assets/images/categories/sales.jpg" />
-			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
-		</div>
-		<div class="categorySlider__item">
-			<picture class="categorySlider__image">
-				<source
-					type="image/webp"
-					srcset="/assets/images/categories/sales.webp"
-				/>
-				<img src="/assets/images/categories/sales.jpg" />
-			</picture>
-			<a href="" class="categorySlider__link">Ofertas</a>
-		</div>
+		<ng-container *ngFor="let category of categoryState$.categories">
+			<ng-container *ngIf="category.isFeatured">
+				<div
+					class="categorySlider__item"
+					routerLink="/products/{{ category.path }}"
+				>
+					<picture class="categorySlider__image">
+						<source
+							type="image/webp"
+							srcset="/assets/images/categories/{{category.path}}.webp"
+						/>
+						<img src="/assets/images/categories/{{ category.path }}.jpg" />
+					</picture>
+					<a
+						routerLink="/products/{{ category.path }}"
+						class="categorySlider__link"
+						>{{ category.name }}</a
+					>
+				</div>
+			</ng-container>
+		</ng-container>
 	</div>
 </div>
