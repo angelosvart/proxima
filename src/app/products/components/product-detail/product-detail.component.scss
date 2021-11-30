@@ -1,0 +1,88 @@
+@import "../../../../assets/styles/main.scss";
+
+.productDetail {
+	&__heading {
+		margin-bottom: 1.5rem;
+	}
+	&__product {
+		margin-bottom: 2rem;
+	}
+	@media (min-width: $desktop) {
+		&__heading {
+			margin-bottom: 2.5rem;
+		}
+	}
+}
+
+.heading {
+	&__breadcrumb {
+		@include textSmall();
+		color: $color-grey-dark;
+		margin-bottom: 1rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		a {
+			color: $color-grey-dark;
+			transition: color 0.15s ease-in;
+			&:hover {
+				color: $color-primary;
+			}
+		}
+	}
+	@media (min-width: $desktop) {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+}
+
+.product {
+	&__image {
+		display: block;
+		width: 100%;
+		border-radius: $border-radius;
+		object-fit: cover;
+		margin-bottom: 1rem;
+	}
+	&__name {
+		@include titleH1();
+	}
+	&__store {
+		color: $color-grey-light;
+		margin-bottom: 0.5rem;
+	}
+	&__price {
+		@include textNormalBold();
+		margin-bottom: 1rem;
+	}
+	&__previousPrice {
+		@include textSmall();
+		display: inline-block;
+		margin-left: 0.5rem;
+		color: $color-grey-dark;
+		text-decoration: line-through;
+	}
+	&__quantity {
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+	&__button {
+		width: 100%;
+		margin-bottom: 2rem;
+	}
+	&__detailsTitle {
+		@include textSubtitleBold();
+		margin-bottom: 1rem;
+	}
+	@media (min-width: $desktop) {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 2rem;
+		&__actions {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 2rem;
+		}
+	}
+}

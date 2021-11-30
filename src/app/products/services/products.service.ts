@@ -30,4 +30,8 @@ export class ProductsService {
 			.get<Product[]>(this.productsApi, { params: params })
 			.pipe();
 	}
+
+	getProductById(productId: string): Observable<Product> {
+		return this.http.get<Product>(`${this.productsApi}/${productId}`).pipe();
+	}
 }

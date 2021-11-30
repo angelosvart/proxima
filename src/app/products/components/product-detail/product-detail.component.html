@@ -1,1 +1,68 @@
-<p>product-detail works!</p>
+<main class="productDetail">
+	<section class="productDetail__heading">
+		<div class="heading">
+			<div class="heading__breadcrumb" *ngIf="postCode && product">
+				<a routerLink="/products">{{ postCode }}</a> /
+				<a routerLink="/products/{{ product.category['path'] }}"
+					>{{ product.category["name"] }}
+				</a>
+				/
+				<span>{{ product.name }}</span>
+			</div>
+			<app-search></app-search>
+		</div>
+	</section>
+	<section class="productDetail__product">
+		<div class="product" *ngIf="product">
+			<img class="product__image" src="{{ product.image }}" />
+			<div class="product__content">
+				<h1 class="product__name">{{ product.name }}</h1>
+				<p class="product__brand">{{ product.brand }}</p>
+				<p class="product__store">
+					Vendido por:
+					{{ product.owner.name }}
+				</p>
+				<p *ngIf="!product.isOffer" class="product__price">
+					{{ product.price }} €
+				</p>
+				<p *ngIf="product.isOffer" class="product__price">
+					{{ product.price }} €
+					<span class="product__previousPrice"
+						>{{ product.previousPrice }} €
+					</span>
+				</p>
+				<div class="product__actions">
+					<select class="product__quantity">
+						<option value="0">Cantidad</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+					</select>
+					<button class="product__button primary">Añadir a la Cesta</button>
+				</div>
+				<div class="product__details">
+					<p class="product__detailsTitle">Detalles</p>
+					<p>{{ product.description }}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="productDetail__related" *ngIf="product">
+		<app-related-products
+			[postCode]="postCode"
+			[product]="product"
+		></app-related-products>
+	</section>
+</main>

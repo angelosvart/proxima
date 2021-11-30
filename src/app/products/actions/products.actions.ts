@@ -17,3 +17,18 @@ export const getProductsFailure = createAction(
 );
 
 export const cancelGetProducts = createAction("[PRODUCTS] Cancel get products");
+
+export const getProductById = createAction(
+	"[PRODUCTS] Get product by Id",
+	props<{ productId: string }>()
+);
+
+export const getProductByIdSuccess = createAction(
+	"[PRODUCTS] Get product by Id Success",
+	props<{ product: Product }>()
+);
+
+export const getProductByIdFailure = createAction(
+	"[PRODUCTS] Get product by Id failure",
+	props<{ payload: any }>()
+);

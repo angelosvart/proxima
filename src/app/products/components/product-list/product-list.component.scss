@@ -102,6 +102,9 @@
 		color: $color-grey-dark;
 		margin-bottom: 0.5rem;
 		text-transform: capitalize;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		a {
 			color: $color-grey-dark;
 			transition: color 0.15s ease-in;
@@ -198,7 +201,7 @@
 	justify-content: center;
 	&__button {
 		flex-grow: 1;
-		width: calc(50% - 1rem);
+		width: 100%;
 		margin-bottom: 1rem;
 		&.previous {
 			img {
@@ -206,13 +209,9 @@
 			}
 		}
 		&.next {
-			margin-left: 1rem;
 			img {
 				margin-left: 0.5rem;
 			}
-		}
-		&:first-child {
-			margin-left: 0;
 		}
 	}
 	&__pageIndex {

@@ -20,11 +20,17 @@ export class HeaderComponent implements OnInit {
 			.subscribe((response) => (this.categoryState$ = response));
 	}
 
-	menuModalToggle() {
-		document.querySelector("body")?.classList.toggle("openModal");
+	openModal() {
+		document.querySelector("body")?.classList.add("openModal");
+		document.querySelector(".header__navigation")?.classList.add("openModal");
+		document.querySelector(".modalOverlay")?.classList.add("openModal");
+	}
+
+	closeModal() {
+		document.querySelector("body")?.classList.remove("openModal");
 		document
 			.querySelector(".header__navigation")
-			?.classList.toggle("openModal");
-		document.querySelector(".modalOverlay")?.classList.toggle("openModal");
+			?.classList.remove("openModal");
+		document.querySelector(".modalOverlay")?.classList.remove("openModal");
 	}
 }

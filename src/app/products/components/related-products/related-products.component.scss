@@ -1,0 +1,19 @@
+@import "../../../../assets/styles/main.scss";
+
+.related {
+	&__title {
+		@include textSubtitleBold();
+		margin-bottom: 1rem;
+	}
+	&__container {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	}
+	@media (min-width: $desktop) {
+		&__container {
+			grid-gap: 2rem;
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}

@@ -3,10 +3,10 @@
 		src="../../../assets/images/icons/menu-hamburger.svg"
 		alt="Ver el menú"
 		class="header__menuIcon"
-		(click)="menuModalToggle()"
+		(click)="openModal()"
 	/>
 
-	<a class="header__logo" routerLink="/products">
+	<a class="header__logo" routerLink="/">
 		<img src="../../../assets/images/proxima-logo.svg" alt="Proxima Stores" />
 	</a>
 
@@ -16,7 +16,7 @@
 				class="header__closeIcon"
 				alt="Cerrar menú"
 				src="../../../assets/images/icons/cross.svg"
-				(click)="menuModalToggle()"
+				(click)="closeModal()"
 			/>
 		</div>
 		<ul class="header__categories">
@@ -25,17 +25,23 @@
 				routerLink="/products/sales"
 				routerLinkActive="active"
 			>
-				<a routerLink="/products/sales" routerLinkActive="active">Ofertas</a>
+				<a
+					routerLink="/products/sales"
+					routerLinkActive="active"
+					(click)="closeModal()"
+					>Ofertas</a
+				>
 			</li>
 			<li
 				class="header__category"
 				*ngFor="let category of categoryState$.categories"
 				routerLink="/products/{{ category.path }}"
+				(click)="closeModal()"
 				routerLinkActive="active"
 			>
 				<a routerLink="/products/{{ category.path }}">{{ category.name }}</a>
 			</li>
-			<li class="header__category mobileOnly">
+			<li class="header__category mobileOnly" (click)="closeModal()">
 				<a href=""
 					>Mi Cuenta
 					<img
@@ -44,7 +50,7 @@
 						src="../../../assets/images/icons/user.svg"
 				/></a>
 			</li>
-			<li class="header__category mobileOnly">
+			<li class="header__category mobileOnly" (click)="closeModal()">
 				<a href="">Atención al Cliente</a>
 			</li>
 		</ul>
@@ -62,6 +68,8 @@
 			src="../../../assets/images/icons/cart.svg"
 		/>
 	</div>
+
+	<a href="" class="header__support">Atención al Cliente</a>
 </header>
 
 <div class="modalOverlay"></div>

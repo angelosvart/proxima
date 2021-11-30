@@ -4,7 +4,10 @@
 			<div class="heading__breadcrumb">
 				<span *ngIf="!isCategoryPage && !isSearchPage">{{ postCode }}</span>
 				<span *ngIf="isCategoryPage || isSearchPage">
-					<a routerLink="/products">{{ postCode }}</a> /
+					<a routerLink="/">
+						{{ postCode }}
+					</a>
+					/
 					<span>{{ pageTitle }}</span>
 				</span>
 			</div>

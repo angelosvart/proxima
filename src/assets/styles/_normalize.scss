@@ -9,12 +9,17 @@ html {
 }
 
 body {
+	@include textNormal();
 	min-height: 100vh;
 	color: $color-black;
 	overflow-x: hidden;
-	@include textNormal();
 	&.openModal {
 		overflow: hidden;
+	}
+	@media (min-width: $desktop) {
+		&.openModal {
+			overflow: none;
+		}
 	}
 }
 
@@ -49,6 +54,8 @@ button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	&.primary {
 		background-color: $color-primary;
 		color: $color-white;
@@ -65,6 +72,28 @@ button {
 		&:hover {
 			border-color: $color-grey-dark;
 		}
+	}
+}
+
+select {
+	@include textNormal();
+	padding: 0 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 2.5rem;
+	cursor: pointer;
+	transition: all 0.15s ease-in;
+	display: block;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: transparent;
+	background-image: url("../images/icons/chevron-down.svg");
+	background-repeat: no-repeat;
+	background-size: 1rem;
+	background-position: top 50% right 1rem;
+	&:hover {
+		border: 1px solid $color-grey-dark;
 	}
 }
 

@@ -1,7 +1,13 @@
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
-import { map, catchError, exhaustMap, takeUntil } from "rxjs/operators";
+import {
+	map,
+	catchError,
+	exhaustMap,
+	takeUntil,
+	mergeMap,
+} from "rxjs/operators";
 import * as ProductsActions from "../actions/products.actions";
 import { ProductsService } from "../services/products.service";
 
@@ -18,6 +24,20 @@ export class ProductsEffects {
 					),
 					takeUntil(
 						this.actions$.pipe(ofType(ProductsActions.cancelGetProducts))
+					)
+				)
+			)
+		)
+	);
+
+	getProduct$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(ProductsActions.getProductById),
+			mergeMap(({ productId }) =>
+				this.productsService.getProductById(productId).pipe(
+					map((product) => ProductsActions.getProductByIdSuccess({ product })),
+					catchError((error) =>
+						of(ProductsActions.getProductByIdFailure({ payload: error }))
 					)
 				)
 			)

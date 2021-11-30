@@ -1,0 +1,8 @@
+<div class="related" *ngIf="categoryProducts.length">
+	<p class="related__title">Productos Relacionados</p>
+	<div class="related__container">
+		<ng-container *ngFor="let product of categoryProducts | slice: 0:4">
+			<app-product-card [product]="product"></app-product-card>
+		</ng-container>
+	</div>
+</div>

@@ -45,6 +45,12 @@ export class ProductListComponent implements OnInit {
 			this.router.navigate(["/"]);
 		}
 
+		this.router.navigate([], {
+			relativeTo: this.activatedRoute,
+			queryParams: { page: 1 },
+			queryParamsHandling: "merge",
+		});
+
 		this.store.select("products").subscribe((response) => {
 			this.productPending = response.pending;
 			this.productsState$ = response;
@@ -77,6 +83,8 @@ export class ProductListComponent implements OnInit {
 			if (params["category"] === "sales") {
 				this.categoryPageId = "sales";
 			}
+
+			this.store.dispatch(cancelGetProducts());
 
 			if (this.categoryPageId) {
 				if (this.categoryPageId === "sales") {
@@ -256,6 +264,7 @@ export class ProductListComponent implements OnInit {
 
 	handleSearch() {
 		if (this.searchQuery) {
+			this.store.dispatch(cancelGetProducts());
 			this.isSearchPage = true;
 			this.store.dispatch(
 				getProducts({
