@@ -63,8 +63,6 @@ export class ProductListComponent implements OnInit {
 			this.categoryState$ = response;
 			this.routeHandle();
 		});
-
-		this.store.dispatch(getCategories());
 	}
 
 	routeHandle() {

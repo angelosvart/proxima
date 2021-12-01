@@ -3,6 +3,7 @@
 .footer {
 	background-color: $color-footer;
 	width: 100vw;
+	height: 12.5rem;
 	&__container {
 		padding: 1.5rem 1rem;
 		display: grid;
@@ -31,6 +32,7 @@
 		}
 	}
 	@media (min-width: $desktop) {
+		height: 7.7rem;
 		&__container {
 			padding: 1.5rem 2rem;
 			max-width: 1440px;

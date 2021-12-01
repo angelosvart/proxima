@@ -283,6 +283,7 @@
 		align-items: center;
 		cursor: pointer;
 		margin-bottom: 1rem;
+		transition: all 0.15s ease-in;
 		&:hover {
 			color: $color-primary;
 			img {

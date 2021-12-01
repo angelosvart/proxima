@@ -18,6 +18,7 @@ import { PostcodeSearchComponent } from "./shared/components/postcode-search/pos
 import { HeaderComponent } from "./views/header/header.component";
 import { FooterComponent } from "./views/footer/footer.component";
 import { RouterModule } from "@angular/router";
+import { OrdersModule } from "./orders/orders.module";
 
 @NgModule({
 	declarations: [
@@ -40,6 +41,7 @@ import { RouterModule } from "@angular/router";
 		}),
 		LoginModule,
 		ProductsModule,
+		OrdersModule,
 		RouterModule,
 	],
 	providers: [],

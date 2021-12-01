@@ -3,6 +3,8 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
+import { addToCart } from "src/app/orders/actions/cart.actions";
+import { CartItem } from "src/app/orders/models/CartItem";
 import { getCategories } from "../../actions/categories.actions";
 import { getProductById, getProducts } from "../../actions/products.actions";
 import { Product } from "../../models/Product";
@@ -49,8 +51,6 @@ export class ProductDetailComponent implements OnInit {
 			}
 		});
 
-		this.store.dispatch(getCategories());
-
 		this.activatedRoute.params.subscribe((params) => {
 			const id = params["id"];
 			if (id) {
@@ -63,5 +63,32 @@ export class ProductDetailComponent implements OnInit {
 		if (this.product) {
 			this.titleService.setTitle(`${this.product.name} | Próxima`);
 		}
+	}
+
+	addToCart() {
+		const quantity: HTMLSelectElement =
+			document.querySelector(".product__quantity");
+		const button: HTMLButtonElement =
+			document.querySelector(".product__button");
+
+		button.disabled = true;
+		button.classList.add("loading");
+		button.querySelector("span").innerText = "Añadiendo a la Cesta...";
+
+		const cartItem: CartItem = {
+			productId: this.product._id,
+			quantity: parseInt(quantity.value),
+		};
+
+		this.store.dispatch(addToCart({ cartItem }));
+
+		setTimeout(() => {
+			button.disabled = false;
+			button.classList.remove("loading");
+			button.querySelector("span").innerText = "¡Producto añadido!";
+			setTimeout(() => {
+				button.querySelector("span").innerText = "Añadir a la Cesta";
+			}, 1500);
+		}, 1500);
 	}
 }

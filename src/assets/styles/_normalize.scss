@@ -10,7 +10,6 @@ html {
 
 body {
 	@include textNormal();
-	min-height: 100vh;
 	color: $color-black;
 	overflow-x: hidden;
 	&.openModal {
@@ -44,19 +43,22 @@ a {
 }
 
 button {
-	@include textNormal();
 	border: 0;
 	outline: 0;
 	border-radius: $border-radius;
 	height: 2.5rem;
 	cursor: pointer;
-	transition: all 0.15s ease-in;
+	transition: background-color 0.15s ease-in, border-color 0.15s ease-in;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+	img {
+		display: none;
+	}
 	&.primary {
+		@include textNormalBold();
 		background-color: $color-primary;
 		color: $color-white;
 		border: 1px solid $color-primary;
@@ -66,11 +68,23 @@ button {
 		}
 	}
 	&.secondary {
+		@include textNormal();
 		background-color: $color-white;
 		color: $color-black;
 		border: 1px solid $border-color;
 		&:hover {
 			border-color: $color-grey-dark;
+		}
+	}
+	&.loading {
+		background-color: $color-primary-darker;
+		border-color: $color-primary-darker;
+		cursor: progress;
+		img {
+			display: block;
+			margin-left: 0.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 	}
 }
@@ -83,7 +97,7 @@ select {
 	border-radius: $border-radius;
 	height: 2.5rem;
 	cursor: pointer;
-	transition: all 0.15s ease-in;
+	transition: border 0.15s ease-in;
 	display: block;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -92,13 +106,40 @@ select {
 	background-repeat: no-repeat;
 	background-size: 1rem;
 	background-position: top 50% right 1rem;
-	&:hover {
+	&:hover,
+	&:focus {
+		border: 1px solid $color-grey-dark;
+	}
+	&.error {
+		border: 1px solid $color-danger;
+	}
+}
+
+input[type="number"] {
+	@include textNormal();
+	padding: 0 0.5rem 0 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 2.5rem;
+	transition: all 0.15s ease-in;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&:hover,
+	&:focus {
 		border: 1px solid $color-grey-dark;
 	}
 }
 
 fieldset {
 	border: 0;
+}
+
+main {
+	min-height: calc(100vh - 12.5rem - 3.5rem);
+	@media (min-width: $desktop) {
+		min-height: calc(100vh - 5.7rem - 7.7rem - 1rem);
+	}
 }
 
 main:not(.home, .productList) {

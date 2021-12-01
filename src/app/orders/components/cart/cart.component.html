@@ -1,0 +1,72 @@
+<main class="cart">
+	<ng-container *ngIf="!cartProducts.length && !pending">
+		<h1 class="cart__title">Cesta de Compras</h1>
+		<div class="cart__emptyCart">
+			<p class="cart__emptyCartText">¡Tu cesta de compras está vacía!</p>
+			<button class="cart__emptyCartButton primary" routerLink="/">
+				Seguir comprando
+			</button>
+		</div>
+	</ng-container>
+	<div
+		class="cart__container"
+		*ngIf="cartProducts && cartProducts.length"
+		[class.loading]="loading"
+	>
+		<h1 class="cart__title">Cesta de Compras</h1>
+		<p class="cart__subTotal">Subtotal: {{ subTotal }} €</p>
+
+		<button class="cart__buttonTop primary">Tramitar Pedido</button>
+		<div class="cart__productContainer">
+			<ng-container *ngFor="let item of cartProducts">
+				<ng-container *ngFor="let product of products">
+					<div class="cart__product" *ngIf="product._id === item.productId">
+						<img
+							routerLink="/product/{{ product._id }}"
+							class="cart__image"
+							src="{{ product.image }}"
+						/>
+						<div>
+							<p class="cart__brand">{{ product.brand }}</p>
+							<a routerLink="/product/{{ product._id }}" class="cart__name">{{
+								product.name
+							}}</a>
+							<p class="cart__price">{{ product.price }} €</p>
+							<div class="cart__actions">
+								<div>
+									Cantidad:
+									<input
+										class="cart__quantity"
+										type="number"
+										value="{{ item.quantity }}"
+										min="1"
+										max="99"
+										id="{{ product._id }}"
+										(change)="quantityChange($event.target)"
+									/>
+								</div>
+
+								<img
+									class="cart__trash"
+									src="../../../../assets/images/icons/trash.svg"
+									(click)="deleteFromCart(product._id)"
+								/>
+							</div>
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+		</div>
+
+		<div class="cart__overviewContainer">
+			<p class="cart__overviewTitle">Resumen del Pedido</p>
+			<div class="cart__overview">
+				<p>Productos: {{ cartCount }}</p>
+				<p>Subtotal: {{ subTotal }} €</p>
+			</div>
+			<button routerLink="/checkout" class="cart__button primary">
+				Tramitar Pedido
+			</button>
+		</div>
+	</div>
+</main>

@@ -7,8 +7,7 @@ import { Product } from "../models/Product";
 	providedIn: "root",
 })
 export class ProductsService {
-	productsApi = "http://localhost:3000/api/products";
-	categoriesApi = "http://localhost:3000/api/categories";
+	private productsApi = "http://localhost:3000/api/products";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

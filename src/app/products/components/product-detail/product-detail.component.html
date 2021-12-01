@@ -33,8 +33,7 @@
 				</p>
 				<div class="product__actions">
 					<select class="product__quantity">
-						<option value="0">Cantidad</option>
-						<option value="1">1</option>
+						<option value="1" selected>Cantidad: 1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
@@ -50,7 +49,11 @@
 						<option value="14">14</option>
 						<option value="15">15</option>
 					</select>
-					<button class="product__button primary">Añadir a la Cesta</button>
+
+					<button class="product__button primary" (click)="addToCart()">
+						<span>Añadir a la Cesta</span>
+						<img src="../../../../assets/images/icons/tail-spin.svg" />
+					</button>
 				</div>
 				<div class="product__details">
 					<p class="product__detailsTitle">Detalles</p>

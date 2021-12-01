@@ -7,6 +7,7 @@
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
+	height: 3.5rem;
 	&:before {
 		border-bottom: 1px solid $border-color;
 		content: "";
@@ -23,11 +24,7 @@
 	&__closeIcon {
 		width: 25px;
 		height: 25px;
-		cursor: pointer;
 		transition: filter 0.15s ease-in;
-		&:hover {
-			filter: $filter-hover-svg;
-		}
 	}
 	&__logo {
 		img {
@@ -58,6 +55,40 @@
 		grid-column-gap: 1rem;
 		justify-items: end;
 	}
+	&__actionContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		cursor: pointer;
+		transition: all 0.15s ease-in;
+		&:hover {
+			img {
+				filter: $filter-hover-svg;
+			}
+			span {
+				transform: scale(1.2);
+			}
+		}
+	}
+	&__cartItems {
+		position: absolute;
+		right: -5px;
+		top: -7px;
+		background-color: $color-primary;
+		border-radius: 50%;
+		width: 1.2rem;
+		height: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: $color-white;
+		font-weight: 700;
+		cursor: pointer;
+		font-size: 0.6rem;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+		transition: transform 0.1s ease-in;
+	}
 	&__support {
 		display: none;
 	}
@@ -83,6 +114,7 @@
 		padding: 0 $padding-desktop 1rem;
 		align-items: flex-end;
 		position: relative;
+		height: 5.7rem;
 		&__menuIcon {
 			display: none;
 		}
@@ -141,6 +173,10 @@
 			width: 35px;
 			height: 35px;
 		}
+		&__cartItems {
+			right: -6px;
+			top: -3px;
+		}
 		&__support {
 			@include textUppercase();
 			display: block;
@@ -149,12 +185,15 @@
 			right: $padding-desktop;
 		}
 		&__navigation {
+			display: flex;
+			align-items: flex-end;
+			justify-content: center;
 			position: static;
 			width: 100%;
 			height: 100%;
 			top: 0;
 			left: 0;
-			z-index: 2;
+			z-index: 0;
 			transform: none;
 			background-color: $color-white;
 			box-shadow: none;

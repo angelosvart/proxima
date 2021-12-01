@@ -7,7 +7,7 @@ import { Category } from "../models/Category";
 	providedIn: "root",
 })
 export class CategoriesService {
-	categoriesApi = "http://localhost:3000/api/categories";
+	private categoriesApi = "http://localhost:3000/api/categories";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

@@ -1,4 +1,4 @@
-<div class="related" *ngIf="categoryProducts.length">
+<div class="related" *ngIf="categoryProducts">
 	<p class="related__title">Productos Relacionados</p>
 	<div class="related__container">
 		<ng-container *ngFor="let product of categoryProducts | slice: 0:4">

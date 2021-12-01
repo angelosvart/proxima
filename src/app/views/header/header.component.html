@@ -57,16 +57,24 @@
 	</nav>
 
 	<div class="header__actions">
-		<img
-			class="header__userIcon"
-			alt="Mi cuenta"
-			src="../../../assets/images/icons/user.svg"
-		/>
-		<img
-			class="header__cartIcon"
-			alt="Cesta de Compras"
-			src="../../../assets/images/icons/cart.svg"
-		/>
+		<span class="header__actionContainer">
+			<img
+				class="header__userIcon"
+				alt="Mi cuenta"
+				src="../../../assets/images/icons/user.svg"
+			/>
+		</span>
+
+		<a routerLink="/cart" class="header__actionContainer">
+			<img
+				class="header__cartIcon"
+				alt="Cesta de Compras"
+				src="../../../assets/images/icons/cart.svg"
+			/>
+			<span *ngIf="cartCount > 0" class="header__cartItems">
+				{{ cartCount }}
+			</span>
+		</a>
 	</div>
 
 	<a href="" class="header__support">Atención al Cliente</a>
