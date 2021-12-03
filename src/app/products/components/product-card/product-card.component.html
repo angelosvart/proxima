@@ -8,7 +8,7 @@
 			>{{ product.name }}</a
 		>
 		<p class="productCard__store">
-			<span>Vendido por: </span>{{ product.owner.name }}
+			<span>Vendido por: </span>{{ product.store.name }}
 		</p>
 		<p *ngIf="!product.isOffer" class="productCard__price">
 			{{ product.price }} €

@@ -1,1 +1,189 @@
-<p>checkout works!</p>
+<main class="checkout">
+	<div class="checkout__container">
+		<h1 class="checkout__title">Tramitar Pedido</h1>
+
+		<form
+			class="checkout__form"
+			[formGroup]="checkoutForm"
+			(ngSubmit)="handleForm()"
+		>
+			<fieldset>
+				<legend class="checkout__legend">Datos personales</legend>
+				<label class="checkout__label">
+					Nombre *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="name"
+						required
+					/>
+					<span *ngIf="name.touched && name.errors" class="checkout__error">
+						Debes especificar tu nombre.
+					</span>
+				</label>
+				<label class="checkout__label">
+					Apellidos *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="surname"
+						required
+					/>
+					<span
+						*ngIf="surname.touched && surname.errors"
+						class="checkout__error"
+					>
+						Debes especificar tus apellidos.
+					</span>
+				</label>
+				<label class="checkout__label">
+					Dirección *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="address"
+						required
+					/>
+					<span
+						*ngIf="address.touched && address.errors"
+						class="checkout__error"
+						>Debes especificar tu dirección.</span
+					>
+				</label>
+				<label class="checkout__label">
+					Ciudad *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="city"
+						required
+					/>
+					<span *ngIf="city.touched && city.errors" class="checkout__error"
+						>Debes especificar tu ciudad.</span
+					>
+				</label>
+				<label class="checkout__label">
+					Código Postal *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="postCode"
+						min="0"
+						max="99999"
+						maxlength="5"
+						pattern="\d*"
+						required
+					/>
+					<span *ngIf="phone.touched && postCode.errors" class="checkout__error"
+						>Debes especificar un código postal de 5 números.</span
+					>
+				</label>
+				<label class="checkout__label">
+					Teléfono *
+					<input
+						class="checkout__input"
+						type="text"
+						formControlName="phone"
+						min="0"
+						pattern="\d*"
+						required
+					/>
+					<span *ngIf="phone.touched && phone.errors" class="checkout__error"
+						>Debes especificar tu teléfono.</span
+					>
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend class="checkout__legend">Método de envío</legend>
+				<div class="checkout__switch">
+					<ng-container *ngFor="let method of deliveryMethods">
+						<label class="checkout__switchLabel">
+							<input
+								class="checkout__inputRadio"
+								name="deliveryMethod"
+								type="radio"
+								formControlName="deliveryMethod"
+								value="{{ method.type }}"
+							/>
+							{{ method.name }}
+						</label>
+						<span
+							*ngIf="deliveryMethod.touched && deliveryMethod.errors"
+							class="checkout__error checkout__error--switch"
+							>Debes especificar un método de envío.</span
+						>
+						<div class="checkout__infoContainer" *ngIf="method.infoMessage">
+							<div class="checkout__info">{{ method.infoMessage }}</div>
+						</div>
+					</ng-container>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend class="checkout__legend">Método de pago</legend>
+				<ng-container *ngFor="let method of paymentMethods">
+					<label class="checkout__paymentLabel">
+						<input
+							class="checkout__paymentInput"
+							type="radio"
+							value="{{ method.type }}"
+							name="paymentMethod"
+							formControlName="paymentMethod"
+						/>
+						{{ method.name }}
+					</label>
+					<div class="checkout__infoContainer" *ngIf="method.infoMessage">
+						<div class="checkout__info">
+							{{ method.infoMessage }}
+						</div>
+					</div>
+				</ng-container>
+				<span
+					*ngIf="paymentMethod.touched && paymentMethod.errors"
+					class="checkout__error checkout__error--payment"
+					>Debes especificar un método de envío.</span
+				>
+			</fieldset>
+		</form>
+		<div class="checkout__productsContainer">
+			<p class="checkout__legend">Detalles del pedido</p>
+			<ng-container *ngFor="let item of cart">
+				<ng-container *ngFor="let product of products">
+					<div class="checkout__product" *ngIf="product._id === item.productId">
+						<img class="checkout__image" src="{{ product.image }}" />
+						<div>
+							<p class="checkout__brand">{{ product.brand }}</p>
+							<p class="checkout__name">{{ product.name }}</p>
+							<p class="checkout__price">{{ product.price }} €</p>
+							<p>Cantidad: {{ item.quantity }}</p>
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+		</div>
+		<div class="checkout__overviewContainer">
+			<p class="checkout__overviewTitle">Resumen del Pedido</p>
+			<div class="checkout__overview">
+				<p>Productos: {{ cartCount }}</p>
+				<p>Subtotal: {{ subTotal }} €</p>
+				<p *ngIf="deliveryFee > 0">Gastos de envío: {{ deliveryFee }} €</p>
+				<p class="checkout__overviewTotal">
+					Total: {{ subTotal + deliveryFee }}€
+				</p>
+			</div>
+			<button
+				class="checkout__button primary"
+				type="submit"
+				(click)="handleForm()"
+			>
+				<span>Realizar Pedido</span>
+				<img src="../../../../assets/images/icons/tail-spin.svg" />
+			</button>
+			<div *ngIf="error" class="checkout__serverError">
+				Ha ocurrido un error y el pedido no ha sido realizado. Por favor
+				inténtalo nuevamente.
+			</div>
+		</div>
+	</div>
+</main>

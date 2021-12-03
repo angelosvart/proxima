@@ -29,21 +29,6 @@ export const addToCartFailure = createAction(
 	props<{ payload: any }>()
 );
 
-export const getCartProductsById = createAction(
-	"[CART] Get products by Id",
-	props<{ productIds: string[] }>()
-);
-
-export const getCartProductsByIdSuccess = createAction(
-	"[CART] Get products by Id Success",
-	props<{ products: Product[] }>()
-);
-
-export const getCartProductsByIdFailure = createAction(
-	"[CART] Get products by Id failure",
-	props<{ payload: any }>()
-);
-
 export const deleteFromCart = createAction(
 	"[CART] Delete from cart",
 	props<{ productId: string }>()

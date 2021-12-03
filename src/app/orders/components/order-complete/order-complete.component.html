@@ -1,0 +1,89 @@
+<main class="orderComplete">
+	<div class="orderComplete__container" *ngIf="order && stores">
+		<div class="orderComplete__heading">
+			<h1 class="orderComplete__title">¡Pedido Realizado!</h1>
+			<p class="orderComplete__orderNumber">
+				Número del pedido: #{{ order.orderNumber }}
+			</p>
+
+			<p class="orderComplete__infoText">
+				Si tienes algún problema con tu pedido, por favor contacta directamente
+				con la tienda. Encontrarás los detalles de contacto más abajo, así como
+				también en tu
+				<a class="orderComplete__bold" routerLink="/orders"
+					>Historial de Pedidos</a
+				>.
+			</p>
+
+			<p class="orderComplete__helpText">
+				Si necesitas más ayuda visita nuestro
+				<a class="orderComplete__bold" routerLink="/help">Centro de Ayuda</a>.
+			</p>
+		</div>
+
+		<div class="orderComplete__productsContainer">
+			<div class="orderComplete__methods">
+				<div class="orderComplete__method">
+					<p class="orderComplete__bold">Método de envío:</p>
+					<p>{{ order.deliveryMethod["name"] }}</p>
+				</div>
+				<div class="orderComplete__method">
+					<p class="orderComplete__bold">Método de pago:</p>
+					<p>{{ order.paymentMethod["name"] }}</p>
+				</div>
+			</div>
+			<p class="orderComplete__subTitle">Detalles del pedido</p>
+			<ng-container *ngFor="let item of order.products; let i = index">
+				<div class="orderComplete__product">
+					<img
+						class="orderComplete__image"
+						src="{{ item.productId['image'] }}"
+					/>
+					<div>
+						<p class="orderComplete__brand">{{ item.productId["brand"] }}</p>
+						<p class="orderComplete__name">{{ item.productId["name"] }}</p>
+						<p class="orderComplete__price">{{ item["payedPrice"] }} €</p>
+						<p>Cantidad: {{ item["quantity"] }}</p>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+
+		<div class="orderComplete__infoContainer">
+			<div class="orderComplete__storeInfo">
+				<p class="orderComplete__subTitle">
+					{{
+						stores.length > 1
+							? "Información sobre las tiendas"
+							: "Información sobre la tienda"
+					}}
+				</p>
+				<div class="orderComplete__store" *ngFor="let store of stores">
+					<p>{{ store?.name }}</p>
+					<p>{{ store?.address }}</p>
+					<p>Teléfono: {{ store?.phone }}</p>
+				</div>
+			</div>
+
+			<div class="orderComplete__userInfo">
+				<p class="orderComplete__subTitle">Información de contacto</p>
+				<p>{{ order.name }}</p>
+				<p>{{ order.deliveryAddress }}</p>
+				<p>Teléfono: {{ order.phone }}</p>
+				<p></p>
+			</div>
+		</div>
+
+		<div class="orderComplete__overviewContainer">
+			<p class="orderComplete__overviewTitle">Resumen del Pedido</p>
+			<div class="orderComplete__overview">
+				<p>Productos: {{ productCount }}</p>
+				<p>Subtotal: {{ order.subtotalPrice }} €</p>
+				<p *ngIf="order.deliveryFee > 0">
+					Gastos de envío: {{ order.deliveryFee }} €
+				</p>
+				<p class="orderComplete__bold">Total: {{ order.totalPrice }}€</p>
+			</div>
+		</div>
+	</div>
+</main>

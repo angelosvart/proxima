@@ -80,14 +80,22 @@
 						<div class="filters__optionItems">
 							<ul>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="sales" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="sales"
+										/>
 										Ofertas
 									</label>
 								</li>
 								<li *ngFor="let category of categoryState$.categories">
-									<label class="filters__checkbox">
-										<input type="checkbox" value="{{ category._id }}" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="{{ category._id }}"
+										/>
 										{{ category.name }}
 									</label>
 								</li>
@@ -114,8 +122,12 @@
 						<div class="filters__optionItems">
 							<ul>
 								<li *ngFor="let brand of brandFilter">
-									<label class="filters__checkbox">
-										<input type="checkbox" value="{{ brand }}" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="{{ brand }}"
+										/>
 										{{ brand }}
 									</label>
 								</li>
@@ -142,8 +154,12 @@
 						<div class="filters__optionItems">
 							<ul>
 								<li *ngFor="let subcategory of subcategoryFilter">
-									<label class="filters__checkbox">
-										<input type="checkbox" value="{{ subcategory }}" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="{{ subcategory }}"
+										/>
 										{{ subcategory }}
 									</label>
 								</li>
@@ -170,8 +186,12 @@
 						<div class="filters__optionItems">
 							<ul>
 								<li *ngFor="let color of colorFilter">
-									<label class="filters__checkbox">
-										<input type="checkbox" value="{{ color }}" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="{{ color }}"
+										/>
 										{{ color }}
 									</label>
 								</li>
@@ -194,32 +214,52 @@
 						<div class="filters__optionItems">
 							<ul>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="1" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="1"
+										/>
 										0 - 20 €
 									</label>
 								</li>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="2" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="2"
+										/>
 										20 - 50 €
 									</label>
 								</li>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="3" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="3"
+										/>
 										50 - 100 €
 									</label>
 								</li>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="4" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="4"
+										/>
 										200 - 500 €
 									</label>
 								</li>
 								<li>
-									<label class="filters__checkbox">
-										<input type="checkbox" value="5" />
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="5"
+										/>
 										Más de 500 €
 									</label>
 								</li>
@@ -230,7 +270,7 @@
 					<fieldset
 						class="filters__option"
 						name="store"
-						*ngIf="ownerFilter && ownerFilter.length"
+						*ngIf="storeFilter && storeFilter.length"
 					>
 						<div
 							class="filters__optionTitle"
@@ -245,10 +285,14 @@
 						</div>
 						<div class="filters__optionItems">
 							<ul>
-								<li *ngFor="let owner of ownerFilter">
-									<label class="filters__checkbox">
-										<input type="checkbox" value="{{ owner }}" />
-										{{ owner }}
+								<li *ngFor="let store of storeFilter">
+									<label class="filters__checkboxLabel">
+										<input
+											type="checkbox"
+											class="filters__checkboxInput"
+											value="{{ store['_id'] }}"
+										/>
+										{{ store["name"] }}
 									</label>
 								</li>
 							</ul>

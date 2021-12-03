@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ConnectableObservable, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { Product } from "src/app/products/models/Product";
 import { CartItem } from "../models/CartItem";
 
@@ -41,15 +41,6 @@ export class CartService {
 		localStorage.setItem("cart", JSON.stringify(cart));
 
 		return cart;
-	}
-
-	getCartProductsById(productIds: string[]): Observable<Product[]> {
-		let params = new HttpParams();
-		params = params.append("id", productIds.toString());
-
-		return this.http
-			.get<Product[]>(`${this.cartApi}`, { params: params })
-			.pipe();
 	}
 
 	deleteFromCart(productId: string): CartItem[] {

@@ -20,7 +20,7 @@
 				<p class="product__brand">{{ product.brand }}</p>
 				<p class="product__store">
 					Vendido por:
-					{{ product.owner.name }}
+					{{ product.store.name }}
 				</p>
 				<p *ngIf="!product.isOffer" class="product__price">
 					{{ product.price }} €

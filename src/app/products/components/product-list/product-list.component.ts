@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
@@ -7,13 +7,15 @@ import { cancelGetProducts, getProducts } from "../../actions/products.actions";
 import { ProductState } from "../../reducers/products.reducer";
 import { Title } from "@angular/platform-browser";
 import { CategoryState } from "../../reducers/categories.reducer";
+import { Subscription } from "rxjs";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
 	selector: "app-product-list",
 	templateUrl: "./product-list.component.html",
 	styleUrls: ["./product-list.component.scss"],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
 	public postCode: string;
 	public productsState$: ProductState;
 	public categoryState$: CategoryState;
@@ -21,7 +23,7 @@ export class ProductListComponent implements OnInit {
 	public brandFilter: string[] = [];
 	public subcategoryFilter: string[] = [];
 	public colorFilter: string[] = [];
-	public ownerFilter: string[] = [];
+	public storeFilter: object[] = [];
 	public isCategoryPage: boolean = false;
 	public isSearchPage: boolean = false;
 	public searchQuery: string;
@@ -30,6 +32,8 @@ export class ProductListComponent implements OnInit {
 	public currentPaginatorPage: number;
 	public maxProductsPerPage: number = 12;
 	public totalPages: number[];
+	private productsObservable: Subscription;
+	private categoriesObservable: Subscription;
 
 	constructor(
 		private router: Router,
@@ -51,18 +55,27 @@ export class ProductListComponent implements OnInit {
 			queryParamsHandling: "merge",
 		});
 
-		this.store.select("products").subscribe((response) => {
-			this.productPending = response.pending;
-			this.productsState$ = response;
-			this.getPageTitle();
-			this.initFilters();
-			this.initPaginator();
-		});
+		this.productsObservable = this.store
+			.select("products")
+			.subscribe((response) => {
+				this.productPending = response.pending;
+				this.productsState$ = response;
+				this.getPageTitle();
+				this.initFilters();
+				this.initPaginator();
+			});
 
-		this.store.select("categories").subscribe((response) => {
-			this.categoryState$ = response;
-			this.routeHandle();
-		});
+		this.categoriesObservable = this.store
+			.select("categories")
+			.subscribe((response) => {
+				this.categoryState$ = response;
+				this.routeHandle();
+			});
+	}
+
+	ngOnDestroy() {
+		this.productsObservable.unsubscribe();
+		this.categoriesObservable.unsubscribe();
 	}
 
 	routeHandle() {
@@ -166,12 +179,14 @@ export class ProductListComponent implements OnInit {
 				this.brandFilter.push(product.brand);
 				this.subcategoryFilter.push(product.subcategory);
 				this.colorFilter.push(product.color);
-				this.ownerFilter.push(product.owner.name);
+				this.storeFilter.push(product.store);
 			});
 			this.brandFilter = [...new Set(this.brandFilter)];
 			this.subcategoryFilter = [...new Set(this.subcategoryFilter)];
 			this.colorFilter = [...new Set(this.colorFilter)];
-			this.ownerFilter = [...new Set(this.ownerFilter)];
+			this.storeFilter = [
+				...new Map(this.storeFilter.map((v) => [v["_id"], v])).values(),
+			];
 		}
 	}
 
@@ -179,7 +194,7 @@ export class ProductListComponent implements OnInit {
 		this.brandFilter = [];
 		this.subcategoryFilter = [];
 		this.colorFilter = [];
-		this.ownerFilter = [];
+		this.storeFilter = [];
 	}
 
 	filterProducts() {

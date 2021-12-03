@@ -1,0 +1,231 @@
+@import "../../../../assets/styles/main.scss";
+
+.checkout {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__legend {
+		@include textUppercase();
+		padding-top: 0.5rem;
+		margin-bottom: 1rem;
+	}
+	&__label {
+		display: block;
+		position: relative;
+	}
+	&__input {
+		display: block;
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+	}
+	&__switch {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+	}
+	&__switchLabel {
+		width: 100%;
+		border: 1px solid $color-grey-light;
+		border-radius: $border-radius;
+		height: 2.5rem;
+		padding: 0 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		margin-bottom: 1rem;
+		flex: 1 0 50%;
+		transition: border 0.15s ease-in;
+		&:first-of-type {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border-right: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		&:hover,
+		&.active {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+	}
+	&__inputRadio {
+		display: none;
+	}
+	&__infoContainer {
+		max-height: 0;
+		overflow: hidden;
+		width: 100%;
+		flex-grow: 1;
+		&.active {
+			max-height: 500px;
+			transition: max-height 0.7s linear;
+		}
+	}
+	&__info {
+		background-color: $color-info;
+		border-radius: $border-radius;
+		padding: 1rem;
+		margin-bottom: 1rem;
+	}
+	&__paymentLabel {
+		width: 100%;
+		border-radius: $border-radius;
+		height: 2.5rem;
+		padding: 0 0.5rem;
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+		background-color: $color-footer;
+		cursor: pointer;
+		transition: border 0.15s ease-in;
+		&:hover {
+			background-color: $color-primary;
+			color: $color-white;
+			input {
+				border: 1px solid $color-white;
+			}
+		}
+		&.active {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+		&.error {
+			border: 1px solid $color-danger;
+		}
+	}
+	&__paymentInput {
+		width: 1rem;
+		height: 1rem;
+		padding: 0;
+		margin-right: 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		outline: 0;
+		transition: border 0.15s ease-in;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		border: 1px solid $color-grey-light;
+		border-radius: 100%;
+		&:checked {
+			border: 1px solid $color-white;
+			&:before {
+				content: "\2713";
+				color: $color-white;
+				font-size: 12px;
+			}
+		}
+	}
+	&__productsContainer {
+		margin-top: 1rem;
+		margin-bottom: 1.5rem;
+	}
+	&__product {
+		padding-bottom: 1rem;
+		border-bottom: 1px solid $color-grey-light;
+		display: grid;
+		align-items: end;
+		grid-template-columns: 7.5rem 1fr;
+		grid-column-gap: 1rem;
+		margin: 1rem 0;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		& > div {
+			overflow: hidden;
+		}
+	}
+	&__image {
+		width: 7.5rem;
+		height: 7.5rem;
+		border-radius: $border-radius;
+		object-fit: cover;
+	}
+	&__brand {
+		@include textNormalBold();
+	}
+	&__name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: block;
+	}
+	&__overviewContainer {
+		background-color: $color-footer;
+		border-radius: $border-radius;
+		padding: 1rem;
+	}
+	&__overviewTitle {
+		@include textNormalBold();
+		margin-bottom: 0.5rem;
+	}
+	&__overviewTotal {
+		@include textNormalBold();
+		margin-bottom: 1.5rem;
+	}
+	&__button {
+		width: 100%;
+		&:disabled {
+			cursor: progress;
+		}
+		img {
+			display: none;
+		}
+	}
+	&__error {
+		@include textErrorSmall();
+		position: absolute;
+		bottom: -1.3rem;
+		&--switch {
+			bottom: 10px;
+		}
+		&--payment {
+			bottom: -6px;
+		}
+	}
+	&__serverError {
+		@include textErrorSmall();
+		text-align: center;
+		margin-top: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		&__container {
+			max-width: 1220px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-areas:
+				"title overview"
+				"form overview"
+				"products overview";
+			grid-template-columns: 1fr auto;
+			grid-column-gap: 6.25rem;
+		}
+		&__title {
+			grid-area: title;
+		}
+		&__form {
+			grid-area: form;
+		}
+		&__productsContainer {
+			grid-area: products;
+		}
+		&__overviewContainer {
+			margin-top: 0;
+			width: 21rem;
+			grid-area: overview;
+			align-self: start;
+			padding: 1.5rem;
+			position: sticky;
+			top: 2rem;
+		}
+	}
+}

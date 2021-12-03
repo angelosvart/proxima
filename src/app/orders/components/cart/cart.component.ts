@@ -2,31 +2,34 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
+import {
+	getProductById,
+	getProducts,
+} from "src/app/products/actions/products.actions";
 import { Product } from "src/app/products/models/Product";
 import { ProductState } from "src/app/products/reducers/products.reducer";
-import {
-	addToCart,
-	deleteFromCart,
-	getCart,
-	getCartProductsById,
-} from "../../actions/cart.actions";
+import { addToCart, deleteFromCart } from "../../actions/cart.actions";
 import { CartItem } from "../../models/CartItem";
+import { CartState } from "../../reducers/cart.reducers";
 
 @Component({
 	selector: "app-cart",
 	templateUrl: "./cart.component.html",
 	styleUrls: ["./cart.component.scss"],
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 	public cartProducts: CartItem[];
 	public productIds: string[] = [];
-	public products: any[] = [];
+	public products: Product[] = [];
 	public loading: boolean;
 	public pending: boolean;
 	public cartCount: number;
 	public subTotal: number;
+	public postCode: string;
+	private cartObservable: Subscription;
+	private productsObservable: Subscription;
 
 	constructor(
 		private store: Store<AppState>,
@@ -35,29 +38,53 @@ export class CartComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.store.select("cart").subscribe((response) => {
-			this.cartProducts = response?.cart;
-			this.products = response?.cartProducts;
+		this.postCode = localStorage.getItem("postCode");
+
+		this.cartObservable = this.store.select("cart").subscribe((response) => {
+			if (response.cart) {
+				this.cartProducts = response.cart;
+				this.calculateCartCount();
+				this.calculateSubTotal();
+			}
 			this.pending = response?.pending;
-			this.cartCount = 0;
-			this.subTotal = 0;
-			response?.cart.forEach((item) => {
-				this.cartCount = this.cartCount + item.quantity;
-			});
-			response?.cartProducts?.forEach((product) => {
-				response?.cart?.forEach((item) => {
-					if (product._id === item.productId) {
-						this.subTotal = this.subTotal + product.price * item.quantity;
-					}
-				});
-			});
 		});
+
+		this.productsObservable = this.store
+			.select("products")
+			.subscribe((response) => {
+				if (response.products) {
+					this.products = response.products;
+					this.calculateCartCount();
+					this.calculateSubTotal();
+				}
+			});
 
 		this.titleService.setTitle(`Cesta de Compras | Próxima`);
 
-		if (this.router.url === "/cart") {
-			this.getProductData();
-		}
+		this.getProductData();
+	}
+
+	ngOnDestroy() {
+		this.cartObservable.unsubscribe();
+		this.productsObservable.unsubscribe();
+	}
+
+	calculateCartCount() {
+		this.cartCount = 0;
+		this.cartProducts.forEach((item) => {
+			this.cartCount = this.cartCount + item.quantity;
+		});
+	}
+
+	calculateSubTotal() {
+		this.subTotal = 0;
+		this.products.forEach((product) => {
+			this.cartProducts.forEach((item) => {
+				if (product._id === item.productId) {
+					this.subTotal = this.subTotal + product.price * item.quantity;
+				}
+			});
+		});
 	}
 
 	getProductData() {
@@ -66,7 +93,12 @@ export class CartComponent implements OnInit {
 			this.productIds.push(product.productId);
 		});
 		if (this.productIds.length) {
-			this.store.dispatch(getCartProductsById({ productIds: this.productIds }));
+			this.store.dispatch(
+				getProducts({
+					userPostCode: this.postCode,
+					filters: { _id: this.productIds },
+				})
+			);
 		}
 	}
 
@@ -79,7 +111,7 @@ export class CartComponent implements OnInit {
 			}
 		}, 1000);
 
-		if (parseInt(input.value) < 1) {
+		if (parseInt(input.value) < 1 || !input.value) {
 			input.value = "1";
 		}
 		if (parseInt(input.value) > 99) {

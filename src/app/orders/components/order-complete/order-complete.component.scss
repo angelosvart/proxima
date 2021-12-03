@@ -1,0 +1,131 @@
+@import "../../../../assets/styles/main.scss";
+
+.orderComplete {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__orderNumber {
+		@include textSubtitleBold();
+		margin-bottom: 1rem;
+	}
+	&__bold {
+		@include textNormalBold();
+	}
+	&__infoText {
+		margin-bottom: 1rem;
+	}
+	&__helpText {
+		margin-bottom: 1.5rem;
+	}
+	&__subTitle {
+		@include textNormalBold();
+		margin-bottom: 1rem;
+	}
+	&__methods {
+		margin-bottom: 1.5rem;
+	}
+	&__method {
+		&:first-child {
+			margin-bottom: 1rem;
+		}
+	}
+	&__productsContainer {
+		margin-bottom: 1.5rem;
+	}
+	&__product {
+		padding-bottom: 1rem;
+		border-bottom: 1px solid $color-grey-light;
+		display: grid;
+		align-items: end;
+		grid-template-columns: 7.5rem 1fr;
+		grid-column-gap: 1rem;
+		margin: 1rem 0;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		& > div {
+			overflow: hidden;
+		}
+	}
+	&__image {
+		width: 7.5rem;
+		height: 7.5rem;
+		border-radius: $border-radius;
+		object-fit: cover;
+	}
+	&__brand {
+		@include textNormalBold();
+	}
+	&__name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: block;
+	}
+	&__userInfo {
+		margin-bottom: 1.5rem;
+	}
+	&__store {
+		margin-bottom: 1rem;
+	}
+	&__overviewContainer {
+		padding: 1rem;
+		margin-top: 2rem;
+		background-color: $color-footer;
+		border-radius: $border-radius;
+	}
+	&__overviewTitle {
+		@include textNormalBold();
+		margin-bottom: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		&__title {
+			margin-bottom: 2rem;
+		}
+		&__container {
+			max-width: 1220px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-areas:
+				"heading"
+				"info"
+				"products"
+				"overview";
+		}
+		&__heading {
+			grid-area: heading;
+		}
+		&__productsContainer {
+			grid-area: products;
+			margin-bottom: 1rem;
+		}
+		&__infoContainer {
+			grid-area: info;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
+		&__overviewContainer {
+			grid-area: overview;
+		}
+		&__overviewContainer {
+			margin-top: 0rem;
+			padding: 0;
+			background-color: $color-white;
+			justify-self: end;
+			text-align: right;
+			border-bottom: 1px solid $color-grey-light;
+			border-radius: 0;
+			padding-bottom: 0.5rem;
+			width: 30vw;
+		}
+		&__overviewTitle {
+			display: none;
+		}
+		&__overview {
+			p {
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+}

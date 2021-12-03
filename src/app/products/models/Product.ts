@@ -11,5 +11,5 @@ export interface Product {
 	previousPrice: number;
 	isOffer: boolean;
 	isAvailable: boolean;
-	owner: any;
+	store: any;
 }

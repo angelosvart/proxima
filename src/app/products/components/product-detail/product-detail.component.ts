@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { addToCart } from "src/app/orders/actions/cart.actions";
 import { CartItem } from "src/app/orders/models/CartItem";
@@ -16,13 +17,15 @@ import { ProductState } from "../../reducers/products.reducer";
 	templateUrl: "./product-detail.component.html",
 	styleUrls: ["./product-detail.component.scss"],
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
 	public productPending: boolean = true;
 	public categoryState$: CategoryState;
 	public productState$: ProductState;
 	public product: Product;
 	public postCode: string;
 	public categoryProducts: Product[];
+	private productsObservable: Subscription;
+	private categoriesObservable: Subscription;
 
 	constructor(
 		private store: Store<AppState>,
@@ -38,18 +41,22 @@ export class ProductDetailComponent implements OnInit {
 			this.router.navigate(["/"]);
 		}
 
-		this.store.select("categories").subscribe((response) => {
-			this.categoryState$ = response;
-		});
+		this.categoriesObservable = this.store
+			.select("categories")
+			.subscribe((response) => {
+				this.categoryState$ = response;
+			});
 
-		this.store.select("products").subscribe((response) => {
-			this.productPending = response.pending;
-			this.productState$ = response;
-			this.product = response.selectedProduct;
-			if (this.product) {
-				this.getPageTitle();
-			}
-		});
+		this.productsObservable = this.store
+			.select("products")
+			.subscribe((response) => {
+				this.productPending = response.pending;
+				this.productState$ = response;
+				this.product = response.selectedProduct;
+				if (this.product) {
+					this.getPageTitle();
+				}
+			});
 
 		this.activatedRoute.params.subscribe((params) => {
 			const id = params["id"];
@@ -57,6 +64,11 @@ export class ProductDetailComponent implements OnInit {
 				this.store.dispatch(getProductById({ productId: id }));
 			}
 		});
+	}
+
+	ngOnDestroy() {
+		this.productsObservable.unsubscribe();
+		this.categoriesObservable.unsubscribe();
 	}
 
 	getPageTitle() {

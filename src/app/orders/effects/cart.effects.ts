@@ -39,22 +39,6 @@ export class CartEffects {
 		)
 	);
 
-	getCartProductsById$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(CartActions.getCartProductsById),
-			mergeMap(({ productIds }) =>
-				this.cartService.getCartProductsById(productIds).pipe(
-					map((products) =>
-						CartActions.getCartProductsByIdSuccess({ products })
-					),
-					catchError((error) =>
-						of(CartActions.getCartProductsByIdFailure({ payload: error }))
-					)
-				)
-			)
-		)
-	);
-
 	deleteFromCart$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CartActions.deleteFromCart),

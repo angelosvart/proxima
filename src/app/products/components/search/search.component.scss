@@ -33,7 +33,7 @@
 			filter: $filter-hover-svg;
 		}
 	}
-
+	&:hover,
 	&.active {
 		border: 1px solid $color-primary;
 	}

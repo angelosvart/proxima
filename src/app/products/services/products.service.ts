@@ -8,6 +8,7 @@ import { Product } from "../models/Product";
 })
 export class ProductsService {
 	private productsApi = "http://localhost:3000/api/products";
+	private productsDetailApi = "http://localhost:3000/api/products/detail";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

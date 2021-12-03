@@ -54,9 +54,6 @@ button {
 	align-items: center;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	img {
-		display: none;
-	}
 	&.primary {
 		@include textNormalBold();
 		background-color: $color-primary;
@@ -115,24 +112,31 @@ select {
 	}
 }
 
-input[type="number"] {
+input:not(.filters__checkboxInput, .search__input, .checkout__paymentInput) {
 	@include textNormal();
-	padding: 0 0.5rem 0 1rem;
+	padding: 0 1rem;
 	border: 1px solid $color-grey-light;
 	outline: 0;
 	border-radius: $border-radius;
 	height: 2.5rem;
-	transition: all 0.15s ease-in;
+	transition: border 0.15s ease-in;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	&:hover,
 	&:focus {
 		border: 1px solid $color-grey-dark;
 	}
+	&[type="number"] {
+		padding: 0 0.5rem 0 1rem;
+	}
+	&.ng-invalid.ng-touched {
+		border: 1px solid $color-danger;
+	}
 }
 
 fieldset {
 	border: 0;
+	position: relative;
 }
 
 main {

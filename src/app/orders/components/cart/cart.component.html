@@ -16,7 +16,9 @@
 		<h1 class="cart__title">Cesta de Compras</h1>
 		<p class="cart__subTotal">Subtotal: {{ subTotal }} €</p>
 
-		<button class="cart__buttonTop primary">Tramitar Pedido</button>
+		<button routerLink="/checkout" class="cart__buttonTop primary">
+			Tramitar Pedido
+		</button>
 		<div class="cart__productContainer">
 			<ng-container *ngFor="let item of cartProducts">
 				<ng-container *ngFor="let product of products">

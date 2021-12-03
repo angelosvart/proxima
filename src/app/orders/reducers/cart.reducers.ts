@@ -9,23 +9,18 @@ import {
 	deleteFromCartSuccess,
 	getCart,
 	getCartFailure,
-	getCartProductsById,
-	getCartProductsByIdFailure,
-	getCartProductsByIdSuccess,
 	getCartSuccess,
 } from "../actions/cart.actions";
 import { CartItem } from "../models/CartItem";
 
 export interface CartState {
 	cart: CartItem[];
-	cartProducts: Product[];
 	error: any;
 	pending: boolean;
 }
 
 export const initialState: CartState = {
 	cart: null,
-	cartProducts: null,
 	error: null,
 	pending: false,
 };
@@ -60,24 +55,6 @@ const _cartReducer = createReducer(
 		pending: false,
 	})),
 	on(addToCartFailure, (state, { payload }) => ({
-		...state,
-		error: {
-			url: payload.url,
-			status: payload.status,
-			message: payload.message,
-		},
-		pending: false,
-	})),
-	on(getCartProductsById, (state) => ({
-		...state,
-		pending: true,
-	})),
-	on(getCartProductsByIdSuccess, (state, action) => ({
-		...state,
-		cartProducts: [...action.products],
-		pending: false,
-	})),
-	on(getCartProductsByIdFailure, (state, { payload }) => ({
 		...state,
 		error: {
 			url: payload.url,
