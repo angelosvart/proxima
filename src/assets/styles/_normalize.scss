@@ -107,7 +107,8 @@ select {
 	&:focus {
 		border: 1px solid $color-grey-dark;
 	}
-	&.error {
+	&.error,
+	&.ng-invalid.ng-touched {
 		border: 1px solid $color-danger;
 	}
 }
@@ -134,24 +135,52 @@ input:not(.filters__checkboxInput, .search__input, .checkout__paymentInput) {
 	}
 }
 
+textarea {
+	@include textNormal();
+	padding: 0.5rem 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 5rem;
+	transition: border 0.15s ease-in;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&:hover,
+	&:focus {
+		border: 1px solid $color-grey-dark;
+	}
+	&.ng-invalid.ng-touched {
+		border: 1px solid $color-danger;
+	}
+}
+
 fieldset {
 	border: 0;
 	position: relative;
 }
 
 main {
+	width: 100%;
 	min-height: calc(100vh - 12.5rem - 3.5rem);
 	@media (min-width: $desktop) {
 		min-height: calc(100vh - 5.7rem - 7.7rem - 1rem);
 	}
 }
 
-main:not(.home, .productList) {
+main:not(.home, .productList, [class*="dashboard"]) {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {
 		max-width: 1440px;
-		margin: 0 auto;
 		padding: 2rem $padding-desktop 4rem $padding-desktop;
+	}
+}
+
+main[class*="dashboard"] {
+	padding: 1rem $padding-mobile 7rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		margin: 0 auto;
+		padding: 2rem 0 4rem 3rem;
 	}
 }

@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/components/dashboard/dashboard.component";
-import { LoginModule } from "./login/login.module";
+import { DashboardComponent } from "./stores/components/dashboard/dashboard.component";
 import { CartComponent } from "./orders/components/cart/cart.component";
 import { CheckoutComponent } from "./orders/components/checkout/checkout.component";
 import { OrderCompleteComponent } from "./orders/components/order-complete/order-complete.component";
 import { ProductDetailComponent } from "./products/components/product-detail/product-detail.component";
 import { ProductListComponent } from "./products/components/product-list/product-list.component";
 import { HomeComponent } from "./views/home/home.component";
+import { ProductComponent } from "./stores/components/product/product.component";
 
 const routes: Routes = [
 	{
@@ -43,8 +43,8 @@ const routes: Routes = [
 		component: DashboardComponent,
 	},
 	{
-		path: "login",
-		component: LoginModule,
+		path: "dashboard/product",
+		component: ProductComponent,
 	},
 ];
 

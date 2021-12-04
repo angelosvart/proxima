@@ -7,11 +7,15 @@ import {
 	getProductById,
 	getProductByIdSuccess,
 	getProductByIdFailure,
+	createProduct,
+	createProductSuccess,
+	createProductFailure,
 } from "../actions/products.actions";
 
 export interface ProductState {
 	products: Product[];
 	selectedProduct: Product;
+	createdProduct: Product;
 	error: any;
 	pending: boolean;
 }
@@ -19,6 +23,7 @@ export interface ProductState {
 export const initialState: ProductState = {
 	products: null,
 	selectedProduct: null,
+	createdProduct: null,
 	error: null,
 	pending: false,
 };
@@ -53,6 +58,24 @@ const _productsReducer = createReducer(
 		pending: false,
 	})),
 	on(getProductByIdFailure, (state, { payload }) => ({
+		...state,
+		error: {
+			url: payload.url,
+			status: payload.status,
+			message: payload.message,
+		},
+		pending: false,
+	})),
+	on(createProduct, (state) => ({
+		...state,
+		pending: true,
+	})),
+	on(createProductSuccess, (state, action) => ({
+		...state,
+		createdProduct: action.product,
+		pending: false,
+	})),
+	on(createProductFailure, (state, { payload }) => ({
 		...state,
 		error: {
 			url: payload.url,

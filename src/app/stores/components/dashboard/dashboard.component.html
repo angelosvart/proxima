@@ -1,0 +1,25 @@
+<div class="dashboard">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="dashboard__container" *ngIf="storeData">
+		<h1 class="dashboard__title">Dashboard de {{ storeData.name }}</h1>
+		<button class="dashboard__button primary">
+			Añadir Producto
+			<img src="../../../../assets/images/icons/plus-circle.svg" />
+		</button>
+		<p class="dashboard__info">
+			Para modificar o eliminar un producto, haz clic sobre el mismo.
+		</p>
+
+		<section class="dashboard__productGrid">
+			<div class="dashboard__emptyResults" *ngIf="!storeData.products.length">
+				Todavía no has añadido ningún producto.
+			</div>
+			<ng-container *ngFor="let product of storeData.products">
+				<app-product-card [product]="product"></app-product-card>
+			</ng-container>
+		</section>
+	</main>
+
+	<app-sticky-menu></app-sticky-menu>
+</div>

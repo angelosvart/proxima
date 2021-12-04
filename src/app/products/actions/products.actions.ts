@@ -32,3 +32,18 @@ export const getProductByIdFailure = createAction(
 	"[PRODUCTS] Get product by Id failure",
 	props<{ payload: any }>()
 );
+
+export const createProduct = createAction(
+	"[PRODUCTS] Create product",
+	props<{ productData: FormData }>()
+);
+
+export const createProductSuccess = createAction(
+	"[PRODUCTS] Create product Success",
+	props<{ product: Product }>()
+);
+
+export const createProductFailure = createAction(
+	"[PRODUCTS] Create product failure",
+	props<{ payload: any }>()
+);

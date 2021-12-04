@@ -29,20 +29,12 @@
 	&__productName {
 		@include textProductCard();
 		@include textLink();
-		margin-bottom: 0.25rem;
+		margin-bottom: 1rem;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		line-clamp: 3;
 		overflow: hidden;
-	}
-	&__store {
-		@include textProductCard();
-		color: $color-grey-dark;
-		margin-bottom: 0.5rem;
-		span {
-			display: none;
-		}
 	}
 	&__price {
 		@include textProductCard();

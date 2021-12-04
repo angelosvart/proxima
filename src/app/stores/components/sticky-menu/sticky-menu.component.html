@@ -1,0 +1,29 @@
+<aside class="stickyMenu">
+	<ul class="stickyMenu__container">
+		<li
+			class="stickyMenu__item"
+			routerLink="/dashboard"
+			routerLinkActive="active"
+			[routerLinkActiveOptions]="{ exact: true }"
+		>
+			<img src="../../../../assets//images/icons/home.svg" />
+			<span>Inicio</span>
+		</li>
+		<li
+			class="stickyMenu__item"
+			routerLink="/dashboard/product"
+			routerLinkActive="active"
+		>
+			<img src="../../../../assets//images/icons/plus-circle.svg" />
+			<span>Añadir Producto</span>
+		</li>
+		<li
+			class="stickyMenu__item"
+			routerLink="/dashboard/orders"
+			routerLinkActive="active"
+		>
+			<img src="../../../../assets//images/icons/products.svg" />
+			<span>Pedidos</span>
+		</li>
+	</ul>
+</aside>

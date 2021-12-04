@@ -1,5 +1,5 @@
 export interface Product {
-	_id: string;
+	_id?: string;
 	image: string;
 	name: string;
 	brand: string;
@@ -12,4 +12,5 @@ export interface Product {
 	isOffer: boolean;
 	isAvailable: boolean;
 	store: any;
+	created?: Date;
 }

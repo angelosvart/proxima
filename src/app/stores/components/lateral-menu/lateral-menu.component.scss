@@ -1,0 +1,56 @@
+@import "../../../../assets/styles/main.scss";
+
+.lateralMenu {
+	display: none;
+	@media (min-width: $desktop) {
+		display: block;
+		padding: 2.5rem 0 2rem 0;
+		height: 100%;
+		background-color: $color-footer;
+		box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+		position: sticky;
+		top: 0;
+		border-bottom: 1px solid $color-grey-light;
+		&:before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			background-color: $color-footer;
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin-left: -50vw;
+			width: 50vw;
+			border-bottom: 1px solid $color-grey-light;
+		}
+		&__container {
+			z-index: 1;
+		}
+		&__item {
+			padding-bottom: 0.5rem;
+			margin-bottom: 1rem;
+			border-bottom: 1px solid $color-grey-light;
+		}
+		&__link {
+			@include textSubtitle();
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			&.active {
+				@include textSubtitleBold();
+				color: $color-primary;
+			}
+			img {
+				width: 1.5rem;
+				height: 1.5rem;
+				transition: filter 0.15s ease-in;
+				margin-right: 1rem;
+			}
+			&:hover {
+				img {
+					filter: $filter-hover-svg;
+				}
+			}
+		}
+	}
+}

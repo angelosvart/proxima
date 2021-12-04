@@ -21,6 +21,9 @@ import { PaymentMethod } from "../../models/PaymentMethod";
 	styleUrls: ["./checkout.component.scss"],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
+	//TODO user states
+	public userId: string = "6185527cef2a6aca4d36d191";
+
 	public cart: CartItem[];
 	public products: any[] = [];
 	public productIds: string[] = [];
@@ -274,8 +277,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 			deliveryAddress: deliveryAddress,
 			products: [...this.cart],
 			deliveryFee: this.deliveryFee,
-			user: "6185527cef2a6aca4d36d191",
-			//HACER DINAMICO AQUI
+			user: this.userId,
 		};
 
 		if (paymentMethod.type === "ONLINE_CARD_PAYMENT") {

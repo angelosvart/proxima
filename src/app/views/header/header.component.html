@@ -19,28 +19,71 @@
 				(click)="closeModal()"
 			/>
 		</div>
-		<ul class="header__categories">
-			<li
-				class="header__category"
-				routerLink="/products/sales"
-				routerLinkActive="active"
-			>
-				<a
+		<ul
+			class="header__categories"
+			[class.dashboard]="router.url.includes('dashboard')"
+		>
+			<ng-container *ngIf="!router.url.includes('dashboard')">
+				<li
+					class="header__category"
 					routerLink="/products/sales"
 					routerLinkActive="active"
-					(click)="closeModal()"
-					>Ofertas</a
 				>
-			</li>
-			<li
-				class="header__category"
-				*ngFor="let category of categoryState$.categories"
-				routerLink="/products/{{ category.path }}"
-				(click)="closeModal()"
-				routerLinkActive="active"
-			>
-				<a routerLink="/products/{{ category.path }}">{{ category.name }}</a>
-			</li>
+					<a
+						routerLink="/products/sales"
+						routerLinkActive="active"
+						(click)="closeModal()"
+						>Ofertas</a
+					>
+				</li>
+				<li
+					class="header__category"
+					*ngFor="let category of categoryState$.categories"
+					routerLink="/products/{{ category.path }}"
+					(click)="closeModal()"
+					routerLinkActive="active"
+				>
+					<a routerLink="/products/{{ category.path }}">{{ category.name }}</a>
+				</li>
+			</ng-container>
+			<ng-container *ngIf="router.url.includes('dashboard')">
+				<li
+					class="header__category"
+					routerLink="/dashboard"
+					routerLinkActive="active"
+				>
+					<a
+						routerLink="/dashboard$"
+						routerLinkActive="active"
+						(click)="closeModal()"
+						>Inicio</a
+					>
+				</li>
+				<li
+					class="header__category"
+					routerLink="/dashboard/product"
+					routerLinkActive="active"
+				>
+					<a
+						routerLink="/dashboard/product"
+						routerLinkActive="active"
+						(click)="closeModal()"
+						>Añadir Producto</a
+					>
+				</li>
+				<li
+					class="header__category"
+					routerLink="/dashboard/orders"
+					routerLinkActive="active"
+				>
+					<a
+						routerLink="/dashboard/orders"
+						routerLinkActive="active"
+						(click)="closeModal()"
+						>Pedidos</a
+					>
+				</li>
+			</ng-container>
 			<li class="header__category mobileOnly" (click)="closeModal()">
 				<a href=""
 					>Mi Cuenta
@@ -56,7 +99,7 @@
 		</ul>
 	</nav>
 
-	<div class="header__actions">
+	<div class="header__actions" *ngIf="!router.url.includes('dashboard')">
 		<span class="header__actionContainer">
 			<img
 				class="header__userIcon"
@@ -65,7 +108,11 @@
 			/>
 		</span>
 
-		<a routerLink="/cart" class="header__actionContainer">
+		<a
+			routerLink="/cart"
+			class="header__actionContainer"
+			*ngIf="!router.url.includes('dashboard')"
+		>
 			<img
 				class="header__cartIcon"
 				alt="Cesta de Compras"
@@ -77,7 +124,17 @@
 		</a>
 	</div>
 
-	<a href="" class="header__support">Atención al Cliente</a>
+	<div *ngIf="router.url.includes('dashboard')">
+		<span class="header__actionContainer">
+			<img
+				class="header__userIcon"
+				alt="Mi cuenta"
+				src="../../../assets/images/icons/user.svg"
+			/>
+		</span>
+	</div>
+
+	<a routerLink="/help" class="header__support">Atención al Cliente</a>
 </header>
 
 <div class="modalOverlay"></div>

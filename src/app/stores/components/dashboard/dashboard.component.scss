@@ -1,0 +1,47 @@
+@import "../../../../assets/styles/main.scss";
+
+.dashboard {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__button {
+		width: 100%;
+		margin-bottom: 1.5rem;
+		img {
+			filter: brightness(0) invert(1);
+			margin-left: 0.5rem;
+		}
+	}
+	&__info {
+		margin-bottom: 1rem;
+	}
+	&__productGrid {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	}
+	&__emptyResults {
+		padding: 3rem 0;
+	}
+	@media (min-width: $desktop) {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 0 $padding-desktop;
+		&__title {
+			margin-bottom: 2rem;
+		}
+		&__button {
+			display: none;
+		}
+		&__productGrid {
+			grid-gap: 2rem;
+			grid-template-columns: repeat(3, 1fr);
+		}
+		&__emptyResults {
+			padding: 5rem 0;
+		}
+	}
+}

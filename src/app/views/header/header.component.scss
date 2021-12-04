@@ -133,6 +133,9 @@
 		&__categories {
 			display: flex;
 			justify-content: center;
+			&.dashboard {
+				display: none;
+			}
 		}
 		&__category {
 			@include textNormal();

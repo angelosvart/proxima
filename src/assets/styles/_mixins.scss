@@ -108,6 +108,11 @@
 		color: $color-primary;
 	}
 }
+
+@mixin textHint {
+	font-size: 0.75rem;
+	color: $color-grey-dark;
+}
 /*
  * Shadows
  */

@@ -34,4 +34,8 @@ export class ProductsService {
 	getProductById(productId: string): Observable<Product> {
 		return this.http.get<Product>(`${this.productsApi}/${productId}`).pipe();
 	}
+
+	createProduct(productData: FormData): Observable<Product> {
+		return this.http.post<Product>(this.productsApi, productData);
+	}
 }

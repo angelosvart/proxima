@@ -10,7 +10,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { appReducers } from "./app.reducer";
-import { LoginModule } from "./login/login.module";
+import { LoginModule } from "./users/login.module";
 import { HomeComponent } from "./views/home/home.component";
 import { ProductsModule } from "./products/products.module";
 import { HttpClientModule } from "@angular/common/http";
@@ -19,6 +19,7 @@ import { HeaderComponent } from "./views/header/header.component";
 import { FooterComponent } from "./views/footer/footer.component";
 import { RouterModule } from "@angular/router";
 import { OrdersModule } from "./orders/orders.module";
+import { StoresModule } from "./stores/stores.module";
 
 @NgModule({
 	declarations: [
@@ -43,6 +44,7 @@ import { OrdersModule } from "./orders/orders.module";
 		ProductsModule,
 		OrdersModule,
 		RouterModule,
+		StoresModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

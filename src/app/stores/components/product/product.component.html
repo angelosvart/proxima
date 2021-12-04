@@ -1,0 +1,290 @@
+<div class="dashboardProduct">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="dashboardProduct__container">
+		<h1 class="dashboardProduct__title">Añadir Producto</h1>
+		<div class="dashboardProduct__imageUploader">
+			<img class="dashboardProduct__image" [src]="imageDisplay" />
+
+			<button
+				(click)="uploader.click()"
+				class="dashboardProduct__button primary"
+				name="imageUpload"
+			>
+				Subir imagen del producto
+				<img src="../../../../assets/images/icons/document-plus.svg" />
+			</button>
+			<span
+				*ngIf="image.touched && image.errors"
+				class="dashboardProduct__error dashboardProduct__error--image"
+			>
+				Debes subir una imagen para el producto.
+			</span>
+			<span class="dashboardProduct__hint dashboardProduct__hint--image">
+				La imagen debe tener formato PNG, JPG o JPEG.
+			</span>
+		</div>
+		<form
+			class="dashboardProduct__form"
+			[formGroup]="productForm"
+			(ngSubmit)="handleForm()"
+		>
+			<input
+				type="file"
+				#uploader
+				(change)="uploadFile($event)"
+				accept="image/png, image/jpeg, image/jpg"
+				hidden
+				required
+			/>
+			<label class="dashboardProduct__label">
+				Nombre del producto *
+				<input
+					class="dashboardProduct__input"
+					type="text"
+					formControlName="name"
+					required
+				/>
+				<span
+					*ngIf="name.touched && name.errors"
+					class="dashboardProduct__error"
+				>
+					Debes especificar el nombre del producto.
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Marca *
+				<input
+					class="dashboardProduct__input"
+					type="text"
+					formControlName="brand"
+					required
+				/>
+				<span
+					*ngIf="brand.touched && brand.errors"
+					class="dashboardProduct__error"
+				>
+					Debes especificar la marca del producto.
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Descripción *
+				<textarea
+					class="dashboardProduct__input dashboardProduct__input--big"
+					type="text"
+					formControlName="description"
+					required
+				></textarea>
+				<span
+					*ngIf="description.touched && description.errors"
+					class="dashboardProduct__error"
+				>
+					Debes especificar una descripción del producto.
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Categoría *
+				<select
+					class="dashboardProduct__input dashboardProduct__input--select"
+					formControlName="category"
+					required
+				>
+					<option value="" disabled selected hidden>
+						Selecciona una categoría
+					</option>
+					<option
+						*ngFor="let category of categories"
+						value="{{ category._id }}"
+					>
+						{{ category.name }}
+					</option>
+				</select>
+				<span
+					*ngIf="category.touched && category.errors"
+					class="dashboardProduct__error"
+				>
+					Debes especificar la categoría del producto.
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Subcategoría *
+				<input
+					class="dashboardProduct__input"
+					type="text"
+					formControlName="subcategory"
+					required
+				/>
+				<span
+					*ngIf="subcategory.touched && subcategory.errors?.['required']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar la subcategoría del producto.
+				</span>
+				<span
+					*ngIf="subcategory.touched && subcategory.errors?.['overMaxWords']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar un máximo de 3 palabras.
+				</span>
+				<span class="dashboardProduct__hint">
+					Describe con un máximo de 3 palabras el tipo de producto
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Color *
+				<input
+					class="dashboardProduct__input"
+					type="text"
+					formControlName="color"
+					required
+				/>
+				<span
+					*ngIf="color.touched && color.errors"
+					class="dashboardProduct__error"
+				>
+					Debes especificar el color del producto.
+				</span>
+			</label>
+
+			<label class="dashboardProduct__label">
+				Precio *
+				<input
+					class="dashboardProduct__input"
+					type="text"
+					formControlName="price"
+					min="1"
+					max="9999"
+					pattern="\d*"
+					required
+				/>
+				<span
+					*ngIf="price.touched && price.errors?.['required']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar el precio del producto.
+				</span>
+				<span
+					*ngIf="price.touched && price.errors?.['min']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar un precio entre 1 y 9999 €.
+				</span>
+				<span
+					*ngIf="price.touched && price.errors?.['max']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar un precio entre 1 y 9999 €.
+				</span>
+			</label>
+
+			<div>¿Está en oferta? *</div>
+			<div class="dashboardProduct__switch">
+				<label class="dashboardProduct__switchLabel">
+					<input
+						class="dashboardProduct__inputRadio"
+						name="isOffer"
+						type="radio"
+						formControlName="isOffer"
+						value="true"
+					/>
+					Sí
+				</label>
+				<label class="dashboardProduct__switchLabel">
+					<input
+						class="dashboardProduct__inputRadio"
+						name="isOffer"
+						type="radio"
+						formControlName="isOffer"
+						value="false"
+					/>
+					No
+				</label>
+				<span
+					*ngIf="isOffer.touched && isOffer.errors"
+					class="dashboardProduct__error dashboardProduct__error--switch"
+					>Debes especificar si el producto está en oferta.</span
+				>
+			</div>
+
+			<label class="dashboardProduct__label hidden">
+				Precio anterior *
+				<input
+					class="dashboardProduct__input dashboardProduct__input--big"
+					type="text"
+					formControlName="previousPrice"
+					name="previousPrice"
+					min="1"
+					max="9999"
+					pattern="\d*"
+				/>
+				<span
+					*ngIf="previousPrice.touched && previousPrice.errors?.['required']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar el precio antes de estar en oferta.
+				</span>
+				<span
+					*ngIf="previousPrice.touched && previousPrice.errors?.['min']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar un precio entre 1 y 9999 €.
+				</span>
+				<span
+					*ngIf="previousPrice.touched && previousPrice.errors?.['max']"
+					class="dashboardProduct__error"
+				>
+					Debes especificar un precio entre 1 y 9999 €.
+				</span>
+				<span class="dashboardProduct__hint">
+					Precio original del producto antes de estar en oferta.
+				</span>
+			</label>
+
+			<div>¿Está disponible?</div>
+			<div class="dashboardProduct__switch">
+				<label class="dashboardProduct__switchLabel">
+					<input
+						class="dashboardProduct__inputRadio"
+						name="isAvailable"
+						type="radio"
+						formControlName="isAvailable"
+						value="true"
+					/>
+					Sí
+				</label>
+				<label class="dashboardProduct__switchLabel">
+					<input
+						class="dashboardProduct__inputRadio"
+						name="isAvailable"
+						type="radio"
+						formControlName="isAvailable"
+						value="false"
+					/>
+					No
+				</label>
+				<span
+					*ngIf="isAvailable.touched && isAvailable.errors"
+					class="dashboardProduct__error dashboardProduct__error--switch"
+					>Debes especificar si el producto está disponible.</span
+				>
+			</div>
+
+			<button type="submit" class="dashboardProduct__button primary">
+				<span>Añadir Producto</span>
+				<img src="../../../../assets/images/icons/tail-spin.svg" />
+			</button>
+
+			<div *ngIf="error" class="dashboardProduct__serverError">
+				Ha ocurrido un error y producto no ha sido creado. Por favor inténtalo
+				nuevamente.
+			</div>
+		</form>
+	</main>
+
+	<app-sticky-menu></app-sticky-menu>
+</div>
