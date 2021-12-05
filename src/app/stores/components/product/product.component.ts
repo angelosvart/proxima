@@ -203,9 +203,7 @@ export class ProductComponent implements OnInit {
 		button.classList.add("loading");
 		button.querySelector("span").innerText = "Añadiendo producto...";
 
-		console.log(this.productForm.value);
-
-		const productData = new FormData();
+		let productData = new FormData();
 		Object.keys(this.productForm.value).map((key) => {
 			productData.append(key, this.productForm.value[key]);
 		});

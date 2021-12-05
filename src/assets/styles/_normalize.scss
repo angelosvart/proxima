@@ -113,7 +113,7 @@ select {
 	}
 }
 
-input:not(.filters__checkboxInput, .search__input, .checkout__paymentInput) {
+input:not(.filters__checkboxInput, .search__input, .checkout__paymentInput, .postCodeSearch__input) {
 	@include textNormal();
 	padding: 0 1rem;
 	border: 1px solid $color-grey-light;
