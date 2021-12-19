@@ -60,6 +60,54 @@ export class ProductsEffects {
 		)
 	);
 
+	getProductsByStoreId$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(ProductsActions.getProductsByStoreById),
+			exhaustMap(({ storeId }) =>
+				this.productsService.getProductsByStoreId(storeId).pipe(
+					map((products) =>
+						ProductsActions.getProductsByStoreByIdSuccess({ products })
+					),
+					catchError((error) =>
+						of(
+							ProductsActions.getProductsByStoreByIdFailure({ payload: error })
+						)
+					)
+				)
+			)
+		)
+	);
+
+	editProducts$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(ProductsActions.editProduct),
+			mergeMap(({ productId, productData }) =>
+				this.productsService.editProduct(productId, productData).pipe(
+					map((product) =>
+						ProductsActions.editProductSuccess({ product: product })
+					),
+					catchError((error) =>
+						of(ProductsActions.editProductFailure({ payload: error }))
+					)
+				)
+			)
+		)
+	);
+
+	deleteProduct$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(ProductsActions.deleteProduct),
+			mergeMap(({ productId }) =>
+				this.productsService.deleteProduct(productId).pipe(
+					map((product) => ProductsActions.deleteProductSuccess()),
+					catchError((error) =>
+						of(ProductsActions.deleteProductFailure({ payload: error }))
+					)
+				)
+			)
+		)
+	);
+
 	constructor(
 		private actions$: Actions,
 		private productsService: ProductsService

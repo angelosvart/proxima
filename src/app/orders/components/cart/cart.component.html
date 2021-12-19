@@ -66,7 +66,7 @@
 				<p>Productos: {{ cartCount }}</p>
 				<p>Subtotal: {{ subTotal }} €</p>
 			</div>
-			<button routerLink="/checkout" class="cart__button primary">
+			<button (click)="checkLoggedUser()" class="cart__button primary">
 				Tramitar Pedido
 			</button>
 		</div>

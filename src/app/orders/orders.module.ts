@@ -8,12 +8,12 @@ import { AppState } from "../app.reducer";
 import { Store } from "@ngrx/store";
 import { getCart } from "./actions/cart.actions";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
-import { OrderCompleteComponent } from './components/order-complete/order-complete.component';
+import { OrderCompleteComponent } from "./components/order-complete/order-complete.component";
 
 @NgModule({
 	declarations: [CartComponent, CheckoutComponent, OrderCompleteComponent],
 	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
-	exports: [CartComponent, CheckoutComponent],
+	exports: [CartComponent, CheckoutComponent, OrderCompleteComponent],
 })
 export class OrdersModule {
 	constructor(private store: Store<AppState>) {

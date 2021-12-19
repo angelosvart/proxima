@@ -1,0 +1,88 @@
+<main class="login">
+	<div class="login__container">
+		<h1 class="login__title">Iniciar Sesión</h1>
+		<form class="login__form" [formGroup]="loginForm" (ngSubmit)="handleForm()">
+			<div class="login__switch">
+				<label class="login__switchLabel">
+					<input
+						class="login__inputRadio"
+						name="userType"
+						type="radio"
+						formControlName="userType"
+						value="user"
+					/>
+					Cliente
+				</label>
+				<label class="login__switchLabel">
+					<input
+						class="login__inputRadio"
+						name="userType"
+						type="radio"
+						formControlName="userType"
+						value="store"
+					/>
+					Empresa
+				</label>
+				<span
+					*ngIf="userType.touched && userType.errors"
+					class="login__error login__error--switch"
+					>Debes especificar un tipo de usuario.</span
+				>
+			</div>
+
+			<label class="login__label">
+				Correo electónico *
+				<input
+					class="login__input"
+					type="email"
+					formControlName="email"
+					required
+				/>
+				<span
+					*ngIf="email.touched && email.errors?.['required']"
+					class="login__error"
+				>
+					Debes especificar tu correo electrónico.
+				</span>
+				<span
+					*ngIf="email.touched && email.errors?.['pattern']"
+					class="login__error"
+				>
+					Debes especificar un correo electrónico en formato válido.
+				</span>
+			</label>
+
+			<label class="login__label">
+				Contraseña *
+				<input
+					class="login__input"
+					type="password"
+					formControlName="password"
+					required
+				/>
+				<span
+					*ngIf="password.touched && password.errors?.['required']"
+					class="login__error"
+				>
+					Debes especificar tu Contraseña.
+				</span>
+			</label>
+			<div *ngIf="error" class="login__serverError">
+				{{ errorMessage }}
+			</div>
+			<button
+				class="login__button primary"
+				type="submit"
+				(click)="handleForm()"
+			>
+				<span>Iniciar Sesión</span>
+				<img src="../../../../assets/images/icons/tail-spin.svg" />
+			</button>
+		</form>
+
+		<div class="login__register">
+			¿No tienes cuenta?
+			<a class="login__registerLink" routerLink="/register">Regístrate aquí</a>.
+		</div>
+	</div>
+</main>

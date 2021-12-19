@@ -1,5 +1,5 @@
 <main class="checkout">
-	<div class="checkout__container">
+	<div class="checkout__container" *ngIf="clientUser">
 		<h1 class="checkout__title">Tramitar Pedido</h1>
 
 		<form
@@ -74,7 +74,9 @@
 						pattern="\d*"
 						required
 					/>
-					<span *ngIf="phone.touched && postCode.errors" class="checkout__error"
+					<span
+						*ngIf="postCode.touched && postCode.errors"
+						class="checkout__error"
 						>Debes especificar un código postal de 5 números.</span
 					>
 				</label>

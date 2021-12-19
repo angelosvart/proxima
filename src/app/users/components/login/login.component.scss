@@ -1,0 +1,97 @@
+@import "../../../../assets/styles/main.scss";
+
+.login {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__label {
+		display: block;
+		position: relative;
+	}
+	&__input {
+		display: block;
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+	}
+	&__switch {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+		position: relative;
+	}
+	&__switchLabel {
+		width: 100%;
+		border: 1px solid $color-grey-light;
+		border-radius: $border-radius;
+		height: 2.5rem;
+		padding: 0 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		margin-bottom: 1rem;
+		flex: 1 0 50%;
+		transition: border 0.15s ease-in;
+		&:first-of-type {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border-right: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		&:hover,
+		&.active {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+	}
+	&__inputRadio {
+		display: none;
+	}
+	&__button {
+		width: 100%;
+		margin-top: 2rem;
+		margin-bottom: 1.5rem;
+		&:disabled {
+			cursor: progress;
+		}
+		img {
+			display: none;
+		}
+	}
+	&__register {
+		text-align: center;
+	}
+	&__registerLink {
+		@include textNormalBold();
+	}
+	&__error {
+		@include textErrorSmall();
+		position: absolute;
+		bottom: -1.3rem;
+		&--switch {
+			bottom: -5px;
+		}
+	}
+	&__serverError {
+		@include textErrorSmall();
+		text-align: center;
+		margin-top: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		&__title {
+			margin-bottom: 2rem;
+		}
+		&__container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+	}
+}

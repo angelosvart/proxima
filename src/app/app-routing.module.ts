@@ -1,17 +1,26 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./stores/components/dashboard/dashboard.component";
+import { DashboardComponent } from "./dashboard/components/dashboard/dashboard.component";
 import { CartComponent } from "./orders/components/cart/cart.component";
 import { CheckoutComponent } from "./orders/components/checkout/checkout.component";
 import { OrderCompleteComponent } from "./orders/components/order-complete/order-complete.component";
 import { ProductDetailComponent } from "./products/components/product-detail/product-detail.component";
 import { ProductListComponent } from "./products/components/product-list/product-list.component";
 import { HomeComponent } from "./views/home/home.component";
-import { ProductComponent } from "./stores/components/product/product.component";
+import { DashboardProductComponent } from "./dashboard/components/dashboard-product/dashboard-product.component";
+import { LoginComponent } from "./users/components/login/login.component";
+import { AuthGuard } from "./users/services/auth-guard.service";
+import { RegisterComponent } from "./users/components/register/register.component";
+import { AccountComponent } from "./users/components/account/account.component";
 
 const routes: Routes = [
 	{
 		path: "",
+		redirectTo: "home",
+		pathMatch: "full",
+	},
+	{
+		path: "home",
 		component: HomeComponent,
 	},
 	{
@@ -33,6 +42,7 @@ const routes: Routes = [
 	{
 		path: "checkout",
 		component: CheckoutComponent,
+		canActivate: [AuthGuard],
 	},
 	{
 		path: "order-complete",
@@ -40,11 +50,39 @@ const routes: Routes = [
 	},
 	{
 		path: "dashboard",
-		component: DashboardComponent,
+		canActivate: [AuthGuard],
+		children: [
+			{
+				path: "",
+				component: DashboardComponent,
+			},
+			{
+				path: "product",
+				component: DashboardProductComponent,
+			},
+			{
+				path: "product/:id",
+				component: DashboardProductComponent,
+			},
+		],
 	},
 	{
-		path: "dashboard/product",
-		component: ProductComponent,
+		path: "login",
+		component: LoginComponent,
+	},
+	{
+		path: "register",
+		component: RegisterComponent,
+	},
+	{
+		path: "account",
+		canActivate: [AuthGuard],
+		children: [
+			{
+				path: "",
+				component: AccountComponent,
+			},
+		],
 	},
 ];
 

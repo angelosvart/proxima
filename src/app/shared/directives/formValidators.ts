@@ -17,4 +17,13 @@ export class FormValidators {
 			}
 		};
 	}
+
+	static checkPasswords(): ValidatorFn {
+		return (control: AbstractControl): ValidationErrors | null => {
+			let password = control.get("password").value;
+			let password2 = control.get("password2").value;
+
+			return password === password2 ? null : { notSame: true };
+		};
+	}
 }

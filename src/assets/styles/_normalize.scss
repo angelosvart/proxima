@@ -73,9 +73,20 @@ button {
 			border-color: $color-grey-dark;
 		}
 	}
+	&.danger {
+		@include textNormal();
+		background-color: $color-danger;
+		color: $color-white;
+		border: 1px solid $color-danger;
+		&:hover {
+			background-color: $color-primary-darker;
+			border-color: $color-primary-darker;
+		}
+	}
 	&.loading {
 		background-color: $color-primary-darker;
 		border-color: $color-primary-darker;
+		color: $color-white;
 		cursor: progress;
 		img {
 			display: block;
@@ -167,7 +178,7 @@ main {
 	}
 }
 
-main:not(.home, .productList, [class*="dashboard"]) {
+main:not(.home, .productList, [class*="dashboard"], [class*="account"]) {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {
@@ -178,6 +189,15 @@ main:not(.home, .productList, [class*="dashboard"]) {
 
 main[class*="dashboard"] {
 	padding: 1rem $padding-mobile 7rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		margin: 0 auto;
+		padding: 2rem 0 4rem 3rem;
+	}
+}
+
+main[class*="account"] {
+	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {
 		margin: 0 auto;

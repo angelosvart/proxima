@@ -1,0 +1,197 @@
+<div class="account">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="account__container">
+		<h1 class="account__title">Mi Cuenta</h1>
+
+		<a class="account__link">
+			<span>Historial de Pedidos</span>
+			<img src="../../../../assets//images/icons/chevron-right.svg" />
+		</a>
+
+		<h2 class="account__subtitle">Detalles Personales</h2>
+
+		<p *ngIf="isEditAccount" class="account__mandatory">
+			* Campos obligatorios
+		</p>
+
+		<div class="account__dataContainer" *ngIf="clientUser && !isEditAccount">
+			<div>
+				<p class="account__bold">
+					{{ clientUser.name }} {{ clientUser.lastName }}
+				</p>
+				<p *ngIf="clientUser.address">{{ clientUser.address }}</p>
+				<p *ngIf="clientUser.city">{{ clientUser.city }}</p>
+				<p *ngIf="clientUser.postCode">
+					{{ clientUser.postCode.toString().padStart(5, "0") }}
+				</p>
+			</div>
+
+			<div>
+				<p *ngIf="clientUser.phone">
+					<span class="account__bold">Teléfono: </span> {{ clientUser.phone }}
+				</p>
+				<p>
+					<span class="account__bold">Correo electrónico: </span>
+					{{ clientUser.email }}
+				</p>
+			</div>
+		</div>
+
+		<form
+			*ngIf="isEditAccount"
+			class="account__form"
+			[formGroup]="accountForm"
+			(ngSubmit)="handleForm()"
+		>
+			<label class="account__label">
+				Nombre *
+				<input
+					class="account__input"
+					type="text"
+					formControlName="name"
+					required
+				/>
+				<span *ngIf="name.touched && name.errors" class="account__error">
+					Debes especificar tu nombre.
+				</span>
+			</label>
+			<label class="account__label">
+				Apellidos *
+				<input
+					class="account__input"
+					type="text"
+					formControlName="surname"
+					required
+				/>
+				<span *ngIf="surname.touched && surname.errors" class="account__error">
+					Debes especificar tus apellidos.
+				</span>
+			</label>
+			<label class="account__label">
+				Correo electónico *
+				<input
+					class="account__input"
+					type="email"
+					formControlName="email"
+					required
+				/>
+				<span
+					*ngIf="email.touched && email.errors?.['required']"
+					class="account__error"
+				>
+					Debes especificar tu correo electrónico.
+				</span>
+				<span
+					*ngIf="email.touched && email.errors?.['pattern']"
+					class="account__error"
+				>
+					Debes especificar un correo electrónico en formato válido.
+				</span>
+			</label>
+			<label class="account__label">
+				Teléfono
+				<input
+					class="account__input"
+					type="text"
+					formControlName="phone"
+					min="0"
+					pattern="\d*"
+				/>
+				<span *ngIf="phone.touched && phone.errors" class="account__error"
+					>Debes especificar tu teléfono en formato numérico.</span
+				>
+			</label>
+			<label class="account__label">
+				Dirección
+				<input class="account__input" type="text" formControlName="address" />
+			</label>
+			<label class="account__label">
+				Código Postal *
+				<input
+					class="account__input"
+					type="text"
+					formControlName="postCode"
+					min="0"
+					max="99999"
+					maxlength="5"
+					pattern="\d*"
+					required
+				/>
+				<span *ngIf="postCode.touched && postCode.errors" class="account__error"
+					>Debes especificar un código postal de 5 números.</span
+				>
+			</label>
+			<label class="account__label">
+				Ciudad
+				<input class="account__input" type="text" formControlName="city" />
+			</label>
+			<label class="account__label">
+				Contraseña
+				<input
+					class="account__input"
+					type="password"
+					formControlName="password"
+					minlength="6"
+				/>
+				<span
+					*ngIf="password.touched && password.errors?.['minlength']"
+					class="account__error"
+				>
+					La contraseña debe tener un mínimo de 6 carácteres.
+				</span>
+			</label>
+
+			<label class="account__label hidden" id="password2">
+				Confirma tu contraseña
+				<input
+					class="account__input"
+					type="password"
+					formControlName="password2"
+				/>
+				<span
+					*ngIf="password2.touched && password2.errors?.['required']"
+					class="account__error"
+				>
+					Debes confirmar tu contraseña.
+				</span>
+				<span
+					*ngIf="password.touched && accountForm.errors?.['notSame']"
+					class="account__error"
+				>
+					Las contraseñas deben coincidir.
+				</span>
+			</label>
+			<div class="account__buttonContainer">
+				<button
+					type="button"
+					class="account__button secondary"
+					(click)="isEditAccount = false; this.error = false"
+				>
+					Cancelar
+				</button>
+				<button type="submit" class="account__button primary">
+					<span>Guardar</span>
+					<img src="../../../../assets/images/icons/tail-spin.svg" />
+				</button>
+				<div *ngIf="error" class="account__serverError">
+					Ha ocurrido un error y no se han guardado los cambios. Por favor
+					inténtalo nuevamente.
+				</div>
+			</div>
+		</form>
+
+		<button
+			*ngIf="!isEditAccount"
+			class="account__button primary"
+			(click)="initForm()"
+		>
+			Editar detalles
+		</button>
+
+		<a class="account__link">
+			<span>Cerrar Sesión</span>
+			<img src="../../../../assets//images/icons/chevron-right.svg" />
+		</a>
+	</main>
+</div>

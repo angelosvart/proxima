@@ -2,13 +2,11 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
-import { getCategories } from "../../actions/categories.actions";
 import { cancelGetProducts, getProducts } from "../../actions/products.actions";
 import { ProductState } from "../../reducers/products.reducer";
 import { Title } from "@angular/platform-browser";
 import { CategoryState } from "../../reducers/categories.reducer";
 import { Subscription } from "rxjs";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
 	selector: "app-product-list",
@@ -45,8 +43,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.postCode = localStorage.getItem("postCode");
 
-		if (!this.postCode) {
+		if (!this.postCode || this.postCode === null) {
 			this.router.navigate(["/"]);
+			return;
 		}
 
 		this.router.navigate([], {
@@ -74,8 +73,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.productsObservable.unsubscribe();
-		this.categoriesObservable.unsubscribe();
+		if (this.productsObservable) this.productsObservable.unsubscribe();
+		if (this.categoriesObservable) this.categoriesObservable.unsubscribe();
 	}
 
 	routeHandle() {

@@ -5,7 +5,8 @@ import * as cartReducers from "./orders/reducers/cart.reducers";
 import * as paymentMethodsReducers from "./orders/reducers/paymentMethods.reducers";
 import * as deliveryMethodsReducers from "./orders/reducers/deliveryMethods.reducers";
 import * as orderReducers from "./orders/reducers/order.reducers";
-import * as storesReducers from "./stores/reducers/stores.reducers";
+import * as dashboardReducers from "./dashboard/reducers/dashboard.reducers";
+import * as usersReducers from "./users/reducers/users.reducer";
 
 export interface AppState {
 	products: productsReducers.ProductState;
@@ -14,7 +15,8 @@ export interface AppState {
 	paymentMethods: paymentMethodsReducers.PaymentMethodsState;
 	deliveryMethods: deliveryMethodsReducers.DeliveryMethodsState;
 	order: orderReducers.OrderState;
-	stores: storesReducers.StoresState;
+	dashboard: dashboardReducers.DashboardState;
+	users: usersReducers.UserState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -24,5 +26,6 @@ export const appReducers: ActionReducerMap<AppState> = {
 	paymentMethods: paymentMethodsReducers.paymentMethodsReducer,
 	deliveryMethods: deliveryMethodsReducers.deliveryMethodsReducer,
 	order: orderReducers.orderReducer,
-	stores: storesReducers.storesReducer,
+	dashboard: dashboardReducers.dashboardReducer,
+	users: usersReducers.userReducer,
 };

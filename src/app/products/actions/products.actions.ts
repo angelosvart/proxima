@@ -47,3 +47,51 @@ export const createProductFailure = createAction(
 	"[PRODUCTS] Create product failure",
 	props<{ payload: any }>()
 );
+
+export const getProductsByStoreById = createAction(
+	"[PRODUCTS] Get products by store by ID",
+	props<{ storeId: string }>()
+);
+
+export const getProductsByStoreByIdSuccess = createAction(
+	"[PRODUCTS] Get products by store ID Success",
+	props<{ products: Product[] }>()
+);
+
+export const getProductsByStoreByIdFailure = createAction(
+	"[PRODUCTS] Get products by store ID failure",
+	props<{ payload: any }>()
+);
+
+export const editProduct = createAction(
+	"[PRODUCTS] Edit product",
+	props<{ productId: string; productData: FormData }>()
+);
+
+export const editProductSuccess = createAction(
+	"[PRODUCTS] Edit product Success",
+	props<{ product: Product }>()
+);
+
+export const editProductFailure = createAction(
+	"[PRODUCTS] Edit product failure",
+	props<{ payload: any }>()
+);
+
+export const cleanCreatedProduct = createAction(
+	"[PRODUCTS] Clean created product"
+);
+
+export const deleteProduct = createAction(
+	"[PRODUCTS] Delete product",
+	props<{ productId: string }>()
+);
+
+export const deleteProductSuccess = createAction(
+	"[PRODUCTS] Delete product Success"
+);
+
+export const deleteProductFailure = createAction(
+	"[PRODUCTS] Delete product failure",
+	props<{ payload: any }>()
+);

@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 		this.postCode = localStorage.getItem("postCode");
 
 		if (!this.postCode) {
-			this.router.navigate(["/"]);
+			this.router.navigate(["/home"]);
 		}
 
 		this.categoriesObservable = this.store

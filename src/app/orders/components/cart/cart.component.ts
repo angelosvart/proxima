@@ -28,8 +28,10 @@ export class CartComponent implements OnInit, OnDestroy {
 	public cartCount: number;
 	public subTotal: number;
 	public postCode: string;
+	public isUserLoggedIn: boolean = false;
 	private cartObservable: Subscription;
 	private productsObservable: Subscription;
+	private usersObservable: Subscription;
 
 	constructor(
 		private store: Store<AppState>,
@@ -59,6 +61,12 @@ export class CartComponent implements OnInit, OnDestroy {
 				}
 			});
 
+		this.usersObservable = this.store.select("users").subscribe((response) => {
+			if (response.clientUser && response.loggedIn) {
+				this.isUserLoggedIn = true;
+			}
+		});
+
 		this.titleService.setTitle(`Cesta de Compras | Próxima`);
 
 		this.getProductData();
@@ -67,6 +75,7 @@ export class CartComponent implements OnInit, OnDestroy {
 	ngOnDestroy() {
 		this.cartObservable.unsubscribe();
 		this.productsObservable.unsubscribe();
+		this.usersObservable.unsubscribe();
 	}
 
 	calculateCartCount() {
@@ -143,5 +152,15 @@ export class CartComponent implements OnInit, OnDestroy {
 		}, 1000);
 
 		this.store.dispatch(deleteFromCart({ productId }));
+	}
+
+	checkLoggedUser() {
+		if (this.isUserLoggedIn) {
+			this.router.navigate(["/checkout"]);
+		} else {
+			this.router.navigate(["/login"], {
+				queryParams: { redirectTo: "/checkout" },
+			});
+		}
 	}
 }

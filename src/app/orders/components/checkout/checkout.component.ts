@@ -6,6 +6,7 @@ import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { getProducts } from "src/app/products/actions/products.actions";
+import { ClientUser } from "src/app/users/models/ClientUser";
 import { deleteFromCart } from "../../actions/cart.actions";
 import { getDeliveryMethods } from "../../actions/deliveryMethods.actions";
 import { createOrder } from "../../actions/order.actions";
@@ -21,9 +22,7 @@ import { PaymentMethod } from "../../models/PaymentMethod";
 	styleUrls: ["./checkout.component.scss"],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
-	//TODO user states
-	public userId: string = "6185527cef2a6aca4d36d191";
-
+	public clientUser: ClientUser;
 	public cart: CartItem[];
 	public products: any[] = [];
 	public productIds: string[] = [];
@@ -32,7 +31,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	public deliveryFee: number = 0;
 	public error: boolean = false;
 	public isOrderSuccess: boolean = false;
-	public userPostCode: string;
 
 	public checkoutForm: FormGroup;
 	public name: FormControl;
@@ -52,6 +50,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	private deliveryMethodsObservable: Subscription;
 	private ordersObservable: Subscription;
 	private paymentMethodsObservable: Subscription;
+	private usersObservable: Subscription;
 
 	constructor(
 		private store: Store<AppState>,
@@ -60,7 +59,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.userPostCode = localStorage.getItem("postCode");
+		this.usersObservable = this.store.select("users").subscribe((response) => {
+			if (response.clientUser) {
+				this.clientUser = response.clientUser;
+				this.getProductData();
+				this.initForm();
+			}
+		});
 
 		this.cartObservable = this.store.select("cart").subscribe((response) => {
 			this.cart = response?.cart;
@@ -80,7 +85,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 				this.products = response?.products;
 				this.subTotal = 0;
 				response?.products?.forEach((product) => {
-					this.cart.forEach((item) => {
+					this.cart?.forEach((item) => {
 						if (product._id === item.productId) {
 							this.subTotal = this.subTotal + product.price * item.quantity;
 						}
@@ -103,7 +108,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		this.ordersObservable = this.store.select("order").subscribe((response) => {
 			if (response.selectedOrder) {
 				this.isOrderSuccess = true;
-				this.cart.forEach((item) => {
+				this.cart?.forEach((item) => {
 					this.store.dispatch(deleteFromCart({ productId: item.productId }));
 				});
 				this.router.navigate(["/order-complete"], {
@@ -117,11 +122,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 		this.titleService.setTitle(`Tramitar Pedido | Próxima`);
 
-		this.getProductData();
 		this.store.dispatch(getPaymentMethods());
 		this.store.dispatch(getDeliveryMethods());
-
-		this.initForm();
 	}
 
 	ngOnDestroy() {
@@ -130,21 +132,24 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		this.deliveryMethodsObservable.unsubscribe();
 		this.ordersObservable.unsubscribe();
 		this.paymentMethodsObservable.unsubscribe();
+		this.usersObservable.unsubscribe();
 		this.isOrderSuccess = false;
 	}
 
 	getProductData() {
-		this.productIds = [];
-		this.cart.forEach((product) => {
-			this.productIds.push(product.productId);
-		});
-		if (this.productIds.length) {
-			this.store.dispatch(
-				getProducts({
-					userPostCode: this.userPostCode,
-					filters: { _id: this.productIds },
-				})
-			);
+		if (this.clientUser) {
+			this.productIds = [];
+			this.cart?.forEach((product) => {
+				this.productIds.push(product.productId);
+			});
+			if (this.productIds.length) {
+				this.store.dispatch(
+					getProducts({
+						userPostCode: this.clientUser.postCode.toString(),
+						filters: { _id: this.productIds },
+					})
+				);
+			}
 		}
 	}
 
@@ -173,7 +178,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 			paymentMethod: this.paymentMethod,
 		});
 
+		if (this.clientUser) this.setFormValues();
+
 		this.onChanges();
+	}
+
+	setFormValues() {
+		this.checkoutForm?.get("name").setValue(this.clientUser.name);
+		this.checkoutForm?.get("surname").setValue(this.clientUser.lastName);
+		this.checkoutForm?.get("address").setValue(this.clientUser.address);
+		this.checkoutForm?.get("city").setValue(this.clientUser.city);
+		this.checkoutForm
+			?.get("postCode")
+			.setValue(this.clientUser.postCode.toString().padStart(5, "0"));
+		this.checkoutForm?.get("phone").setValue(this.clientUser.phone);
 	}
 
 	onChanges() {
@@ -277,7 +295,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 			deliveryAddress: deliveryAddress,
 			products: [...this.cart],
 			deliveryFee: this.deliveryFee,
-			user: this.userId,
+			user: this.clientUser._id,
 		};
 
 		if (paymentMethod.type === "ONLINE_CARD_PAYMENT") {

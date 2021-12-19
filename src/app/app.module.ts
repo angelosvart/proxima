@@ -10,16 +10,17 @@ import { EffectsModule } from "@ngrx/effects";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { appReducers } from "./app.reducer";
-import { LoginModule } from "./users/login.module";
+import { LoginModule } from "./users/users.module";
 import { HomeComponent } from "./views/home/home.component";
 import { ProductsModule } from "./products/products.module";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { PostcodeSearchComponent } from "./shared/components/postcode-search/postcode-search.component";
 import { HeaderComponent } from "./views/header/header.component";
 import { FooterComponent } from "./views/footer/footer.component";
 import { RouterModule } from "@angular/router";
 import { OrdersModule } from "./orders/orders.module";
-import { StoresModule } from "./stores/stores.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
+import { JwtInterceptor } from "./users/services/jwt.interceptor";
 
 @NgModule({
 	declarations: [
@@ -35,7 +36,6 @@ import { StoresModule } from "./stores/stores.module";
 		ReactiveFormsModule,
 		StoreModule.forRoot(appReducers),
 		EffectsModule.forRoot(effects),
-		HttpClientModule,
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
@@ -43,10 +43,15 @@ import { StoresModule } from "./stores/stores.module";
 		LoginModule,
 		ProductsModule,
 		OrdersModule,
-		RouterModule,
-		StoresModule,
+		DashboardModule,
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: JwtInterceptor,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

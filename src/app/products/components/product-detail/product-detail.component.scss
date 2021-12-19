@@ -79,6 +79,9 @@
 			display: none;
 		}
 	}
+	&__details {
+		white-space: pre-wrap;
+	}
 	&__detailsTitle {
 		@include textSubtitleBold();
 		margin-bottom: 1rem;

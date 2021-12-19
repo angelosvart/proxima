@@ -1,13 +1,14 @@
-<header class="header" *ngIf="router.url !== '/'">
+<header class="header" *ngIf="router.url !== '/home'">
 	<img
 		src="../../../assets/images/icons/menu-hamburger.svg"
 		alt="Ver el menú"
 		class="header__menuIcon"
 		(click)="openModal()"
+		*ngIf="!router.url.includes('login') && !router.url.includes('register')"
 	/>
 
 	<a class="header__logo" routerLink="/">
-		<img src="../../../assets/images/proxima-logo.svg" alt="Proxima Stores" />
+		<img src="../../../assets/images/proxima-logo.svg" alt="Próxima" />
 	</a>
 
 	<nav class="header__navigation">
@@ -21,6 +22,7 @@
 		</div>
 		<ul
 			class="header__categories"
+			*ngIf="!router.url.includes('login') && !router.url.includes('register')"
 			[class.dashboard]="router.url.includes('dashboard')"
 		>
 			<ng-container *ngIf="!router.url.includes('dashboard')">
@@ -85,12 +87,13 @@
 				</li>
 			</ng-container>
 			<li class="header__category mobileOnly" (click)="closeModal()">
-				<a href=""
+				<a routerLink="/account"
 					>Mi Cuenta
 					<img
 						class="header__userIcon"
 						alt="Mi cuenta"
 						src="../../../assets/images/icons/user.svg"
+						routerLink="/account"
 				/></a>
 			</li>
 			<li class="header__category mobileOnly" (click)="closeModal()">
@@ -99,14 +102,22 @@
 		</ul>
 	</nav>
 
-	<div class="header__actions" *ngIf="!router.url.includes('dashboard')">
-		<span class="header__actionContainer">
+	<div
+		class="header__actions"
+		*ngIf="
+			!router.url.includes('dashboard') &&
+			!router.url.includes('login') &&
+			!router.url.includes('register')
+		"
+	>
+		<a class="header__actionContainer" routerLink="/account">
 			<img
 				class="header__userIcon"
 				alt="Mi cuenta"
 				src="../../../assets/images/icons/user.svg"
+				routerLink="/account"
 			/>
-		</span>
+		</a>
 
 		<a
 			routerLink="/cart"
@@ -124,14 +135,20 @@
 		</a>
 	</div>
 
-	<div *ngIf="router.url.includes('dashboard')">
-		<span class="header__actionContainer">
+	<div
+		*ngIf="
+			router.url.includes('dashboard') ||
+			router.url.includes('login') ||
+			router.url.includes('register')
+		"
+	>
+		<a class="header__actionContainer" routerLink="/account">
 			<img
 				class="header__userIcon"
 				alt="Mi cuenta"
 				src="../../../assets/images/icons/user.svg"
 			/>
-		</span>
+		</a>
 	</div>
 
 	<a routerLink="/help" class="header__support">Atención al Cliente</a>

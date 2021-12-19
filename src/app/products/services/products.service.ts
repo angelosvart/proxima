@@ -38,4 +38,21 @@ export class ProductsService {
 	createProduct(productData: FormData): Observable<Product> {
 		return this.http.post<Product>(this.productsApi, productData);
 	}
+
+	getProductsByStoreId(storeId: string): Observable<Product[]> {
+		return this.http
+			.get<Product[]>(`${this.productsApi}/store/${storeId}`)
+			.pipe();
+	}
+
+	editProduct(productId: string, productData: FormData): Observable<Product> {
+		return this.http.put<Product>(
+			`${this.productsApi}/${productId}`,
+			productData
+		);
+	}
+
+	deleteProduct(productId: string): Observable<any> {
+		return this.http.delete<Product>(`${this.productsApi}/${productId}`);
+	}
 }

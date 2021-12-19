@@ -1,0 +1,123 @@
+@import "../../../../assets/styles/main.scss";
+
+.register {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__label {
+		display: block;
+		position: relative;
+	}
+	&__input {
+		display: block;
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+	}
+	&__switch {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+		position: relative;
+	}
+	&__switchLabel {
+		width: 100%;
+		border: 1px solid $color-grey-light;
+		border-radius: $border-radius;
+		height: 2.5rem;
+		padding: 0 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		flex: 1 0 50%;
+		transition: border 0.15s ease-in;
+		&:first-of-type {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border-right: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		&:hover,
+		&.active {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+	}
+	&__inputRadio {
+		display: none;
+	}
+	&__button {
+		width: 100%;
+		&:disabled {
+			cursor: progress;
+		}
+		img {
+			display: none;
+		}
+	}
+	&__mandatoryText {
+		@include textSmall();
+		font-weight: 700;
+		text-align: right;
+		margin-bottom: 0.5rem;
+	}
+	&__error {
+		@include textErrorSmall();
+		position: absolute;
+		bottom: -1rem;
+		background-color: $color-white;
+		z-index: 1;
+		width: 100%;
+		line-height: normal;
+	}
+	&__hint {
+		@include textHint();
+		position: absolute;
+		bottom: -1rem;
+		line-height: normal;
+	}
+	&__hintTop {
+		@include textHint();
+		line-height: normal;
+		margin-bottom: 0.5rem;
+	}
+	&__serverError {
+		@include textErrorSmall();
+		text-align: center;
+	}
+	&__boldLabel {
+		@include textNormalBold();
+		margin-bottom: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		&__title {
+			margin-bottom: 2rem;
+		}
+		&__container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		&__switch {
+			margin-bottom: 1.5rem;
+		}
+		&__button {
+			margin: 2rem auto 0 auto;
+			width: 50%;
+		}
+		&__errors {
+			bottom: 0.5rem;
+		}
+	}
+}
+
+.hidden {
+	display: none;
+}

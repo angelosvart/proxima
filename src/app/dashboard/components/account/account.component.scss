@@ -1,0 +1,137 @@
+@import "../../../../assets/styles/main.scss";
+
+.account {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__link {
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid $color-grey-light;
+		&:last-child {
+			margin-top: 2.5rem;
+		}
+	}
+	&__subtitle {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		@include textSubtitleBold();
+	}
+	&__bold {
+		@include textNormalBold();
+	}
+	&__dataContainer {
+		margin-bottom: 1rem;
+	}
+	&__buttonContainer {
+		margin-bottom: 2.5rem;
+	}
+	&__button {
+		width: 50%;
+		&[type="submit"] {
+			&.loading {
+				img {
+					display: block;
+				}
+			}
+			img {
+				display: none;
+			}
+		}
+	}
+	&__label {
+		display: block;
+		position: relative;
+	}
+	&__input {
+		display: block;
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+	}
+	&__error {
+		@include textErrorSmall();
+		position: absolute;
+		bottom: -1rem;
+		background-color: $color-white;
+		z-index: 1;
+		width: 100%;
+		line-height: normal;
+	}
+	&__serverError {
+		@include textErrorSmall();
+		text-align: center;
+	}
+	&__mandatory {
+		@include textSmall();
+		font-weight: 700;
+		text-align: right;
+		margin-bottom: 0.5rem;
+	}
+	&__buttonContainer {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 1rem;
+		button {
+			width: 100%;
+		}
+	}
+	&__serverError {
+		@include textErrorSmall();
+		grid-column: 1 / -1;
+		text-align: center;
+	}
+	@media (min-width: $desktop) {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 0 $padding-desktop;
+		&__container {
+			margin-left: 1.5rem;
+		}
+		&__title {
+			margin-bottom: 1.5rem;
+		}
+		&__link {
+			display: none;
+		}
+		&__subtitle {
+			margin-top: 0;
+			margin-bottom: 0.5rem;
+		}
+		&__dataContainer {
+			border: 1px solid $color-grey-light;
+			border-radius: $border-radius;
+			padding: 1rem;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 1rem;
+		}
+		&__button {
+			width: 40%;
+			margin-bottom: 0;
+		}
+		&__form {
+			border: 1px solid $color-grey-light;
+			padding: 1.5rem;
+			border-radius: $border-radius;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 1.5rem;
+		}
+		&__buttonContainer {
+			grid-row: 5;
+			grid-column: 2;
+			margin-bottom: 0;
+		}
+		&__mandatory {
+			margin-bottom: 0;
+		}
+		&__error {
+			bottom: 0.5rem;
+		}
+	}
+}

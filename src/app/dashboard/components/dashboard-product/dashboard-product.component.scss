@@ -1,0 +1,230 @@
+@import "../../../../assets/styles/main.scss";
+
+.dashboardProduct {
+	&__title {
+		@include titleH1();
+		margin-bottom: 1rem;
+	}
+	&__imageUploader {
+		position: relative;
+	}
+	&__image {
+		width: 10rem;
+		height: 8rem;
+		margin-bottom: 1rem;
+		display: block;
+		object-fit: cover;
+		border-radius: $border-radius;
+	}
+	&__button {
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+		img {
+			margin-left: 0.5rem;
+		}
+		&[type="submit"] {
+			margin-bottom: 0;
+			margin-top: 0.5rem;
+			&.loading {
+				img {
+					display: block;
+				}
+			}
+			&:disabled {
+				cursor: progress;
+			}
+			img {
+				display: none;
+			}
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+		&.secondary {
+			margin-top: 1rem;
+		}
+	}
+	&__buttonDelete {
+		margin-top: 1rem;
+		width: 100%;
+		&:disabled {
+			cursor: progress;
+		}
+		img {
+			display: none;
+		}
+	}
+	&__label {
+		display: block;
+		position: relative;
+		&.hidden {
+			display: none;
+		}
+	}
+	&__input {
+		display: block;
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+		&--select {
+			&:invalid {
+				color: $color-grey-light;
+			}
+		}
+	}
+	&__switch {
+		display: flex;
+		flex-wrap: wrap;
+		position: relative;
+	}
+	&__switchLabel {
+		width: 100%;
+		border: 1px solid $color-grey-light;
+		border-radius: $border-radius;
+		height: 2.5rem;
+		padding: 0 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		margin-bottom: 1.5rem;
+		flex: 1 0 50%;
+		transition: border 0.15s ease-in;
+		&:first-of-type {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border-right: 0;
+		}
+		&:last-of-type {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+		&:hover,
+		&.active {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+	}
+	&__inputRadio {
+		display: none;
+	}
+	&__error {
+		@include textErrorSmall();
+		position: absolute;
+		bottom: -1rem;
+		background-color: $color-white;
+		z-index: 1;
+		width: 100%;
+		line-height: normal;
+		&--switch {
+			bottom: 8px;
+		}
+	}
+	&__hint {
+		@include textHint();
+		position: absolute;
+		bottom: -1rem;
+		line-height: normal;
+	}
+	&__serverError {
+		@include textErrorSmall();
+		text-align: center;
+		margin-top: 0.5rem;
+	}
+	@media (min-width: $desktop) {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 0 $padding-desktop;
+		&__container {
+			display: grid;
+			grid-column-gap: 3.3rem;
+			align-items: start;
+			grid-template-columns: 20rem 1fr;
+			grid-template-areas:
+				"title title"
+				"image form";
+		}
+		&__title {
+			margin-bottom: 2rem;
+			grid-area: title;
+		}
+		&__imageUploader {
+			grid-area: image;
+		}
+		&__image {
+			width: 20rem;
+			height: 16rem;
+			margin-bottom: 1rem;
+		}
+		&__form {
+			grid-area: form;
+		}
+		&__error {
+			&--image {
+				bottom: 0.5rem;
+			}
+		}
+		&__hint {
+			&--image {
+				bottom: 0.5rem;
+			}
+		}
+	}
+}
+
+.deleteOverlay {
+	height: 0;
+	opacity: 0;
+	transition: opacity 0.2s ease-in;
+	&__container {
+		background-color: $color-white;
+		box-shadow: $shadow;
+		padding: 1rem;
+		margin: 0 1rem;
+		display: none;
+	}
+	&__title {
+		@include textNormalBold();
+		margin-bottom: 2rem;
+	}
+	&__icon {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 0.5rem;
+		img {
+			cursor: pointer;
+			transition: filter 0.15s ease-in;
+			&:hover {
+				filter: $filter-hover-svg;
+			}
+		}
+	}
+	&__buttonContainer {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 1rem;
+	}
+	&.openModal {
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		opacity: 1;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.4);
+		transition: opacity 0.2s ease-in;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		& > div {
+			display: block;
+		}
+	}
+}

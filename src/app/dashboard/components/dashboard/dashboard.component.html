@@ -1,0 +1,26 @@
+<div class="dashboard">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="dashboard__container" *ngIf="storeUser">
+		<h1 class="dashboard__title">Dashboard de {{ storeUser.name }}</h1>
+		<button routerLink="/dashboard/product" class="dashboard__button primary">
+			Añadir Producto
+			<img src="../../../../assets/images/icons/plus-circle.svg" />
+		</button>
+		<p class="dashboard__info" *ngIf="storeProducts?.length">
+			Para modificar o eliminar un producto, haz clic sobre el mismo.
+		</p>
+
+		<section class="dashboard__productGrid">
+			<div class="dashboard__emptyResults" *ngIf="!storeProducts?.length">
+				¡Todavía no has añadido ningún producto! Empieza a añadir productos
+				haciendo clic en "Añadir Producto".
+			</div>
+			<ng-container *ngFor="let product of storeProducts">
+				<app-product-card [product]="product"></app-product-card>
+			</ng-container>
+		</section>
+	</main>
+
+	<app-sticky-menu></app-sticky-menu>
+</div>

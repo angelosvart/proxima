@@ -1,0 +1,263 @@
+<main class="register">
+	<div class="register__container">
+		<h1 class="register__title">Crear Cuenta</h1>
+		<form
+			class="register__form"
+			[formGroup]="registerForm"
+			(ngSubmit)="handleForm()"
+		>
+			<div class="register__switch">
+				<label class="register__switchLabel">
+					<input
+						class="register__inputRadio"
+						name="userType"
+						type="radio"
+						formControlName="userType"
+						value="user"
+					/>
+					Cliente
+				</label>
+				<label class="register__switchLabel">
+					<input
+						class="register__inputRadio"
+						name="userType"
+						type="radio"
+						formControlName="userType"
+						value="store"
+					/>
+					Empresa
+				</label>
+				<span
+					*ngIf="userType.touched && userType.errors"
+					class="register__error"
+					>Debes especificar un tipo de usuario.</span
+				>
+			</div>
+
+			<p class="register__mandatoryText">* Campos obligatorios</p>
+
+			<fieldset class="clientUser">
+				<label class="register__label">
+					Nombre *
+					<input
+						class="register__input"
+						type="text"
+						formControlName="name"
+						required
+					/>
+					<span *ngIf="name.touched && name.errors" class="register__error">
+						Debes especificar tu nombre.
+					</span>
+				</label>
+				<label class="register__label">
+					Apellidos *
+					<input
+						class="register__input"
+						type="text"
+						formControlName="surname"
+						required
+					/>
+					<span
+						*ngIf="surname.touched && surname.errors"
+						class="register__error"
+					>
+						Debes especificar tus apellidos.
+					</span>
+				</label>
+			</fieldset>
+
+			<fieldset class="storeUser hidden">
+				<label class="register__label">
+					Nombre de la Empresa *
+					<input
+						class="register__input"
+						type="text"
+						formControlName="storeName"
+						required
+					/>
+					<span
+						*ngIf="storeName.touched && storeName.errors"
+						class="register__error"
+					>
+						Debes especificar el nombre de tu empresa.
+					</span>
+				</label>
+				<label class="register__label">
+					Persona de contacto *
+					<input
+						class="register__input"
+						type="text"
+						formControlName="contactName"
+						required
+					/>
+					<span
+						*ngIf="contactName.touched && contactName.errors"
+						class="register__error"
+					>
+						Debes especificar tus apellidos.
+					</span>
+				</label>
+			</fieldset>
+
+			<label class="register__label">
+				Correo electónico *
+				<input
+					class="register__input"
+					type="email"
+					formControlName="email"
+					required
+				/>
+				<span
+					*ngIf="email.touched && email.errors?.['required']"
+					class="register__error"
+				>
+					Debes especificar tu correo electrónico.
+				</span>
+				<span
+					*ngIf="email.touched && email.errors?.['pattern']"
+					class="register__error"
+				>
+					Debes especificar un correo electrónico en formato válido.
+				</span>
+			</label>
+
+			<label class="register__label">
+				Teléfono
+				<input
+					class="register__input"
+					type="text"
+					formControlName="phone"
+					min="0"
+					pattern="\d*"
+				/>
+				<span *ngIf="phone.touched && phone.errors" class="register__error">
+					Debes especificar tu teléfono en formáto numérico.
+				</span>
+			</label>
+
+			<label class="register__label">
+				Dirección
+				<input class="register__input" type="text" formControlName="address" />
+				<span *ngIf="address.touched && address.errors" class="register__error">
+					Debes especificar la dirección de la tienda.
+				</span>
+			</label>
+
+			<label class="register__label">
+				Código Postal *
+				<input
+					class="register__input"
+					type="text"
+					formControlName="postCode"
+					min="0"
+					max="99999"
+					maxlength="5"
+					pattern="\d*"
+					required
+				/>
+				<span
+					*ngIf="postCode.touched && postCode.errors"
+					class="register__error"
+				>
+					Debes especificar un código postal de 5 números.
+				</span>
+				<span class="register__hint">
+					Te mostraremos productos de tus tiendas de proximidad.
+				</span>
+			</label>
+
+			<label class="register__label">
+				Ciudad
+				<input class="register__input" type="text" formControlName="city" />
+			</label>
+
+			<label class="register__label">
+				Contraseña *
+				<input
+					class="register__input"
+					type="password"
+					formControlName="password"
+					minlength="6"
+					required
+				/>
+				<span
+					*ngIf="password.touched && password.errors?.['required']"
+					class="register__error"
+				>
+					Debes especificar una contraseña.
+				</span>
+				<span
+					*ngIf="password.touched && password.errors?.['minlength']"
+					class="register__error"
+				>
+					La contraseña debe tener un mínimo de 6 carácteres.
+				</span>
+			</label>
+
+			<label class="register__label">
+				Confirma tu contraseña *
+				<input
+					class="register__input"
+					type="password"
+					formControlName="password2"
+					required
+				/>
+				<span
+					*ngIf="password2.touched && password2.errors?.['required']"
+					class="register__error"
+				>
+					Debes confirmar tu contraseña.
+				</span>
+				<span
+					*ngIf="password.touched && registerForm.errors?.['notSame']"
+					class="register__error"
+				>
+					Las contraseñas deben coincidir.
+				</span>
+			</label>
+
+			<fieldset class="storeUser hidden">
+				<label class="register__label">
+					<div>
+						<p class="register__boldLabel">
+							Códigos postales a los cuales venderás productos, separados por
+							una coma *
+						</p>
+						<p class="register__hintTop">
+							De esta manera los clientes en las cercanías de tu tienda podrán
+							ver los productos que añadas a tu tienda online. Podrás siempre
+							editar estos códigos postales en la sección “Mi Cuenta”. Ej.
+							“08028,08029,08030”.
+						</p>
+					</div>
+
+					<textarea
+						class="register__input"
+						type="text"
+						formControlName="postCodesServing"
+						required
+					>
+					</textarea>
+					<span
+						*ngIf="postCodesServing.touched && postCodesServing.errors"
+						class="register__error"
+					>
+						Códigos postales de 5 dígitos sin espacios separados por coma.
+					</span>
+				</label>
+			</fieldset>
+
+			<div *ngIf="error" class="register__serverError">
+				{{ errorMessage }}
+			</div>
+			<button
+				class="register__button primary"
+				type="submit"
+				(click)="handleForm()"
+			>
+				<span>Crear Cuenta</span>
+				<img src="../../../../assets/images/icons/tail-spin.svg" />
+			</button>
+		</form>
+	</div>
+</main>
