@@ -39,5 +39,19 @@ export class OrderEffects {
 		)
 	);
 
+	getOrders$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(OrderActions.getOrders),
+			mergeMap(() =>
+				this.orderService.getOrders().pipe(
+					map((orders) => OrderActions.getOrdersSuccess({ orders: orders })),
+					catchError((error) =>
+						of(OrderActions.getOrdersFailure({ payload: error }))
+					)
+				)
+			)
+		)
+	);
+
 	constructor(private actions$: Actions, private orderService: OrderService) {}
 }

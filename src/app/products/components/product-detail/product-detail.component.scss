@@ -72,8 +72,11 @@
 	&__button {
 		width: 100%;
 		margin-bottom: 2rem;
-		&:disabled {
+		&.primary:disabled {
 			cursor: progress;
+		}
+		&.secondary:disabled {
+			cursor: not-allowed;
 		}
 		img {
 			display: none;

@@ -12,6 +12,8 @@ import { LoginComponent } from "./users/components/login/login.component";
 import { AuthGuard } from "./users/services/auth-guard.service";
 import { RegisterComponent } from "./users/components/register/register.component";
 import { AccountComponent } from "./users/components/account/account.component";
+import { DashboardAccountComponent } from "./dashboard/components/dashboard-account/dashboard-account.component";
+import { OrdersComponent } from "./users/components/orders/orders.component";
 
 const routes: Routes = [
 	{
@@ -47,6 +49,7 @@ const routes: Routes = [
 	{
 		path: "order-complete",
 		component: OrderCompleteComponent,
+		canActivate: [AuthGuard],
 	},
 	{
 		path: "dashboard",
@@ -63,6 +66,10 @@ const routes: Routes = [
 			{
 				path: "product/:id",
 				component: DashboardProductComponent,
+			},
+			{
+				path: "account",
+				component: DashboardAccountComponent,
 			},
 		],
 	},
@@ -81,6 +88,10 @@ const routes: Routes = [
 			{
 				path: "",
 				component: AccountComponent,
+			},
+			{
+				path: "orders",
+				component: OrdersComponent,
 			},
 		],
 	},

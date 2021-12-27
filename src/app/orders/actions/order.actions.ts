@@ -31,4 +31,16 @@ export const getOrderByIdFailure = createAction(
 	props<{ payload: any }>()
 );
 
+export const getOrders = createAction("[ORDERS] Get orders");
+
+export const getOrdersSuccess = createAction(
+	"[ORDERS] Get orders Success",
+	props<{ orders: Order[] }>()
+);
+
+export const getOrdersFailure = createAction(
+	"[ORDERS] Get orders failure",
+	props<{ payload: any }>()
+);
+
 export const resetSelectedOrder = createAction("[ORDERS] Reset selected order");

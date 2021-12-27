@@ -90,3 +90,18 @@ export const editAccountClientUserFailure = createAction(
 	"[USERS] Edit account client user Failure",
 	props<{ payload: any }>()
 );
+
+export const editAccountStoreUser = createAction(
+	"[USERS] Edit account store user",
+	props<{ storeUser: StoreUser }>()
+);
+
+export const editAccountStoreUserSuccess = createAction(
+	"[USERS] Edit account store user Success",
+	props<{ storeUser: StoreUser }>()
+);
+
+export const editAccountStoreUserFailure = createAction(
+	"[USERS] Edit account store user Failure",
+	props<{ payload: any }>()
+);

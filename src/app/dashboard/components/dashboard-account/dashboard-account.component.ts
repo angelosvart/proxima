@@ -1,31 +1,35 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators, Form } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { FormValidators } from "src/app/shared/directives/formValidators";
-import { editAccountClientUser, logout } from "../../actions/users.actions";
-import { ClientUser } from "../../models/ClientUser";
+import {
+	editAccountStoreUser,
+	logout,
+} from "src/app/users/actions/users.actions";
+import { StoreUser } from "src/app/users/models/StoreUser";
 
 @Component({
-	selector: "app-account",
-	templateUrl: "./account.component.html",
-	styleUrls: ["./account.component.scss"],
+	selector: "app-dashboard-account",
+	templateUrl: "./dashboard-account.component.html",
+	styleUrls: ["./dashboard-account.component.scss"],
 })
-export class AccountComponent implements OnInit, OnDestroy {
-	private usersObservable: Subscription;
-	public clientUser: ClientUser;
+export class DashboardAccountComponent implements OnInit, OnDestroy {
+	private storesObservable: Subscription;
+	public storeUser: StoreUser;
 
 	public accountForm: FormGroup;
 	public name: FormControl;
-	public surname: FormControl;
+	public contactName: FormControl;
 	public email: FormControl;
 	public phone: FormControl;
 	public address: FormControl;
 	public postCode: FormControl;
 	public city: FormControl;
+	public postCodesServing: FormControl;
 	public password: FormControl;
 	public password2: FormControl;
 
@@ -39,16 +43,12 @@ export class AccountComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.usersObservable = this.store.select("users").subscribe((response) => {
-			if (response.clientUser) {
-				this.clientUser = response.clientUser;
-				localStorage.setItem(
-					"postCode",
-					response.clientUser.postCode.toString().padStart(5, "0")
-				);
-			}
+		this.storesObservable = this.store.select("users").subscribe((response) => {
 			if (response.storeUser) {
-				this.router.navigate(["/dashboard/account"]);
+				this.storeUser = response.storeUser;
+			}
+			if (response.clientUser) {
+				this.router.navigate(["/account"]);
 			}
 
 			if (response.pending === false) {
@@ -64,38 +64,52 @@ export class AccountComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.usersObservable.unsubscribe();
+		this.storesObservable.unsubscribe();
 	}
 
 	initForm() {
 		this.isEditAccount = true;
-		this.name = new FormControl(this.clientUser.name, [Validators.required]);
-		this.surname = new FormControl(this.clientUser.lastName, [
+
+		let postCodesTransform = this.storeUser.postCodesServing.map(
+			(number: number) => {
+				return number.toString().padStart(5, "0");
+			}
+		);
+
+		this.name = new FormControl(this.storeUser.name, [Validators.required]);
+		this.contactName = new FormControl(this.storeUser.contactName, [
 			Validators.required,
 		]);
-		this.email = new FormControl(this.clientUser.email, [
+		this.email = new FormControl(this.storeUser.email, [
 			Validators.required,
 			Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
 		]);
-		this.phone = new FormControl(this.clientUser.phone);
-		this.address = new FormControl(this.clientUser.address);
+		this.phone = new FormControl(this.storeUser.phone, [Validators.required]);
+		this.address = new FormControl(this.storeUser.address, [
+			Validators.required,
+		]);
 		this.postCode = new FormControl(
-			this.clientUser.postCode.toString().padStart(5, "0"),
+			this.storeUser.postCode.toString().padStart(5, "0"),
 			[Validators.required, Validators.maxLength(5), Validators.minLength(5)]
 		);
-		this.city = new FormControl(this.clientUser.city);
+		this.city = new FormControl(this.storeUser.city, [Validators.required]);
+		this.postCodesServing = new FormControl(postCodesTransform, [
+			Validators.required,
+			Validators.pattern(/^(\d{5})+(,(\d{5})+)*$/),
+		]);
 		this.password = new FormControl("");
 		this.password2 = new FormControl("");
 
 		this.accountForm = new FormGroup(
 			{
 				name: this.name,
-				surname: this.surname,
+				contactName: this.contactName,
 				email: this.email,
 				phone: this.phone,
 				address: this.address,
 				postCode: this.postCode,
 				city: this.city,
+				postCodesServing: this.postCodesServing,
 				password: this.password,
 				password2: this.password2,
 			},
@@ -139,19 +153,27 @@ export class AccountComponent implements OnInit, OnDestroy {
 		button.disabled = true;
 		button.classList.add("loading");
 
-		let clientUser: ClientUser = {
-			_id: this.clientUser._id,
+		let postCodesTransform = this.postCodesServing.value
+			.toString()
+			.split(",")
+			.map((number: string) => {
+				return parseInt(number);
+			});
+
+		let storeUser: StoreUser = {
+			_id: this.storeUser._id,
 			name: this.name.value,
-			lastName: this.surname.value,
+			contactName: this.contactName.value,
 			email: this.email.value,
 			phone: this.phone.value,
 			address: this.address.value,
 			postCode: this.postCode.value,
 			city: this.city.value,
+			postCodesServing: postCodesTransform,
 			password: this.password.value,
 		};
 
-		this.store.dispatch(editAccountClientUser({ clientUser }));
+		this.store.dispatch(editAccountStoreUser({ storeUser }));
 	}
 
 	handleServerError() {

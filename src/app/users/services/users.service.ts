@@ -71,4 +71,10 @@ export class UsersService {
 			}
 		);
 	}
+
+	editAccountStoreUser(storeUser: StoreUser): Observable<any> {
+		return this.http.put<StoreUser>(`${this.storesApi}/edit/${storeUser._id}`, {
+			storeUser,
+		});
+	}
 }

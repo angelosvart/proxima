@@ -21,7 +21,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	public brandFilter: string[] = [];
 	public subcategoryFilter: string[] = [];
 	public colorFilter: string[] = [];
-	public storeFilter: object[] = [];
+	public storeFilter: any[] = [];
+	public categoryFilter: string[] = [];
 	public isCategoryPage: boolean = false;
 	public isSearchPage: boolean = false;
 	public searchQuery: string;
@@ -175,17 +176,20 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	initFilters() {
 		if (!this.productPending) {
 			this.productsState$.products?.map((product) => {
+				this.categoryFilter.push(product.category["name"]);
 				this.brandFilter.push(product.brand);
 				this.subcategoryFilter.push(product.subcategory);
 				this.colorFilter.push(product.color);
 				this.storeFilter.push(product.store);
 			});
+			this.categoryFilter = [...new Set(this.categoryFilter)];
 			this.brandFilter = [...new Set(this.brandFilter)];
 			this.subcategoryFilter = [...new Set(this.subcategoryFilter)];
 			this.colorFilter = [...new Set(this.colorFilter)];
-			this.storeFilter = [
-				...new Map(this.storeFilter.map((v) => [v["_id"], v])).values(),
-			];
+			this.storeFilter = this.storeFilter.filter(
+				(value, index, self) =>
+					index === self.findIndex((t) => t._id === value._id)
+			);
 		}
 	}
 

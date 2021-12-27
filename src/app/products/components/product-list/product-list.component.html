@@ -89,16 +89,23 @@
 										Ofertas
 									</label>
 								</li>
-								<li *ngFor="let category of categoryState$.categories">
-									<label class="filters__checkboxLabel">
-										<input
-											type="checkbox"
-											class="filters__checkboxInput"
-											value="{{ category._id }}"
-										/>
-										{{ category.name }}
-									</label>
-								</li>
+								<ng-container
+									*ngFor="let categoryItem of categoryState$.categories"
+								>
+									<li *ngFor="let category of categoryFilter">
+										<label
+											class="filters__checkboxLabel"
+											*ngIf="categoryItem.name === category"
+										>
+											<input
+												type="checkbox"
+												class="filters__checkboxInput"
+												value="{{ categoryItem._id }}"
+											/>
+											{{ category }}
+										</label>
+									</li>
+								</ng-container>
 							</ul>
 						</div>
 					</fieldset>
@@ -222,9 +229,9 @@
 										<input
 											type="checkbox"
 											class="filters__checkboxInput"
-											value="{{ store['_id'] }}"
+											value="{{ store._id }}"
 										/>
-										{{ store["name"] }}
+										{{ store.name }}
 									</label>
 								</li>
 							</ul>

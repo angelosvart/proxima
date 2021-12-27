@@ -18,4 +18,8 @@ export class OrderService {
 	getOrderById(orderId: string): Observable<Order> {
 		return this.http.get<Order>(`${this.orderApi}/${orderId}`).pipe();
 	}
+
+	getOrders(): Observable<Order[]> {
+		return this.http.get<Order[]>(`${this.orderApi}`).pipe();
+	}
 }

@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { RegisterComponent } from "./components/register/register.component";
 import { AccountComponent } from "./components/account/account.component";
 import { LateralMenuComponent } from "./components/lateral-menu/lateral-menu.component";
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
 	declarations: [
@@ -14,6 +15,7 @@ import { LateralMenuComponent } from "./components/lateral-menu/lateral-menu.com
 		RegisterComponent,
 		AccountComponent,
 		LateralMenuComponent,
+  OrdersComponent,
 	],
 	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
 })

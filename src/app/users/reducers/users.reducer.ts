@@ -8,6 +8,9 @@ import {
 	editAccountClientUser,
 	editAccountClientUserFailure,
 	editAccountClientUserSuccess,
+	editAccountStoreUser,
+	editAccountStoreUserFailure,
+	editAccountStoreUserSuccess,
 	initUserSession,
 	initUserSessionFailure,
 	initUserSessionSuccess,
@@ -17,6 +20,7 @@ import {
 	loginStoreUser,
 	loginStoreUserFailure,
 	loginStoreUserSuccess,
+	logout,
 } from "../actions/users.actions";
 import { createReducer, on } from "@ngrx/store";
 import { StoreUser } from "../models/StoreUser";
@@ -158,6 +162,30 @@ const _userReducer = createReducer(
 			message: payload.message,
 		},
 		pending: false,
+	})),
+	on(editAccountStoreUser, (state) => ({
+		...state,
+		pending: true,
+	})),
+	on(editAccountStoreUserSuccess, (state, action) => ({
+		...state,
+		storeUser: action.storeUser,
+		pending: false,
+	})),
+	on(editAccountStoreUserFailure, (state, { payload }) => ({
+		...state,
+		error: {
+			url: payload.url,
+			status: payload.status,
+			message: payload.message,
+		},
+		pending: false,
+	})),
+	on(logout, (state) => ({
+		...state,
+		storeUser: null,
+		clientUser: null,
+		loggedIn: false,
 	}))
 );
 

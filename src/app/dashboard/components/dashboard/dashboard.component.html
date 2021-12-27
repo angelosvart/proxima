@@ -12,13 +12,17 @@
 		</p>
 
 		<section class="dashboard__productGrid">
-			<div class="dashboard__emptyResults" *ngIf="!storeProducts?.length">
-				¡Todavía no has añadido ningún producto! Empieza a añadir productos
-				haciendo clic en "Añadir Producto".
-			</div>
 			<ng-container *ngFor="let product of storeProducts">
 				<app-product-card [product]="product"></app-product-card>
 			</ng-container>
+
+			<div
+				class="dashboard__emptyResults"
+				*ngIf="storeProducts && !storeProducts.length"
+			>
+				¡Todavía no has añadido ningún producto! Empieza a añadir productos
+				haciendo clic en "Añadir Producto".
+			</div>
 		</section>
 	</main>
 

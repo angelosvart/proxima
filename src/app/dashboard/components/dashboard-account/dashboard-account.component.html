@@ -4,36 +4,47 @@
 	<main class="account__container">
 		<h1 class="account__title">Mi Cuenta</h1>
 
-		<a class="account__link" routerLink="/account/orders">
-			<span>Historial de Pedidos</span>
-			<img src="../../../../assets//images/icons/chevron-right.svg" />
-		</a>
-
-		<h2 class="account__subtitle">Detalles Personales</h2>
+		<h2 class="account__subtitle">Detalles de la empresa</h2>
 
 		<p *ngIf="isEditAccount" class="account__mandatory">
 			* Campos obligatorios
 		</p>
 
-		<div class="account__dataContainer" *ngIf="clientUser && !isEditAccount">
+		<div class="account__dataContainer" *ngIf="storeUser && !isEditAccount">
 			<div>
 				<p class="account__bold">
-					{{ clientUser.name }} {{ clientUser.lastName }}
+					{{ storeUser.name }}
 				</p>
-				<p *ngIf="clientUser.address">{{ clientUser.address }}</p>
-				<p *ngIf="clientUser.city">{{ clientUser.city }}</p>
-				<p *ngIf="clientUser.postCode">
-					{{ clientUser.postCode.toString().padStart(5, "0") }}
+				<p>{{ storeUser.contactName }}</p>
+				<p *ngIf="storeUser.address">{{ storeUser.address }}</p>
+				<p *ngIf="storeUser.city">{{ storeUser.city }}</p>
+				<p *ngIf="storeUser.postCode">
+					{{ storeUser.postCode.toString().padStart(5, "0") }}
 				</p>
 			</div>
 
 			<div>
-				<p *ngIf="clientUser.phone">
-					<span class="account__bold">Teléfono: </span> {{ clientUser.phone }}
+				<p *ngIf="storeUser.phone">
+					<span class="account__bold">Teléfono: </span> {{ storeUser.phone }}
 				</p>
 				<p>
 					<span class="account__bold">Correo electrónico: </span>
-					{{ clientUser.email }}
+					{{ storeUser.email }}
+				</p>
+				<p>
+					<span class="account__bold"
+						>Códigos postales a los cuales se realizan envíos:
+					</span>
+					<span
+						*ngFor="let postCode of storeUser.postCodesServing; let i = index"
+					>
+						<span *ngIf="i < storeUser.postCodesServing.length - 1"
+							>{{ postCode.toString().padStart(5, "0") }},
+						</span>
+						<span *ngIf="i === storeUser.postCodesServing.length - 1">{{
+							postCode.toString().padStart(5, "0")
+						}}</span>
+					</span>
 				</p>
 			</div>
 		</div>
@@ -45,7 +56,7 @@
 			(ngSubmit)="handleForm()"
 		>
 			<label class="account__label">
-				Nombre *
+				Nombre de la Empresa *
 				<input
 					class="account__input"
 					type="text"
@@ -53,19 +64,22 @@
 					required
 				/>
 				<span *ngIf="name.touched && name.errors" class="account__error">
-					Debes especificar tu nombre.
+					Debes especificar el nombre de tu empresa.
 				</span>
 			</label>
 			<label class="account__label">
-				Apellidos *
+				Persona de contacto *
 				<input
 					class="account__input"
 					type="text"
-					formControlName="surname"
+					formControlName="contactName"
 					required
 				/>
-				<span *ngIf="surname.touched && surname.errors" class="account__error">
-					Debes especificar tus apellidos.
+				<span
+					*ngIf="contactName.touched && contactName.errors"
+					class="account__error"
+				>
+					Debes especificar la persona de contacto en la empresa.
 				</span>
 			</label>
 			<label class="account__label">
@@ -90,21 +104,30 @@
 				</span>
 			</label>
 			<label class="account__label">
-				Teléfono
+				Teléfono *
 				<input
 					class="account__input"
 					type="text"
 					formControlName="phone"
 					min="0"
 					pattern="\d*"
+					required
 				/>
 				<span *ngIf="phone.touched && phone.errors" class="account__error"
 					>Debes especificar tu teléfono en formato numérico.</span
 				>
 			</label>
 			<label class="account__label">
-				Dirección
-				<input class="account__input" type="text" formControlName="address" />
+				Dirección *
+				<input
+					class="account__input"
+					type="text"
+					formControlName="address"
+					required
+				/>
+				<span *ngIf="address.touched && address.errors" class="account__error"
+					>Debes especificar la dirección de la empresa.</span
+				>
 			</label>
 			<label class="account__label">
 				Código Postal *
@@ -122,11 +145,39 @@
 					>Debes especificar un código postal de 5 números.</span
 				>
 			</label>
+
 			<label class="account__label">
-				Ciudad
-				<input class="account__input" type="text" formControlName="city" />
+				Ciudad *
+				<input
+					class="account__input"
+					type="text"
+					formControlName="city"
+					required
+				/>
+				<span *ngIf="city.touched && city.errors" class="account__error"
+					>Debes especificar la ciudad de la empresa.</span
+				>
 			</label>
-			<label class="account__label">
+
+			<label class="account__label" id="postCodesServing">
+				Códigos postales a los cuales realizarás envíos a domicilio, separados
+				por una coma *
+				<textarea
+					class="account__input"
+					type="text"
+					formControlName="postCodesServing"
+					required
+				>
+				</textarea>
+				<span
+					*ngIf="postCodesServing.touched && postCodesServing.errors"
+					class="account__error"
+				>
+					Códigos postales de 5 dígitos sin espacios separados por coma.
+				</span>
+			</label>
+
+			<label class="account__label" id="password">
 				Contraseña
 				<input
 					class="account__input"
@@ -162,6 +213,7 @@
 					Las contraseñas deben coincidir.
 				</span>
 			</label>
+
 			<div class="account__buttonContainer">
 				<button
 					type="button"
@@ -194,4 +246,6 @@
 			<img src="../../../../assets//images/icons/chevron-right.svg" />
 		</a>
 	</main>
+
+	<app-sticky-menu></app-sticky-menu>
 </div>

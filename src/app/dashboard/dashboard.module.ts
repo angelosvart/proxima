@@ -8,6 +8,7 @@ import { LateralMenuComponent } from "./components/lateral-menu/lateral-menu.com
 import { ProductCardComponent } from "./components/product-card/product-card.component";
 import { StickyMenuComponent } from "./components/sticky-menu/sticky-menu.component";
 import { DashboardProductComponent } from "./components/dashboard-product/dashboard-product.component";
+import { DashboardAccountComponent } from "./components/dashboard-account/dashboard-account.component";
 
 @NgModule({
 	declarations: [
@@ -16,6 +17,7 @@ import { DashboardProductComponent } from "./components/dashboard-product/dashbo
 		ProductCardComponent,
 		StickyMenuComponent,
 		DashboardProductComponent,
+		DashboardAccountComponent,
 	],
 	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
 })

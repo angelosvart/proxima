@@ -50,9 +50,22 @@
 						<option value="15">15</option>
 					</select>
 
-					<button class="product__button primary" (click)="addToCart()">
+					<button
+						class="product__button primary"
+						(click)="addToCart()"
+						*ngIf="product.isAvailable"
+					>
 						<span>Añadir a la Cesta</span>
 						<img src="../../../../assets/images/icons/tail-spin.svg" />
+					</button>
+
+					<button
+						class="product__button secondary"
+						(click)="addToCart()"
+						disabled
+						*ngIf="!product.isAvailable"
+					>
+						<span>Producto no disponible</span>
 					</button>
 				</div>
 				<div class="product__details">

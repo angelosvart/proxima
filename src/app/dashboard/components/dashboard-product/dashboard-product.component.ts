@@ -319,21 +319,19 @@ export class DashboardProductComponent implements OnInit, OnDestroy {
 	}
 
 	createProductSuccess() {
+		const button: HTMLButtonElement = document.querySelector(
+			"button[type='submit']"
+		);
+		button.classList.remove("loading");
+		if (!this.isProductEdit) {
+			button.querySelector("span").innerText = "¡Producto creado con éxito!";
+		} else {
+			button.querySelector("span").innerText = "¡Producto editado con éxito!";
+		}
 		setTimeout(() => {
-			const button: HTMLButtonElement = document.querySelector(
-				"button[type='submit']"
-			);
-			button.classList.remove("loading");
-			if (!this.isProductEdit) {
-				button.querySelector("span").innerText = "¡Producto creado con éxito!";
-			} else {
-				button.querySelector("span").innerText = "¡Producto editado con éxito!";
-			}
-			setTimeout(() => {
-				this.router.navigate(["/dashboard"]);
-				this.store.dispatch(cleanCreatedProduct());
-			}, 500);
-		}, 1000);
+			this.router.navigate(["/dashboard"]);
+			this.store.dispatch(cleanCreatedProduct());
+		}, 500);
 	}
 
 	uploadFile($event: any) {

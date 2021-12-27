@@ -145,6 +145,33 @@ export class UsersEffects {
 		)
 	);
 
+	editAccountStoreUser$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UsersActions.editAccountStoreUser),
+			exhaustMap(({ storeUser }) =>
+				this.usersService.editAccountStoreUser(storeUser).pipe(
+					map((response) =>
+						UsersActions.editAccountStoreUserSuccess({
+							storeUser: response.store,
+						})
+					),
+					catchError((error) =>
+						of(UsersActions.editAccountStoreUserFailure({ payload: error }))
+					)
+				)
+			)
+		)
+	);
+
+	logout$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(UsersActions.logout),
+				map(() => this.usersService.logout())
+			),
+		{ dispatch: false }
+	);
+
 	constructor(
 		private actions$: Actions,
 		private usersService: UsersService,

@@ -178,7 +178,7 @@ main {
 	}
 }
 
-main:not(.home, .productList, [class*="dashboard"], [class*="account"]) {
+main:not(.home, .productList, [class*="dashboard"], [class*="account"], [class*="orders"]) {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {
@@ -196,7 +196,8 @@ main[class*="dashboard"] {
 	}
 }
 
-main[class*="account"] {
+main[class*="account"],
+main[class*="orders"] {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {

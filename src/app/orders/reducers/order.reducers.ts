@@ -6,6 +6,9 @@ import {
 	getOrderById,
 	getOrderByIdFailure,
 	getOrderByIdSuccess,
+	getOrders,
+	getOrdersFailure,
+	getOrdersSuccess,
 	resetSelectedOrder,
 } from "../actions/order.actions";
 import { Order } from "../models/Order";
@@ -65,6 +68,24 @@ const _orderReducer = createReducer(
 	on(resetSelectedOrder, (state, action) => ({
 		...state,
 		selectedOrder: null,
+		pending: false,
+	})),
+	on(getOrders, (state) => ({
+		...state,
+		pending: true,
+	})),
+	on(getOrdersSuccess, (state, action) => ({
+		...state,
+		orders: action.orders,
+		pending: false,
+	})),
+	on(getOrdersFailure, (state, { payload }) => ({
+		...state,
+		error: {
+			url: payload.url,
+			status: payload.status,
+			message: payload.message,
+		},
 		pending: false,
 	}))
 );

@@ -16,7 +16,7 @@ export class TokenService {
 	}
 
 	removeToken() {
-		localStorage.removeItem("jwwt");
+		localStorage.removeItem("jwtt");
 	}
 
 	isValidToken() {

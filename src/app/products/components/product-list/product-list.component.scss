@@ -36,6 +36,7 @@
 	}
 	&__productGrid {
 		opacity: 1;
+		transition: opacity 0.3s ease-in;
 		display: grid;
 		grid-gap: 1rem;
 		grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
@@ -407,7 +408,7 @@
 
 .loading {
 	opacity: 0.4;
-	transition: opacity 0.2s ease-in;
+	transition: opacity 0.3s ease-in;
 }
 
 @keyframes showBelowModal {

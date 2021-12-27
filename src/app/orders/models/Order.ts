@@ -1,3 +1,4 @@
+import { Product } from "src/app/products/models/Product";
 import { CartItem } from "./CartItem";
 
 export interface Order {
@@ -11,7 +12,7 @@ export interface Order {
 	phone: string;
 	deliveryAddress: string;
 	paymentMethod: string;
-	products: CartItem[];
+	products: any;
 	subtotalPrice?: number;
 	deliveryFee: number;
 	totalPrice?: number;

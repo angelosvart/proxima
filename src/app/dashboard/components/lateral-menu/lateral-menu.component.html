@@ -37,5 +37,11 @@
 				<img src="../../../../assets//images/icons/chevron-right.svg" />
 			</a>
 		</li>
+		<li class="lateralMenu__item" *ngIf="router.url === '/dashboard/account'">
+			<a (click)="logout()" class="lateralMenu__link"
+				>Cerrar Sesión
+				<img src="../../../../assets//images/icons/chevron-right.svg" />
+			</a>
+		</li>
 	</ul>
 </aside>

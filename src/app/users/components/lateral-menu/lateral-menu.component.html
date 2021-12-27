@@ -4,6 +4,7 @@
 			<a
 				routerLink="/account"
 				routerLinkActive="active"
+				[routerLinkActiveOptions]="{ exact: true }"
 				class="lateralMenu__link"
 				>Mi Cuenta
 				<img src="../../../../assets//images/icons/chevron-right.svg" />
@@ -19,7 +20,7 @@
 			</a>
 		</li>
 		<li class="lateralMenu__item">
-			<a class="lateralMenu__link"
+			<a class="lateralMenu__link" (click)="logout()"
 				>Cerrar Sesión
 				<img src="../../../../assets//images/icons/chevron-right.svg" />
 			</a>
