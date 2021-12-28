@@ -1,0 +1,84 @@
+<div class="order">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="order__container">
+		<a routerLink="/account/orders" class="order__backContainer">
+			<img
+				class="order__icon"
+				src="../../../../assets/images/icons/arrowLeft.svg"
+			/>
+			<span>Volver a Historial de Pedidos</span>
+		</a>
+		<h1 class="order__title">Detalles del Pedido</h1>
+
+		<div class="order__detailsContainer" *ngIf="order && stores">
+			<div class="order__details">
+				<p class="order__orderNumber">Pedido #{{ order.orderNumber }}</p>
+				<p>Realizado el {{ order.created | date: "dd/MM/yyyy" }}</p>
+				<p *ngIf="order.isDelivered">
+					Entregado el {{ order.delivered | date: "dd/MM/yyyy" }}
+				</p>
+			</div>
+			<div class="order__methods">
+				<div class="order__method">
+					<p class="order__bold">Método de envío:</p>
+					<p>{{ order.deliveryMethod["name"] }}</p>
+				</div>
+				<div class="order__method">
+					<p class="order__bold">Método de pago:</p>
+					<p>{{ order.paymentMethod["name"] }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="order__productsContainer" *ngIf="order && stores">
+			<ng-container *ngFor="let item of order.products">
+				<div class="order__product">
+					<img class="order__image" src="{{ item.productId['image'] }}" />
+					<div>
+						<p class="order__brand">{{ item.productId["brand"] }}</p>
+						<p class="order__name">{{ item.productId["name"] }}</p>
+						<p class="order__price">{{ item["payedPrice"] }} €</p>
+						<p>Cantidad: {{ item["quantity"] }}</p>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+
+		<div class="order__infoContainer" *ngIf="order && stores">
+			<div class="order__storeInfo">
+				<p class="order__subTitle">
+					{{
+						stores.length > 1
+							? "Información sobre las tiendas"
+							: "Información sobre la tienda"
+					}}
+				</p>
+				<div class="order__store" *ngFor="let store of stores">
+					<p>{{ store?.name }}</p>
+					<p>{{ store?.address }}</p>
+					<p>Teléfono: {{ store?.phone }}</p>
+				</div>
+			</div>
+
+			<div class="order__userInfo">
+				<p class="order__subTitle">Información de contacto</p>
+				<p>{{ order.name }}</p>
+				<p>{{ order.deliveryAddress }}</p>
+				<p>Teléfono: {{ order.phone }}</p>
+				<p></p>
+			</div>
+		</div>
+
+		<div class="order__overviewContainer" *ngIf="order && stores">
+			<div class="order__overview">
+				<p>Productos: {{ productCount }}</p>
+				<p>Subtotal: {{ order.subtotalPrice }} €</p>
+				<p *ngIf="order.deliveryFee > 0">
+					Gastos de envío: {{ order.deliveryFee }} €
+				</p>
+				<p class="order__bold">Total: {{ order.totalPrice }}€</p>
+			</div>
+		</div>
+	</main>
+</div>

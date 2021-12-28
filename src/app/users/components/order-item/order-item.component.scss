@@ -1,25 +1,35 @@
 @import "../../../../assets/styles/main.scss";
 
-.orderComplete {
+.order {
+	&__backContainer {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		@include textSmall();
+		color: $color-grey-dark;
+		cursor: pointer;
+		&:hover img {
+			filter: $filter-hover-svg;
+		}
+	}
+	&__icon {
+		width: 1rem;
+		height: 1rem;
+		margin-right: 0.2rem;
+		filter: $filter-grey-light-svg;
+		transition: filter 0.15s ease-in;
+	}
 	&__title {
 		@include titleH1();
 		margin-bottom: 1rem;
 	}
-	&__orderNumber {
-		@include textSubtitleBold();
-		margin-bottom: 1rem;
-	}
-	&__bold {
-		@include textNormalBold();
-	}
-	&__infoText {
-		margin-bottom: 1rem;
-	}
-	&__helpText {
+	&__productsContainer {
 		margin-bottom: 1.5rem;
 	}
-	&__subTitle {
-		@include textNormalBold();
+	&__orderNumber {
+		@include textSubtitleBold();
+	}
+	&__details {
 		margin-bottom: 1rem;
 	}
 	&__methods {
@@ -29,6 +39,9 @@
 		&:first-child {
 			margin-bottom: 1rem;
 		}
+	}
+	&__bold {
+		@include textNormalBold();
 	}
 	&__productsContainer {
 		margin-bottom: 1.5rem;
@@ -63,11 +76,18 @@
 		text-overflow: ellipsis;
 		display: block;
 	}
+	&__subTitle {
+		@include textNormalBold();
+		margin-bottom: 1rem;
+	}
 	&__userInfo {
 		margin-bottom: 1.5rem;
 	}
 	&__store {
 		margin-bottom: 1rem;
+		&:last-child {
+			margin-bottom: 1.5rem;
+		}
 	}
 	&__overviewContainer {
 		padding: 1rem;
@@ -75,35 +95,48 @@
 		background-color: $color-footer;
 		border-radius: $border-radius;
 	}
-	&__overviewTitle {
-		@include textNormalBold();
-		margin-bottom: 0.5rem;
-	}
 	@media (min-width: $desktop) {
-		&__title {
-			margin-bottom: 2rem;
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: 0 $padding-desktop;
+		&__backContainer {
+			display: none;
 		}
 		&__container {
-			max-width: 1220px;
 			margin: 0 auto;
 			display: grid;
 			grid-template-areas:
-				"heading"
+				"title"
+				"details"
 				"info"
 				"products"
 				"overview";
 		}
-		&__heading {
-			grid-area: heading;
+		&__title {
+			margin-bottom: 1.5rem;
+			grid-area: title;
 		}
-		&__productsContainer {
-			grid-area: products;
-			margin-bottom: 1rem;
+		&__detailsContainer {
+			grid-area: details;
+		}
+		&__details {
+			margin-bottom: 1.5rem;
 		}
 		&__infoContainer {
 			grid-area: info;
 			display: grid;
 			grid-template-columns: 1fr 1fr;
+		}
+		&__productsContainer {
+			grid-area: products;
+			margin-bottom: 1rem;
+		}
+		&__product {
+			&:first-child {
+				margin-top: 0;
+			}
 		}
 		&__overviewContainer {
 			grid-area: overview;
@@ -114,16 +147,8 @@
 			text-align: right;
 			border-bottom: 1px solid $color-grey-light;
 			border-radius: 0;
-			padding-bottom: 0.5rem;
+			padding-bottom: 1rem;
 			width: 30vw;
-		}
-		&__overviewTitle {
-			display: none;
-		}
-		&__overview {
-			p {
-				margin-bottom: 0.5rem;
-			}
 		}
 	}
 }

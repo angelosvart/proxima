@@ -14,6 +14,7 @@ import { RegisterComponent } from "./users/components/register/register.componen
 import { AccountComponent } from "./users/components/account/account.component";
 import { DashboardAccountComponent } from "./dashboard/components/dashboard-account/dashboard-account.component";
 import { OrdersComponent } from "./users/components/orders/orders.component";
+import { OrderItemComponent } from "./users/components/order-item/order-item.component";
 
 const routes: Routes = [
 	{
@@ -92,6 +93,10 @@ const routes: Routes = [
 			{
 				path: "orders",
 				component: OrdersComponent,
+			},
+			{
+				path: "orders/:id",
+				component: OrderItemComponent,
 			},
 		],
 	},

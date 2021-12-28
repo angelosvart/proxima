@@ -12,6 +12,7 @@ body {
 	@include textNormal();
 	color: $color-black;
 	overflow-x: hidden;
+	overflow-y: scroll;
 	&.openModal {
 		overflow: hidden;
 	}
@@ -178,7 +179,7 @@ main {
 	}
 }
 
-main:not(.home, .productList, [class*="dashboard"], [class*="account"], [class*="orders"]) {
+main:not(.home, .productList, [class*="dashboard"], [class*="account"], [class*="order"]) {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {
@@ -197,7 +198,7 @@ main[class*="dashboard"] {
 }
 
 main[class*="account"],
-main[class*="orders"] {
+main[class*="order"] {
 	padding: 1rem $padding-mobile 2rem $padding-mobile;
 	margin: 0 auto;
 	@media (min-width: $desktop) {

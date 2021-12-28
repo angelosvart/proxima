@@ -8,6 +8,7 @@ import { RegisterComponent } from "./components/register/register.component";
 import { AccountComponent } from "./components/account/account.component";
 import { LateralMenuComponent } from "./components/lateral-menu/lateral-menu.component";
 import { OrdersComponent } from './components/orders/orders.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
 
 @NgModule({
 	declarations: [
@@ -16,6 +17,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 		AccountComponent,
 		LateralMenuComponent,
   OrdersComponent,
+  OrderItemComponent,
 	],
 	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
 })

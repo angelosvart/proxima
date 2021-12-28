@@ -1,18 +1,21 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
-import { getOrderById, resetSelectedOrder } from "../../actions/order.actions";
-import { Order } from "../../models/Order";
+import {
+	getOrderById,
+	resetSelectedOrder,
+} from "src/app/orders/actions/order.actions";
+import { Order } from "src/app/orders/models/Order";
 
 @Component({
-	selector: "app-order-complete",
-	templateUrl: "./order-complete.component.html",
-	styleUrls: ["./order-complete.component.scss"],
+	selector: "app-order-item",
+	templateUrl: "./order-item.component.html",
+	styleUrls: ["./order-item.component.scss"],
 })
-export class OrderCompleteComponent implements OnInit, OnDestroy {
+export class OrderItemComponent implements OnInit {
 	public order: Order;
 	public productCount: number;
 	public stores: any[] = [];
@@ -35,20 +38,18 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
 				});
 			}
 			if (response.error) {
-				this.router.navigate(["/"]);
+				this.router.navigate(["/account/orders"]);
 			}
 			if (this.order?.products) {
 				this.getStoreInfo();
 			}
 		});
 
-		this.titleService.setTitle(`Pedido Realizado | Próxima`);
+		this.titleService.setTitle(`Detalles del Pedido | Próxima`);
 
-		this.activatedRoute.queryParams.subscribe((params) => {
-			if (params["order"]) {
-				this.store.dispatch(getOrderById({ orderId: params["order"] }));
-			}
-		});
+		this.store.dispatch(
+			getOrderById({ orderId: this.activatedRoute.snapshot.params["id"] })
+		);
 	}
 
 	ngOnDestroy(): void {
@@ -62,7 +63,6 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
 				this.stores.push(product.productId["store"]);
 			}
 		});
-
 		this.stores = [
 			...new Map(this.stores.map((store) => [store._id, store])).values(),
 		];
