@@ -1,5 +1,12 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+	Component,
+	Input,
+	OnDestroy,
+	OnInit,
+	SimpleChanges,
+} from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { getProducts } from "../../actions/products.actions";
 import { Product } from "../../models/Product";
@@ -9,7 +16,7 @@ import { Product } from "../../models/Product";
 	templateUrl: "./related-products.component.html",
 	styleUrls: ["./related-products.component.scss"],
 })
-export class RelatedProductsComponent implements OnInit {
+export class RelatedProductsComponent implements OnInit, OnDestroy {
 	@Input()
 	public postCode: string;
 
@@ -18,16 +25,22 @@ export class RelatedProductsComponent implements OnInit {
 
 	public products: Product[];
 	public categoryProducts: Product[];
+	private productsObservable: Subscription;
 
 	constructor(private store: Store<AppState>) {}
 
 	ngOnInit(): void {
-		this.store.select("products").subscribe((response) => {
-			this.products = response.products;
-			if (this.products) {
-				this.selectRelatedProducts();
-			}
-		});
+		this.productsObservable = this.store
+			.select("products")
+			.subscribe((response) => {
+				this.products = response.products;
+				if (this.products) {
+					this.selectRelatedProducts();
+				}
+			});
+
+		this.products = [];
+		this.categoryProducts = [];
 
 		this.store.dispatch(
 			getProducts({
@@ -46,5 +59,13 @@ export class RelatedProductsComponent implements OnInit {
 			.map((product) => ({ product, sort: Math.random() }))
 			.sort((a, b) => a.sort - b.sort)
 			.map(({ product }) => product);
+	}
+
+	ngOnDestroy() {
+		console.log("aca");
+		this.product = null;
+		this.products = [];
+		this.categoryProducts = [];
+		this.productsObservable.unsubscribe();
 	}
 }
