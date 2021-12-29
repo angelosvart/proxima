@@ -11,8 +11,8 @@ import { TokenService } from "./token.service";
 	providedIn: "root",
 })
 export class UsersService {
-	private usersApi = "http://localhost:3000/api/users";
-	private storesApi = "http://localhost:3000/api/stores";
+	private usersApi = "https://proxima-backend.herokuapp.com/api/users";
+	private storesApi = "https://proxima-backend.herokuapp.com/api/stores";
 
 	constructor(
 		private http: HttpClient,

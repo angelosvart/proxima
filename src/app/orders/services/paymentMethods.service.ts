@@ -7,7 +7,8 @@ import { PaymentMethod } from "../models/PaymentMethod";
 	providedIn: "root",
 })
 export class PaymentMethodsService {
-	private paymentMethodsApi = "http://localhost:3000/api/paymentmethods";
+	private paymentMethodsApi =
+		"https://proxima-backend.herokuapp.com/api/paymentmethods";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

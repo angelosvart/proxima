@@ -7,8 +7,7 @@ import { Product } from "../models/Product";
 	providedIn: "root",
 })
 export class ProductsService {
-	private productsApi = "http://localhost:3000/api/products";
-	private productsDetailApi = "http://localhost:3000/api/products/detail";
+	private productsApi = "https://proxima-backend.herokuapp.com/api/products";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),

@@ -8,7 +8,7 @@ import { CartItem } from "../models/CartItem";
 	providedIn: "root",
 })
 export class CartService {
-	private cartApi = "http://localhost:3000/api/cart";
+	private cartApi = "https://proxima-backend.herokuapp.com/api/cart";
 
 	constructor(private http: HttpClient) {}
 

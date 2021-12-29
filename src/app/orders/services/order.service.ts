@@ -7,7 +7,7 @@ import { Order } from "../models/Order";
 	providedIn: "root",
 })
 export class OrderService {
-	private orderApi = "http://localhost:3000/api/orders";
+	private orderApi = "https://proxima-backend.herokuapp.com/api/orders";
 
 	constructor(private http: HttpClient) {}
 

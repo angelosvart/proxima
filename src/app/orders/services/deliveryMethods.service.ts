@@ -7,7 +7,8 @@ import { DeliveryMethod } from "../models/DeliveryMethod";
 	providedIn: "root",
 })
 export class DeliveryMethodsService {
-	private deliveryMethodsApi = "http://localhost:3000/api/deliverymethods";
+	private deliveryMethodsApi =
+		"https://proxima-backend.herokuapp.com/api/deliverymethods";
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
