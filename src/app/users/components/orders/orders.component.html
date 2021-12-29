@@ -12,31 +12,37 @@
 		<h1 class="orders__title">Historial de Pedidos</h1>
 
 		<div class="orders__list">
-			<ng-container *ngFor="let order of orders">
-				<div class="orders__item">
-					<img
-						class="orders__image"
-						src="{{ order.products[0].productId.image }}"
-					/>
-					<div>
-						<p class="orders__number">Pedido #{{ order.orderNumber }}</p>
-						<p class="orders__date">
-							Realizado el {{ order.created | date: "dd/MM/yyyy" }}
-						</p>
+			<ng-container *ngIf="orders && orders.length">
+				<ng-container *ngFor="let order of orders">
+					<div class="orders__item">
+						<img
+							class="orders__image"
+							src="{{ order.products[0].productId.image }}"
+						/>
+						<div>
+							<p class="orders__number">Pedido #{{ order.orderNumber }}</p>
+							<p class="orders__date">
+								Realizado el {{ order.created | date: "dd/MM/yyyy" }}
+							</p>
+						</div>
+						<img
+							routerLink="/account/orders/{{ order._id }}"
+							class="orders__orderIcon"
+							src="../../../../assets/images/icons/chevron-right.svg"
+						/>
+						<button
+							routerLink="/account/orders/{{ order._id }}"
+							class="orders__button secondary"
+						>
+							Detalles del Pedido
+						</button>
 					</div>
-					<img
-						routerLink="/account/orders/{{ order._id }}"
-						class="orders__orderIcon"
-						src="../../../../assets/images/icons/chevron-right.svg"
-					/>
-					<button
-						routerLink="/account/orders/{{ order._id }}"
-						class="orders__button secondary"
-					>
-						Detalles del Pedido
-					</button>
-				</div>
+				</ng-container>
 			</ng-container>
+		</div>
+
+		<div class="orders__list" *ngIf="orders && !orders.length">
+			<p>Todavía no has realizado pedidos con esta cuenta.</p>
 		</div>
 	</main>
 </div>

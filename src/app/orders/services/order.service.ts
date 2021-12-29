@@ -22,4 +22,15 @@ export class OrderService {
 	getOrders(): Observable<Order[]> {
 		return this.http.get<Order[]>(`${this.orderApi}`).pipe();
 	}
+
+	editOrder(
+		orderId: string,
+		isDelivered?: boolean,
+		isPaid?: boolean
+	): Observable<any> {
+		return this.http.put<Order>(`${this.orderApi}/${orderId}`, {
+			isDelivered,
+			isPaid,
+		});
+	}
 }

@@ -3,6 +3,9 @@ import {
 	createOrder,
 	createOrderFailure,
 	createOrderSuccess,
+	editOrder,
+	editOrderFailure,
+	editOrderSuccess,
 	getOrderById,
 	getOrderByIdFailure,
 	getOrderByIdSuccess,
@@ -80,6 +83,24 @@ const _orderReducer = createReducer(
 		pending: false,
 	})),
 	on(getOrdersFailure, (state, { payload }) => ({
+		...state,
+		error: {
+			url: payload.url,
+			status: payload.status,
+			message: payload.message,
+		},
+		pending: false,
+	})),
+	on(editOrder, (state) => ({
+		...state,
+		pending: true,
+	})),
+	on(editOrderSuccess, (state, action) => ({
+		...state,
+		selectedOrder: action.selectedOrder,
+		pending: false,
+	})),
+	on(editOrderFailure, (state, { payload }) => ({
 		...state,
 		error: {
 			url: payload.url,

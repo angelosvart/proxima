@@ -1,0 +1,82 @@
+<div class="dashboardOrders">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="dashboardOrders__container">
+		<h1 class="dashboardOrders__title">Listado de Pedidos</h1>
+
+		<ng-container *ngIf="orders">
+			<div class="dashboardOrders__item" *ngFor="let order of orders">
+				<img
+					src="../../../../assets/images/icons/order.svg"
+					class="dashboardOrders__orderIcon"
+				/>
+				<div class="dashboardOrders__info">
+					<div>
+						<p class="dashboardOrders__number">
+							Pedido #{{ order.orderNumber }}
+						</p>
+						<p>Recibido el {{ order.created | date: "dd/MM/yyyy" }}</p>
+						<p>{{ order.deliveryMethod["name"] }}</p>
+					</div>
+					<div class="dashboardOrders__statusContainer">
+						<div
+							class="dashboardOrders__status dashboardOrders__status--pending"
+							*ngIf="!order.isDelivered"
+						>
+							<p>Pendiente de entrega</p>
+							<img
+								src="../../../../assets/images/icons/warning-circle.svg"
+								class="dashboardOrders__statusIcon"
+							/>
+						</div>
+						<div
+							class="dashboardOrders__status dashboardOrders__status--delivered"
+							*ngIf="order.isDelivered"
+						>
+							<p>Entregado</p>
+							<img
+								src="../../../../assets/images/icons/check-circle.svg"
+								class="dashboardOrders__statusIcon"
+							/>
+						</div>
+						<div
+							class="dashboardOrders__status dashboardOrders__status--pending"
+							*ngIf="!order.isPaid"
+						>
+							<p>Pendiente de pago</p>
+							<img
+								src="../../../../assets/images/icons/warning-circle.svg"
+								class="dashboardOrders__statusIcon"
+							/>
+						</div>
+						<div
+							class="dashboardOrders__status dashboardOrders__status--delivered"
+							*ngIf="order.isPaid"
+						>
+							<p>Pagado</p>
+							<img
+								src="../../../../assets/images/icons/check-circle.svg"
+								class="dashboardOrders__statusIcon"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="dashboardOrders__actions">
+					<img
+						src="../../../../assets/images/icons/chevron-right.svg"
+						class="dashboardOrders__arrowIcon"
+						routerLink="/dashboard/orders/{{ order._id }}"
+					/>
+					<button
+						class="dashboardOrders__actionButton secondary"
+						routerLink="/dashboard/orders/{{ order._id }}"
+					>
+						Detalles del Pedido
+					</button>
+				</div>
+			</div>
+		</ng-container>
+	</main>
+
+	<app-sticky-menu></app-sticky-menu>
+</div>

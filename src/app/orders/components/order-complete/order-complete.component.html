@@ -10,7 +10,7 @@
 				Si tienes algún problema con tu pedido, por favor contacta directamente
 				con la tienda. Encontrarás los detalles de contacto más abajo, así como
 				también en tu
-				<a class="orderComplete__bold" routerLink="/orders"
+				<a class="orderComplete__bold" routerLink="/account/orders"
 					>Historial de Pedidos</a
 				>.
 			</p>
@@ -42,7 +42,7 @@
 					<div>
 						<p class="orderComplete__brand">{{ item.productId["brand"] }}</p>
 						<p class="orderComplete__name">{{ item.productId["name"] }}</p>
-						<p class="orderComplete__price">{{ item["payedPrice"] }} €</p>
+						<p class="orderComplete__price">{{ item["paidPrice"] }} €</p>
 						<p>Cantidad: {{ item["quantity"] }}</p>
 					</div>
 				</div>

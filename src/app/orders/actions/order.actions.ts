@@ -44,3 +44,18 @@ export const getOrdersFailure = createAction(
 );
 
 export const resetSelectedOrder = createAction("[ORDERS] Reset selected order");
+
+export const editOrder = createAction(
+	"[ORDERS] Edit order",
+	props<{ orderId: string; isDelivered?: boolean; isPaid?: boolean }>()
+);
+
+export const editOrderSuccess = createAction(
+	"[ORDERS] Edit order Success",
+	props<{ selectedOrder: Order }>()
+);
+
+export const editOrderFailure = createAction(
+	"[ORDERS] Edit order failure",
+	props<{ payload: any }>()
+);

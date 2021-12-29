@@ -6,6 +6,7 @@ export interface Order {
 	orderNumber?: number;
 	created?: Date;
 	isDelivered?: boolean;
+	isPaid?: boolean;
 	delivered?: Date;
 	deliveryMethod: string;
 	name: string;

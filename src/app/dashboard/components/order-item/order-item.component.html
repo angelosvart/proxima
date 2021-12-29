@@ -1,0 +1,126 @@
+<div class="dashboardOrderItem">
+	<app-lateral-menu></app-lateral-menu>
+
+	<main class="dashboardOrderItem__container">
+		<a routerLink="/dashboard/orders" class="dashboardOrderItem__backContainer">
+			<img
+				class="dashboardOrderItem__backIcon"
+				src="../../../../assets/images/icons/arrowLeft.svg"
+			/>
+			<span>Volver al listado de Pedidos</span>
+		</a>
+		<h1 class="dashboardOrderItem__title">Detalles del Pedido</h1>
+		<ng-container *ngIf="order">
+			<div class="dashboardOrderItem__info">
+				<p class="dashboardOrderItem__number">
+					Pedido #{{ order.orderNumber }}
+				</p>
+				<p>Realizado el {{ order.created | date: "dd/MM/yyyy" }}</p>
+				<div
+					class="dashboardOrderItem__status dashboardOrderItem__status--pending"
+					*ngIf="!order.isDelivered"
+				>
+					<p>Pendiente de entrega</p>
+					<img
+						src="../../../../assets/images/icons/warning-circle.svg"
+						class="dashboardOrderItem__statusIcon"
+					/>
+				</div>
+				<div
+					class="
+						dashboardOrderItem__status dashboardOrderItem__status--delivered
+					"
+					*ngIf="order.isDelivered"
+				>
+					<p>Entregado el {{ order.delivered | date: "dd/MM/yyyy" }}</p>
+					<img
+						src="../../../../assets/images/icons/check-circle.svg"
+						class="dashboardOrderItem__statusIcon"
+					/>
+				</div>
+			</div>
+
+			<div class="dashboardOrderItem__productsContainer">
+				<ng-container *ngFor="let item of order.products">
+					<div class="dashboardOrderItem__product">
+						<img
+							class="dashboardOrderItem__image"
+							src="{{ item.productId['image'] }}"
+						/>
+						<div>
+							<p class="dashboardOrderItem__brand">
+								{{ item.productId["brand"] }}
+							</p>
+							<p class="dashboardOrderItem__name">
+								{{ item.productId["name"] }}
+							</p>
+							<p>{{ item["paidPrice"] }} €</p>
+							<p>Cantidad: {{ item["quantity"] }}</p>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+
+			<div class="dashboardOrderItem__delivery">
+				<p class="dashboardOrderItem__deliveryMethod">
+					<span class="dashboardOrderItem__bold">Tipo de envío: </span>
+					{{ order.deliveryMethod["name"] }}
+				</p>
+				<p class="dashboardOrderItem__deliveryAddress">
+					Información de contacto
+				</p>
+				<p>{{ order.name }}</p>
+				<p>{{ order.deliveryAddress }}</p>
+				<p>Teléfono: {{ order.phone }}</p>
+			</div>
+
+			<div class="dashboardOrderItem__payment">
+				<p class="dashboardOrderItem__paymentMethod">
+					<span class="dashboardOrderItem__bold">Método de pago: </span>
+					{{ order.paymentMethod["name"] }}
+				</p>
+				<p class="dashboardOrderItem__status">
+					<span class="dashboardOrderItem__bold">Estado:&nbsp;</span>
+					<span class="dashboardOrderItem__success" *ngIf="order.isPaid"
+						>Pagado</span
+					>
+					<span class="dashboardOrderItem__warning" *ngIf="!order.isPaid"
+						>Pendiente de Pago</span
+					>
+				</p>
+			</div>
+
+			<div class="dashboardOrderItem__overviewContainer">
+				<p>Productos: {{ productCount }}</p>
+				<p>Subtotal: {{ order.subtotalPrice }} €</p>
+				<p *ngIf="order.deliveryFee > 0">
+					Gastos de envío: {{ order.deliveryFee }} €
+				</p>
+				<p class="order__bold">Total: {{ order.totalPrice }} €</p>
+			</div>
+
+			<div class="dashboardOrderItem__actions">
+				<button
+					class="dashboardOrderItem__button primary"
+					*ngIf="!order.isDelivered"
+					(click)="markAsDelivered()"
+					name="delivered"
+				>
+					Marcar como entregado
+					<img src="../../../../assets/images/icons/tail-spin.svg" />
+				</button>
+				<button
+					class="dashboardOrderItem__button primary"
+					*ngIf="!order.isPaid"
+					(click)="markAsPaid()"
+					name="paid"
+				>
+					Marcar como pagado
+					<img src="../../../../assets/images/icons/tail-spin.svg" />
+				</button>
+			</div>
+		</ng-container>
+	</main>
+
+	<app-sticky-menu></app-sticky-menu>
+</div>

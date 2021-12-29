@@ -15,6 +15,8 @@ import { AccountComponent } from "./users/components/account/account.component";
 import { DashboardAccountComponent } from "./dashboard/components/dashboard-account/dashboard-account.component";
 import { OrdersComponent } from "./users/components/orders/orders.component";
 import { OrderItemComponent } from "./users/components/order-item/order-item.component";
+import { DashboardOrdersComponent } from "./dashboard/components/orders/orders.component";
+import { DashboardOrderItemComponent } from "./dashboard/components/order-item/order-item.component";
 
 const routes: Routes = [
 	{
@@ -71,6 +73,14 @@ const routes: Routes = [
 			{
 				path: "account",
 				component: DashboardAccountComponent,
+			},
+			{
+				path: "orders",
+				component: DashboardOrdersComponent,
+			},
+			{
+				path: "orders/:id",
+				component: DashboardOrderItemComponent,
 			},
 		],
 	},

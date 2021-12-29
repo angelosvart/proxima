@@ -4,7 +4,6 @@ import { CartEffects } from "./orders/effects/cart.effects";
 import { DeliveryMethodsEffects } from "./orders/effects/deliveryMethods.effects";
 import { PaymentMethodsEffects } from "./orders/effects/paymentMethods.effects";
 import { OrderEffects } from "./orders/effects/order.effects";
-import { DashboardEffects } from "./dashboard/effects/dashboard.effects";
 import { UsersEffects } from "./users/effects/users.effects";
 
 export const effects = [
@@ -14,6 +13,5 @@ export const effects = [
 	DeliveryMethodsEffects,
 	PaymentMethodsEffects,
 	OrderEffects,
-	DashboardEffects,
 	UsersEffects,
 ];

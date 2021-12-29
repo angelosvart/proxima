@@ -9,6 +9,8 @@ import { ProductCardComponent } from "./components/product-card/product-card.com
 import { StickyMenuComponent } from "./components/sticky-menu/sticky-menu.component";
 import { DashboardProductComponent } from "./components/dashboard-product/dashboard-product.component";
 import { DashboardAccountComponent } from "./components/dashboard-account/dashboard-account.component";
+import { DashboardOrdersComponent } from "./components/orders/orders.component";
+import { DashboardOrderItemComponent } from "./components/order-item/order-item.component";
 
 @NgModule({
 	declarations: [
@@ -18,6 +20,8 @@ import { DashboardAccountComponent } from "./components/dashboard-account/dashbo
 		StickyMenuComponent,
 		DashboardProductComponent,
 		DashboardAccountComponent,
+		DashboardOrdersComponent,
+		DashboardOrderItemComponent,
 	],
 	imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
 })

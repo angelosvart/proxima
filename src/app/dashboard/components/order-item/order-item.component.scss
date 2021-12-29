@@ -1,6 +1,6 @@
 @import "../../../../assets/styles/main.scss";
 
-.order {
+.dashboardOrderItem {
 	&__backContainer {
 		display: flex;
 		align-items: center;
@@ -12,7 +12,7 @@
 			filter: $filter-hover-svg;
 		}
 	}
-	&__icon {
+	&__backIcon {
 		width: 1rem;
 		height: 1rem;
 		margin-right: 0.2rem;
@@ -23,22 +23,26 @@
 		@include titleH1();
 		margin-bottom: 1rem;
 	}
-	&__orderNumber {
-		@include textSubtitleBold();
-	}
-	&__details {
+	&__info {
 		margin-bottom: 1rem;
 	}
-	&__methods {
-		margin-bottom: 1.5rem;
+	&__number {
+		@include textNormalBold();
 	}
-	&__method {
-		&:first-child {
-			margin-bottom: 1rem;
+	&__status {
+		display: flex;
+		align-items: center;
+		&--pending {
+			color: $color-danger;
+		}
+		&--delivered {
+			color: $color-success;
 		}
 	}
-	&__bold {
-		@include textNormalBold();
+	&__statusIcon {
+		width: 18px;
+		height: 18px;
+		margin-left: 0.25rem;
 	}
 	&__productsContainer {
 		margin-bottom: 1.5rem;
@@ -51,6 +55,9 @@
 		grid-template-columns: 7.5rem 1fr;
 		grid-column-gap: 1rem;
 		margin: 1rem 0;
+		&:first-child {
+			margin-top: 0;
+		}
 		&:last-child {
 			margin-bottom: 0;
 		}
@@ -73,24 +80,53 @@
 		text-overflow: ellipsis;
 		display: block;
 	}
-	&__subTitle {
+	&__delivery {
+		margin-bottom: 1.5rem;
+	}
+	&__deliveryMethod {
+		margin-bottom: 1rem;
+	}
+	&__deliveryAddress {
 		@include textNormalBold();
 		margin-bottom: 1rem;
 	}
-	&__userInfo {
+	&__payment {
 		margin-bottom: 1.5rem;
 	}
-	&__store {
+	&__paymentMethod {
 		margin-bottom: 1rem;
-		&:last-child {
-			margin-bottom: 1.5rem;
-		}
+	}
+	&__bold {
+		@include textNormalBold();
+	}
+	&__success {
+		color: $color-success;
+	}
+	&__warning {
+		color: $color-warning;
 	}
 	&__overviewContainer {
+		margin-bottom: 1rem;
 		padding: 1rem;
-		margin-top: 2rem;
-		background-color: $color-footer;
 		border-radius: $border-radius;
+		border: 1px solid $border-color;
+	}
+	&__button {
+		width: 100%;
+		&:first-child {
+			margin-bottom: 1rem;
+		}
+		&.loading {
+			img {
+				display: block;
+			}
+		}
+		&:disabled {
+			cursor: progress;
+		}
+		img {
+			display: none;
+		}
 	}
 	@media (min-width: $desktop) {
 		display: grid;
@@ -105,35 +141,32 @@
 			margin: 0 auto;
 			display: grid;
 			grid-template-areas:
-				"title"
-				"details"
-				"info"
-				"products"
-				"overview";
+				"title title"
+				"info actions"
+				"delivery ."
+				"payment ."
+				"products products"
+				". overview";
 		}
 		&__title {
 			margin-bottom: 1.5rem;
 			grid-area: title;
 		}
-		&__detailsContainer {
-			grid-area: details;
-		}
-		&__details {
-			margin-bottom: 1.5rem;
-		}
-		&__infoContainer {
+		&__info {
 			grid-area: info;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
+		}
+		&__actions {
+			grid-area: actions;
 		}
 		&__productsContainer {
 			grid-area: products;
 			margin-bottom: 1rem;
 		}
-		&__product {
-			&:first-child {
-				margin-top: 0;
-			}
+		&__delivery {
+			grid-area: delivery;
+		}
+		&__payment {
+			grid-area: payment;
 		}
 		&__overviewContainer {
 			grid-area: overview;
@@ -142,10 +175,21 @@
 			background-color: $color-white;
 			justify-self: end;
 			text-align: right;
+			border: 0;
 			border-bottom: 1px solid $color-grey-light;
 			border-radius: 0;
 			padding-bottom: 1rem;
 			width: 30vw;
+			p {
+				margin-bottom: 0.5rem;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		&__actions {
+			width: 60%;
+			justify-self: end;
 		}
 	}
 }

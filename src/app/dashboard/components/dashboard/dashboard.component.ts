@@ -4,13 +4,9 @@ import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { Product } from "src/app/products/models/Product";
-import { getStoreById } from "../../actions/dashboard.actions";
 import { StoreUser } from "../../../users/models/StoreUser";
 import { Title } from "@angular/platform-browser";
-import {
-	cleanCreatedProduct,
-	getProductsByStoreById,
-} from "src/app/products/actions/products.actions";
+import { getProductsByStoreById } from "src/app/products/actions/products.actions";
 
 @Component({
 	selector: "app-dashboard",
