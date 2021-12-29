@@ -5,7 +5,6 @@ import { map, catchError, exhaustMap, concatMap, tap } from "rxjs/operators";
 import * as UsersActions from "../actions/users.actions";
 import { UsersService } from "../services/users.service";
 import { TokenService } from "../services/token.service";
-import { userReducer } from "../reducers/users.reducer";
 
 @Injectable()
 export class UsersEffects {

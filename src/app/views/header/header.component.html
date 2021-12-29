@@ -40,7 +40,7 @@
 				</li>
 				<li
 					class="header__category"
-					*ngFor="let category of categoryState$.categories"
+					*ngFor="let category of categories"
 					routerLink="/products/{{ category.path }}"
 					(click)="closeModal()"
 					routerLinkActive="active"

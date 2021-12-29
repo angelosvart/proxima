@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
 import { cancelGetProducts, getProducts } from "../../actions/products.actions";
-import { ProductState } from "../../reducers/products.reducer";
 import { Title } from "@angular/platform-browser";
-import { CategoryState } from "../../reducers/categories.reducer";
 import { Subscription } from "rxjs";
+import { Product } from "../../models/Product";
+import { Category } from "../../models/Category";
 
 @Component({
 	selector: "app-product-list",
@@ -15,8 +15,8 @@ import { Subscription } from "rxjs";
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 	public postCode: string;
-	public productsState$: ProductState;
-	public categoryState$: CategoryState;
+	public products: Product[];
+	public categories: Category[];
 	public productPending: boolean = true;
 	public brandFilter: string[] = [];
 	public subcategoryFilter: string[] = [];
@@ -59,7 +59,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 			.select("products")
 			.subscribe((response) => {
 				this.productPending = response.pending;
-				this.productsState$ = response;
+				this.products = response.products;
 				this.getPageTitle();
 				this.initFilters();
 				this.initPaginator();
@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		this.categoriesObservable = this.store
 			.select("categories")
 			.subscribe((response) => {
-				this.categoryState$ = response;
+				this.categories = response.categories;
 				this.routeHandle();
 			});
 	}
@@ -80,12 +80,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	routeHandle() {
 		this.activatedRoute.params.subscribe((params) => {
-			if (!this.categoryState$.categories) return;
+			if (!this.categories) return;
 
 			this.productPending = true;
 			this.resetFilterList();
 
-			this.categoryState$.categories.map((category) => {
+			this.categories.map((category) => {
 				if (category.path === params["category"]) {
 					this.categoryPageId = category._id;
 				}
@@ -136,8 +136,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	getPageTitle() {
-		if (this.categoryState$ && this.categoryPageId) {
-			this.categoryState$.categories.map((category) => {
+		if (this.categories && this.categoryPageId) {
+			this.categories.map((category) => {
 				if (category._id === this.categoryPageId) {
 					this.pageTitle = category.name;
 				}
@@ -145,7 +145,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 					this.pageTitle = "Ofertas";
 				}
 			});
-		} else if (this.categoryState$ && this.searchQuery) {
+		} else if (this.categories && this.searchQuery) {
 			this.pageTitle = `Búsqueda: ${this.searchQuery}`;
 		} else {
 			this.pageTitle = `Productos cerca de ${this.postCode}`;
@@ -175,7 +175,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	initFilters() {
 		if (!this.productPending) {
-			this.productsState$.products?.map((product) => {
+			this.products?.map((product) => {
 				this.categoryFilter.push(product.category["name"]);
 				this.brandFilter.push(product.brand);
 				this.subcategoryFilter.push(product.subcategory);
@@ -257,10 +257,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	initPaginator() {
-		if (this.productsState$.products) {
-			const pages = Math.ceil(
-				this.productsState$.products.length / this.maxProductsPerPage
-			);
+		if (this.products) {
+			const pages = Math.ceil(this.products.length / this.maxProductsPerPage);
 			this.totalPages = Array(pages)
 				.fill(pages)
 				.map((x, i) => i);

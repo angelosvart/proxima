@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "./app.reducer";
 import { initUserSession } from "./users/actions/users.actions";
-import { UsersService } from "./users/services/users.service";
 
 @Component({
 	selector: "app-root",

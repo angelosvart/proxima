@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
-import { getProducts } from "src/app/products/actions/products.actions";
 
 @Component({
 	selector: "app-search",

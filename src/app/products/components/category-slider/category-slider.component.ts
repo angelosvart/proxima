@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs/internal/Subscription";
 import { AppState } from "src/app/app.reducer";
-import { Category } from "src/app/products/models/Category";
 import { CategoryState } from "src/app/products/reducers/categories.reducer";
+import { Category } from "../../models/Category";
 
 @Component({
 	selector: "app-category-slider",
@@ -12,7 +12,7 @@ import { CategoryState } from "src/app/products/reducers/categories.reducer";
 	styleUrls: ["./category-slider.component.scss"],
 })
 export class CategorySliderComponent implements OnInit, OnDestroy {
-	public categoryState$: CategoryState;
+	public categories: Category[];
 	private categoriesObservable: Subscription;
 
 	constructor(private store: Store<AppState>, public router: Router) {}
@@ -20,7 +20,7 @@ export class CategorySliderComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.categoriesObservable = this.store
 			.select("categories")
-			.subscribe((response) => (this.categoryState$ = response));
+			.subscribe((response) => (this.categories = response.categories));
 	}
 
 	ngOnDestroy() {

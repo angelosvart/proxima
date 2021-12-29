@@ -10,7 +10,7 @@
 			</picture>
 			<a routerLink="/products/sales" class="categorySlider__link">Ofertas</a>
 		</div>
-		<ng-container *ngFor="let category of categoryState$.categories">
+		<ng-container *ngFor="let category of categories">
 			<ng-container *ngIf="category.isFeatured">
 				<div
 					class="categorySlider__item"

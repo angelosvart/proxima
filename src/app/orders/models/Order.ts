@@ -1,6 +1,3 @@
-import { Product } from "src/app/products/models/Product";
-import { CartItem } from "./CartItem";
-
 export interface Order {
 	_id?: string;
 	orderNumber?: number;

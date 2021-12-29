@@ -6,11 +6,9 @@ import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import { addToCart } from "src/app/orders/actions/cart.actions";
 import { CartItem } from "src/app/orders/models/CartItem";
-import { getCategories } from "../../actions/categories.actions";
-import { getProductById, getProducts } from "../../actions/products.actions";
+import { getProductById } from "../../actions/products.actions";
+import { Category } from "../../models/Category";
 import { Product } from "../../models/Product";
-import { CategoryState } from "../../reducers/categories.reducer";
-import { ProductState } from "../../reducers/products.reducer";
 
 @Component({
 	selector: "app-product-detail",
@@ -19,8 +17,8 @@ import { ProductState } from "../../reducers/products.reducer";
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
 	public productPending: boolean = true;
-	public categoryState$: CategoryState;
-	public productState$: ProductState;
+	public categories: Category[];
+	public products: Product[];
 	public product: Product;
 	public postCode: string;
 	public categoryProducts: Product[];
@@ -44,14 +42,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 		this.categoriesObservable = this.store
 			.select("categories")
 			.subscribe((response) => {
-				this.categoryState$ = response;
+				this.categories = response.categories;
 			});
 
 		this.productsObservable = this.store
 			.select("products")
 			.subscribe((response) => {
-				this.productPending = response.pending;
-				this.productState$ = response;
 				this.product = response.selectedProduct;
 				if (this.product) {
 					this.getPageTitle();

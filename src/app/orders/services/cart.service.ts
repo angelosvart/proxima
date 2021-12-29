@@ -1,7 +1,5 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Product } from "src/app/products/models/Product";
 import { CartItem } from "../models/CartItem";
 
 @Injectable({

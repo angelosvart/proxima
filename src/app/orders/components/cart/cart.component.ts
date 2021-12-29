@@ -1,18 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
-import {
-	getProductById,
-	getProducts,
-} from "src/app/products/actions/products.actions";
+import { getProducts } from "src/app/products/actions/products.actions";
 import { Product } from "src/app/products/models/Product";
-import { ProductState } from "src/app/products/reducers/products.reducer";
 import { addToCart, deleteFromCart } from "../../actions/cart.actions";
 import { CartItem } from "../../models/CartItem";
-import { CartState } from "../../reducers/cart.reducers";
 
 @Component({
 	selector: "app-cart",

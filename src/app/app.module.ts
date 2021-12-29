@@ -6,7 +6,6 @@ import { environment } from "src/environments/environment";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { effects } from "./app.effects";
 import { EffectsModule } from "@ngrx/effects";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { appReducers } from "./app.reducer";
@@ -20,7 +19,6 @@ import { FooterComponent } from "./views/footer/footer.component";
 import { OrdersModule } from "./orders/orders.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
 import { JwtInterceptor } from "./users/services/jwt.interceptor";
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 @NgModule({
 	declarations: [

@@ -1,5 +1,4 @@
 import { createReducer, on } from "@ngrx/store";
-import { Product } from "src/app/products/models/Product";
 import {
 	addToCart,
 	addToCartFailure,

@@ -29,12 +29,10 @@
 	<div class="productList__layoutGrid">
 		<section class="productList__filterBar">
 			<div class="filterBar">
-				<p class="filterBar__results">
-					{{ productsState$.products?.length }} resultados
-				</p>
+				<p class="filterBar__results">{{ products?.length }} resultados</p>
 				<div
 					class="filterBar__filterButton"
-					*ngIf="productsState$.products?.length > 0"
+					*ngIf="products?.length > 0"
 					(click)="filterModalToggle()"
 				>
 					<img
@@ -60,9 +58,7 @@
 					<fieldset
 						class="filters__option"
 						name="category"
-						*ngIf="
-							categoryState$ && categoryState$.categories && !isCategoryPage
-						"
+						*ngIf="categories && !isCategoryPage"
 					>
 						<div
 							class="filters__optionTitle"
@@ -77,9 +73,7 @@
 						</div>
 						<div class="filters__optionItems">
 							<ul>
-								<ng-container
-									*ngFor="let categoryItem of categoryState$.categories"
-								>
+								<ng-container *ngFor="let categoryItem of categories">
 									<li *ngFor="let category of categoryFilter">
 										<label
 											class="filters__checkboxLabel"
@@ -237,10 +231,7 @@
 		</aside>
 
 		<section class="productList__productGrid" [class.loading]="productPending">
-			<div
-				class="productList__emptyResults"
-				*ngIf="productsState$.products?.length === 0"
-			>
+			<div class="productList__emptyResults" *ngIf="products?.length === 0">
 				<p>No se han encontrado productos, ¡lo sentimos!</p>
 				<button
 					class="productList__emptyProductButton primary"
@@ -251,7 +242,7 @@
 			</div>
 			<ng-container
 				*ngFor="
-					let product of productsState$.products
+					let product of products
 						| slice
 							: currentPaginatorPage * maxProductsPerPage
 							: (currentPaginatorPage + 1) * maxProductsPerPage;
@@ -263,7 +254,7 @@
 
 			<section
 				class="productList__pagination"
-				*ngIf="productsState$.products?.length > maxProductsPerPage"
+				*ngIf="products?.length > maxProductsPerPage"
 			>
 				<div class="pagination">
 					<button
@@ -276,10 +267,7 @@
 					</button>
 					<button
 						class="pagination__button secondary next"
-						*ngIf="
-							productsState$.products &&
-							currentPaginatorPage < totalPages.length - 1
-						"
+						*ngIf="products && currentPaginatorPage < totalPages.length - 1"
 						(click)="handlePaginator(currentPaginatorPage + 1)"
 					>
 						Siguiente

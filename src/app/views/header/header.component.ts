@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.reducer";
-import { CartService } from "src/app/orders/services/cart.service";
 import { getCategories } from "src/app/products/actions/categories.actions";
+import { Category } from "src/app/products/models/Category";
 import { CategoryState } from "src/app/products/reducers/categories.reducer";
 
 @Component({
@@ -12,7 +12,7 @@ import { CategoryState } from "src/app/products/reducers/categories.reducer";
 	styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
-	public categoryState$: CategoryState;
+	public categories: Category[];
 	public cartCount: number = 0;
 
 	constructor(public router: Router, private store: Store<AppState>) {}
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 	ngOnInit(): void {
 		this.store
 			.select("categories")
-			.subscribe((response) => (this.categoryState$ = response));
+			.subscribe((response) => (this.categories = response.categories));
 		this.store.select("cart").subscribe((response) => {
 			this.cartCount = 0;
 			response?.cart.forEach((item) => {

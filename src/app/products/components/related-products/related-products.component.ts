@@ -1,10 +1,4 @@
-import {
-	Component,
-	Input,
-	OnDestroy,
-	OnInit,
-	SimpleChanges,
-} from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
@@ -62,10 +56,6 @@ export class RelatedProductsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		console.log("aca");
-		this.product = null;
-		this.products = [];
-		this.categoryProducts = [];
 		this.productsObservable.unsubscribe();
 	}
 }

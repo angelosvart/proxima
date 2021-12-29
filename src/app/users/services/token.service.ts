@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { decode } from "querystring";
 
 @Injectable({
 	providedIn: "root",
