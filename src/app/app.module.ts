@@ -13,14 +13,14 @@ import { appReducers } from "./app.reducer";
 import { LoginModule } from "./users/users.module";
 import { HomeComponent } from "./views/home/home.component";
 import { ProductsModule } from "./products/products.module";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { PostcodeSearchComponent } from "./shared/components/postcode-search/postcode-search.component";
 import { HeaderComponent } from "./views/header/header.component";
 import { FooterComponent } from "./views/footer/footer.component";
-import { RouterModule } from "@angular/router";
 import { OrdersModule } from "./orders/orders.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
 import { JwtInterceptor } from "./users/services/jwt.interceptor";
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 @NgModule({
 	declarations: [
