@@ -1,5 +1,4 @@
-@use "sass:meta";
+@import "mixins";
+@import "variables";
+@import "normalize";
 @import url("https://fonts.googleapis.com/css2?family=Domine&family=Raleway:wght@400;700&display=swap");
-@include meta.load-css("variables");
-@include meta.load-css("mixins");
-@include meta.load-css("normalize");
