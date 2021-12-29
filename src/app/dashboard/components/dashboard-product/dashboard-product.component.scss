@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/main.scss";
+@import "../../../../assets/styles/main";
 
 .dashboardProduct {
 	&__title {
@@ -16,35 +16,6 @@
 		object-fit: cover;
 		border-radius: $border-radius;
 	}
-	&__button {
-		width: 100%;
-		margin-bottom: 1.5rem;
-		transition: border 0.15s ease-in;
-		img {
-			margin-left: 0.5rem;
-		}
-		&[type="submit"] {
-			margin-bottom: 0;
-			margin-top: 0.5rem;
-			&.loading {
-				img {
-					display: block;
-				}
-			}
-			&:disabled {
-				cursor: progress;
-			}
-			img {
-				display: none;
-			}
-		}
-		&.error {
-			border-color: $color-danger;
-		}
-		&.secondary {
-			margin-top: 1rem;
-		}
-	}
 	&__buttonDelete {
 		margin-top: 1rem;
 		width: 100%;
@@ -55,6 +26,36 @@
 			display: none;
 		}
 	}
+	&__button {
+		width: 100%;
+		margin-bottom: 1.5rem;
+		transition: border 0.15s ease-in;
+		img {
+			margin-left: 0.5rem;
+		}
+		&[type="submit"] {
+			margin-bottom: 0;
+			margin-top: 0.5rem;
+			img {
+				display: none;
+			}
+			&.loading {
+				img {
+					display: block;
+				}
+			}
+			&:disabled {
+				cursor: progress;
+			}
+		}
+		&.error {
+			border-color: $color-danger;
+		}
+		&.secondary {
+			margin-top: 1rem;
+		}
+	}
+
 	&__label {
 		display: block;
 		position: relative;

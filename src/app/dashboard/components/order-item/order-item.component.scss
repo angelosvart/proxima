@@ -1,17 +1,6 @@
-@import "../../../../assets/styles/main.scss";
+@import "../../../../assets/styles/main";
 
 .dashboardOrderItem {
-	&__backContainer {
-		display: flex;
-		align-items: center;
-		margin-bottom: 0.5rem;
-		@include textSmall();
-		color: $color-grey-dark;
-		cursor: pointer;
-		&:hover img {
-			filter: $filter-hover-svg;
-		}
-	}
 	&__backIcon {
 		width: 1rem;
 		height: 1rem;
@@ -116,6 +105,9 @@
 		&:first-child {
 			margin-bottom: 1rem;
 		}
+		img {
+			display: none;
+		}
 		&.loading {
 			img {
 				display: block;
@@ -124,8 +116,16 @@
 		&:disabled {
 			cursor: progress;
 		}
-		img {
-			display: none;
+	}
+	&__backContainer {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		@include textSmall();
+		color: $color-grey-dark;
+		cursor: pointer;
+		&:hover img {
+			filter: $filter-hover-svg;
 		}
 	}
 	@media (min-width: $desktop) {
@@ -157,6 +157,8 @@
 		}
 		&__actions {
 			grid-area: actions;
+			width: 60%;
+			justify-self: end;
 		}
 		&__productsContainer {
 			grid-area: products;
@@ -186,10 +188,6 @@
 					margin-bottom: 0;
 				}
 			}
-		}
-		&__actions {
-			width: 60%;
-			justify-self: end;
 		}
 	}
 }

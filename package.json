@@ -4,10 +4,10 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "npm run stylelint && ng build",
+		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
-		"stylelint": "stylelint src/assets/styles/**/*.scss"
+		"stylelint": "stylelint **/*.scss"
 	},
 	"private": true,
 	"dependencies": {
@@ -39,9 +39,9 @@
 		"karma-jasmine": "~4.0.0",
 		"karma-jasmine-html-reporter": "~1.7.0",
 		"prettier": "^2.4.1",
-		"stylelint": "^14.0.1",
-		"stylelint-config-recommended-scss": "^5.0.1",
-		"stylelint-scss": "^4.0.0",
+		"stylelint": "^14.2.0",
+		"stylelint-config-recommended-scss": "^5.0.2",
+		"stylelint-scss": "^4.1.0",
 		"typescript": "^4.0.0"
 	}
 }

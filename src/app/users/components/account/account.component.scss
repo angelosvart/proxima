@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/main.scss";
+@import "../../../../assets/styles/main";
 
 .account {
 	&__title {
@@ -25,19 +25,16 @@
 	&__dataContainer {
 		margin-bottom: 1rem;
 	}
-	&__buttonContainer {
-		margin-bottom: 2.5rem;
-	}
 	&__button {
 		width: 50%;
 		&[type="submit"] {
+			img {
+				display: none;
+			}
 			&.loading {
 				img {
 					display: block;
 				}
-			}
-			img {
-				display: none;
 			}
 		}
 	}
@@ -66,10 +63,6 @@
 		width: 100%;
 		line-height: normal;
 	}
-	&__serverError {
-		@include textErrorSmall();
-		text-align: center;
-	}
 	&__mandatory {
 		@include textSmall();
 		font-weight: 700;
@@ -80,6 +73,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 1rem;
+		margin-bottom: 2.5rem;
 		button {
 			width: 100%;
 		}

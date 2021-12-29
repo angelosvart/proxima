@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/main.scss";
+@import "../../../../assets/styles/main";
 
 .postCodeSearch {
 	background: $color-white;
@@ -15,9 +15,8 @@
 		border: none;
 		outline: none;
 		width: 100%;
-		font-size: inherit;
 		color: inherit;
-		font: inherit;
+		font-size: inherit;
 		font-style: inherit;
 		font-weight: 400;
 		line-height: inherit;

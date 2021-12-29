@@ -11,10 +11,8 @@
 		"no-duplicate-at-import-rules": true,
 		"no-duplicate-selectors": true,
 		"no-extra-semicolons": true,
-		"no-empty-source": true,
-		"length-zero-no-unit": true,
+		"no-empty-source": null,
 		"unit-allowed-list": ["px", "rem", "s", "vw", "vh", "fr", "%", "deg"],
-		"declaration-block-no-redundant-longhand-properties": true,
 		"declaration-no-important": true,
 		"unit-case": "lower",
 		"declaration-block-semicolon-newline-after": "always",
@@ -23,6 +21,7 @@
 		"block-closing-brace-newline-after": "always",
 		"selector-attribute-brackets-space-inside": "never",
 		"indentation": "tab",
+		"no-descending-specificity": null,
 		"selector-class-pattern": "^.[a-z]([a-zA-Z0-9-]+)?(__([a-zA-Z0-9]+-?)+)?(--([a-zA-Z0-9]+-?)+){0,2}$"
 	}
 }
