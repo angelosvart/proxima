@@ -100,7 +100,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 			button.querySelector("span").innerText = "¡Producto añadido!";
 			setTimeout(() => {
 				button.querySelector("span").innerText = "Añadir a la Cesta";
-			}, 1500);
-		}, 1500);
+			}, 1000);
+		}, 700);
 	}
 }

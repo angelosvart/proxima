@@ -148,7 +148,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		} else if (this.categoryState$ && this.searchQuery) {
 			this.pageTitle = `Búsqueda: ${this.searchQuery}`;
 		} else {
-			this.pageTitle = `Productos en ${this.postCode}`;
+			this.pageTitle = `Productos cerca de ${this.postCode}`;
 		}
 
 		this.titleService.setTitle(`${this.pageTitle} | Próxima`);
@@ -194,6 +194,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	resetFilterList() {
+		this.categoryFilter = [];
 		this.brandFilter = [];
 		this.subcategoryFilter = [];
 		this.colorFilter = [];
@@ -212,10 +213,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 			let filters: NodeListOf<HTMLInputElement> =
 				fieldset.querySelectorAll("input:checked");
 			filters.forEach((filter) => {
-				if (filter.value === "sales") {
-					filterObject["isOffer"] = true;
-					return;
-				}
 				filterArray.push(filter.value);
 			});
 			if (filterArray.length) {

@@ -2,11 +2,9 @@
 	<section class="productList__heading">
 		<div class="heading">
 			<div class="heading__breadcrumb">
-				<span *ngIf="!isCategoryPage && !isSearchPage">{{ postCode }}</span>
+				<span *ngIf="!isCategoryPage && !isSearchPage">Inicio</span>
 				<span *ngIf="isCategoryPage || isSearchPage">
-					<a routerLink="/">
-						{{ postCode }}
-					</a>
+					<a routerLink="/">Inicio</a>
 					/
 					<span>{{ pageTitle }}</span>
 				</span>
@@ -79,16 +77,6 @@
 						</div>
 						<div class="filters__optionItems">
 							<ul>
-								<li>
-									<label class="filters__checkboxLabel">
-										<input
-											type="checkbox"
-											class="filters__checkboxInput"
-											value="sales"
-										/>
-										Ofertas
-									</label>
-								</li>
 								<ng-container
 									*ngFor="let categoryItem of categoryState$.categories"
 								>
@@ -251,9 +239,15 @@
 		<section class="productList__productGrid" [class.loading]="productPending">
 			<div
 				class="productList__emptyResults"
-				*ngIf="!productPending && productsState$.products?.length === 0"
+				*ngIf="productsState$.products?.length === 0"
 			>
-				No se han encontrado productos, ¡lo sentimos!
+				<p>No se han encontrado productos, ¡lo sentimos!</p>
+				<button
+					class="productList__emptyProductButton primary"
+					(click)="clearFilters()"
+				>
+					Ver todos los productos
+				</button>
 			</div>
 			<ng-container
 				*ngFor="
