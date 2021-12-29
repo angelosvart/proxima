@@ -18,10 +18,12 @@ $color-info: #e9f0fc;
 /*
  * Filters
  */
-$filter-hover-svg: invert(83%) sepia(18%) saturate(5301%) hue-rotate(318deg)
-	brightness(102%) contrast(82%);
-$filter-grey-light-svg: invert(52%) sepia(5%) saturate(367%) hue-rotate(320deg)
-	brightness(99%) contrast(87%);
+$filter-hover-svg: color.invert(83%) sepia(18%)
+	color.adjust($color, $saturation: 5301%) hue-rotate(318deg) brightness(102%)
+	contrast(82%);
+$filter-grey-light-svg: color.invert(52%) sepia(5%)
+	color.adjust($color, $saturation: 367%) hue-rotate(320deg) brightness(99%)
+	contrast(87%);
 
 /*
  * Fonts

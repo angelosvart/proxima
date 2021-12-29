@@ -13,7 +13,7 @@
 		"no-extra-semicolons": true,
 		"no-empty-source": true,
 		"length-zero-no-unit": true,
-		"unit-allowed-list": ["px", "rem", "s", "vw", "vh", "fr", "%"],
+		"unit-allowed-list": ["px", "rem", "s", "vw", "vh", "fr", "%", "deg"],
 		"declaration-block-no-redundant-longhand-properties": true,
 		"declaration-no-important": true,
 		"unit-case": "lower",
@@ -22,7 +22,6 @@
 		"block-opening-brace-newline-after": "always",
 		"block-closing-brace-newline-after": "always",
 		"selector-attribute-brackets-space-inside": "never",
-		"selector-list-comma-space-after": "always",
 		"indentation": "tab",
 		"selector-class-pattern": "^.[a-z]([a-zA-Z0-9-]+)?(__([a-zA-Z0-9]+-?)+)?(--([a-zA-Z0-9]+-?)+){0,2}$"
 	}
