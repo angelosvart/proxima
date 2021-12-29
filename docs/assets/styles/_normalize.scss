@@ -1,0 +1,208 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+}
+
+body {
+	@include textNormal();
+	color: $color-black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	&.openModal {
+		overflow: hidden;
+	}
+	@media (min-width: $desktop) {
+		&.openModal {
+			overflow: none;
+		}
+	}
+}
+
+ul {
+	list-style-type: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border: 0;
+}
+
+a {
+	color: $color-black;
+	cursor: pointer;
+	transition: color 0.15s ease-in;
+	text-decoration: none;
+	&:hover {
+		color: $color-primary;
+	}
+}
+
+button {
+	border: 0;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 2.5rem;
+	cursor: pointer;
+	transition: background-color 0.15s ease-in, border-color 0.15s ease-in;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&.primary {
+		@include textNormalBold();
+		background-color: $color-primary;
+		color: $color-white;
+		border: 1px solid $color-primary;
+		&:hover {
+			background-color: $color-primary-darker;
+			border-color: $color-primary-darker;
+		}
+	}
+	&.secondary {
+		@include textNormal();
+		background-color: $color-white;
+		color: $color-black;
+		border: 1px solid $border-color;
+		&:hover {
+			border-color: $color-grey-dark;
+		}
+	}
+	&.danger {
+		@include textNormal();
+		background-color: $color-danger;
+		color: $color-white;
+		border: 1px solid $color-danger;
+		&:hover {
+			background-color: $color-primary-darker;
+			border-color: $color-primary-darker;
+		}
+	}
+	&.loading {
+		background-color: $color-primary-darker;
+		border-color: $color-primary-darker;
+		color: $color-white;
+		cursor: progress;
+		img {
+			display: block;
+			margin-left: 0.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+}
+
+select {
+	@include textNormal();
+	padding: 0 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 2.5rem;
+	cursor: pointer;
+	transition: border 0.15s ease-in;
+	display: block;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: transparent;
+	background-image: url("../images/icons/chevron-down.svg");
+	background-repeat: no-repeat;
+	background-size: 1rem;
+	background-position: top 50% right 1rem;
+	&:hover,
+	&:focus {
+		border: 1px solid $color-grey-dark;
+	}
+	&.error,
+	&.ng-invalid.ng-touched {
+		border: 1px solid $color-danger;
+	}
+}
+
+input:not(.filters__checkboxInput, .search__input, .checkout__paymentInput, .postCodeSearch__input) {
+	@include textNormal();
+	padding: 0 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 2.5rem;
+	transition: border 0.15s ease-in;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&:hover,
+	&:focus {
+		border: 1px solid $color-grey-dark;
+	}
+	&[type="number"] {
+		padding: 0 0.5rem 0 1rem;
+	}
+	&.ng-invalid.ng-touched {
+		border: 1px solid $color-danger;
+	}
+}
+
+textarea {
+	@include textNormal();
+	padding: 0.5rem 1rem;
+	border: 1px solid $color-grey-light;
+	outline: 0;
+	border-radius: $border-radius;
+	height: 5rem;
+	transition: border 0.15s ease-in;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&:hover,
+	&:focus {
+		border: 1px solid $color-grey-dark;
+	}
+	&.ng-invalid.ng-touched {
+		border: 1px solid $color-danger;
+	}
+}
+
+fieldset {
+	border: 0;
+	position: relative;
+}
+
+main {
+	width: 100%;
+	min-height: calc(100vh - 12.5rem - 3.5rem);
+	@media (min-width: $desktop) {
+		min-height: calc(100vh - 5.7rem - 7.7rem - 1rem);
+	}
+}
+
+main:not(.home, .productList, [class*="dashboard"], [class*="account"], [class*="order"]) {
+	padding: 1rem $padding-mobile 2rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		max-width: 1440px;
+		padding: 2rem $padding-desktop 4rem $padding-desktop;
+	}
+}
+
+main[class*="dashboard"] {
+	padding: 1rem $padding-mobile 7rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		margin: 0 auto;
+		padding: 2rem 0 4rem 3rem;
+	}
+}
+
+main[class*="account"],
+main[class*="order"] {
+	padding: 1rem $padding-mobile 2rem $padding-mobile;
+	margin: 0 auto;
+	@media (min-width: $desktop) {
+		margin: 0 auto;
+		padding: 2rem 0 4rem 3rem;
+	}
+}

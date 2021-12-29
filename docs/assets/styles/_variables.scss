@@ -1,0 +1,61 @@
+/*
+ *  Colors
+ */
+$color-black: #222222;
+$color-primary: #e89663;
+$color-primary-darker: #904415;
+$color-white: #ffffff;
+$color-grey-light: #aeaba5;
+$color-grey-dark: #898281;
+$color-grey-shadow: #d6d5d2;
+$color-purple-dark: #36303e;
+$color-footer: #ebeae8;
+$color-warning: #f89114;
+$color-danger: #f44336;
+$color-success: #7aa14c;
+$color-info: #e9f0fc;
+
+/*
+ * Filters
+ */
+// stylelint-disable scss/no-global-function-names
+$filter-hover-svg: invert(83%) sepia(18%) saturate(5301%) hue-rotate(318deg)
+	brightness(102%) contrast(82%);
+$filter-grey-light-svg: invert(52%) sepia(5%) saturate(367%) hue-rotate(320deg)
+	brightness(99%) contrast(87%);
+// stylelint-enable scss/no-global-function-names
+
+/*
+ * Fonts
+ */
+$font-family-title: "Domine", serif;
+$font-family-regular: "Raleway", sans-serif;
+
+/*
+ * Breakpoints
+ */
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+
+/*
+ * Layouts
+ */
+$padding-mobile: 1rem;
+$padding-desktop: 2rem;
+
+/*
+ * Borders
+ */
+$border-radius: 0.5rem;
+$border-color: $color-grey-light;
+
+/*
+ * Shadows
+ */
+$shadow: 1.5px 1.5px 3px $color-grey-shadow, 2px 4px 4px $color-grey-shadow;
+$card-shadow: -0.3px -0.3px 6px 0.3px $color-grey-shadow,
+	1.5px 1.5px 3px $color-grey-shadow, 2px 4px 4px $color-grey-shadow;
+$card-shadow-hover: -0.5px -0.5px 6px 0.5px $color-grey-shadow,
+	-0.3px -0.3px 6px 0.3px $color-grey-shadow, 1.5px 1.5px 3px $color-grey-shadow,
+	2px 4px 4px $color-grey-shadow, 4px 8px 8px $color-grey-shadow;
