@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
@@ -36,14 +36,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	private usersObservable: Subscription;
 	public error: boolean = false;
 	public errorMessage: string;
+	public redirectURL: string;
 
 	constructor(
 		private titleService: Title,
 		private store: Store<AppState>,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) {}
 
 	ngOnInit(): void {
+		this.redirectURL = this.route.snapshot.queryParamMap.get("redirectTo");
+
 		this.usersObservable = this.store.select("users").subscribe((response) => {
 			if (response.storeUser && response.loggedIn) {
 				this.router.navigate(["/dashboard"]);
@@ -54,7 +58,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 					"postCode",
 					response.clientUser.postCode.toString().padStart(5, "0")
 				);
-				this.router.navigate(["/products"]);
+				if (this.redirectURL) {
+					this.router.navigate([this.redirectURL]);
+				} else {
+					this.router.navigate(["products"]);
+				}
 			}
 
 			if (response.error) {
@@ -143,6 +151,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 			const clientUserFieldsets = document.querySelectorAll(".clientUser");
 			const storeUserFieldsets = document.querySelectorAll(".storeUser");
+			const storeUserAsterisks = document.querySelectorAll(
+				".register__asteriskRequired"
+			);
 
 			if (val === "user") {
 				clientUserFieldsets?.forEach((fieldset) => {
@@ -150,6 +161,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				});
 				storeUserFieldsets?.forEach((fieldset) => {
 					fieldset.classList.add("hidden");
+				});
+				storeUserAsterisks?.forEach((asterisk) => {
+					asterisk.classList.add("hidden");
 				});
 
 				this.name.setValidators([Validators.required]);
@@ -166,14 +180,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 				this.postCodesServing.clearValidators();
 				this.postCodesServing.updateValueAndValidity();
+
+				this.phone.clearValidators();
+				this.phone.updateValueAndValidity();
+
+				this.address.clearValidators();
+				this.address.updateValueAndValidity();
+
+				this.city.clearValidators();
+				this.city.updateValueAndValidity();
 			} else {
-				console.log("hola");
 				clientUserFieldsets?.forEach((fieldset) => {
 					fieldset.classList.add("hidden");
 				});
 				storeUserFieldsets?.forEach((fieldset) => {
 					fieldset.classList.remove("hidden");
 				});
+				storeUserAsterisks?.forEach((asterisk) => {
+					asterisk.classList.remove("hidden");
+				});
+
 				this.storeName.setValidators([Validators.required]);
 				this.storeName.updateValueAndValidity();
 
@@ -185,6 +211,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
 					Validators.pattern(/^(\d{5})+(,(\d{5})+)*$/),
 				]);
 				this.postCodesServing.updateValueAndValidity();
+
+				this.phone.setValidators([Validators.required]);
+				this.phone.updateValueAndValidity();
+
+				this.address.setValidators([Validators.required]);
+				this.address.updateValueAndValidity();
+
+				this.city.setValidators([Validators.required]);
+				this.city.updateValueAndValidity();
 
 				this.name.clearValidators();
 				this.name.updateValueAndValidity();

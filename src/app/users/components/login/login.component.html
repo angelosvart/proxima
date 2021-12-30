@@ -82,7 +82,16 @@
 
 		<div class="login__register">
 			¿No tienes cuenta?
-			<a class="login__registerLink" routerLink="/register">Regístrate aquí</a>.
+			<a *ngIf="!redirectURL" class="login__registerLink" routerLink="/register"
+				>Regístrate aquí</a
+			>
+			<a
+				*ngIf="redirectURL"
+				class="login__registerLink"
+				routerLink="/register"
+				[queryParams]="{ redirectTo: redirectURL }"
+				>Regístrate aquí</a
+			>
 		</div>
 	</div>
 </main>

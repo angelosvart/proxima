@@ -122,7 +122,7 @@
 			</label>
 
 			<label class="register__label">
-				Teléfono
+				Teléfono <span class="register__asteriskRequired hidden">*</span>
 				<input
 					class="register__input"
 					type="text"
@@ -136,7 +136,7 @@
 			</label>
 
 			<label class="register__label">
-				Dirección
+				Dirección <span class="register__asteriskRequired hidden">*</span>
 				<input class="register__input" type="text" formControlName="address" />
 				<span *ngIf="address.touched && address.errors" class="register__error">
 					Debes especificar la dirección de la tienda.
@@ -167,7 +167,7 @@
 			</label>
 
 			<label class="register__label">
-				Ciudad
+				Ciudad <span class="register__asteriskRequired hidden">*</span>
 				<input class="register__input" type="text" formControlName="city" />
 			</label>
 
