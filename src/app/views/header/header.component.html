@@ -30,6 +30,7 @@
 					class="header__category"
 					routerLink="/products/sales"
 					routerLinkActive="active"
+					(click)="closeModal()"
 				>
 					<a
 						routerLink="/products/sales"
@@ -53,6 +54,7 @@
 					class="header__category"
 					routerLink="/dashboard"
 					routerLinkActive="active"
+					(click)="closeModal()"
 				>
 					<a
 						routerLink="/dashboard$"
@@ -65,6 +67,7 @@
 					class="header__category"
 					routerLink="/dashboard/product"
 					routerLinkActive="active"
+					(click)="closeModal()"
 				>
 					<a
 						routerLink="/dashboard/product"
@@ -77,6 +80,7 @@
 					class="header__category"
 					routerLink="/dashboard/orders"
 					routerLinkActive="active"
+					(click)="closeModal()"
 				>
 					<a
 						routerLink="/dashboard/orders"
@@ -154,4 +158,4 @@
 	<a routerLink="/help" class="header__support">Atención al Cliente</a>
 </header>
 
-<div class="modalOverlay"></div>
+<div class="modalOverlay" (click)="closeModal()"></div>

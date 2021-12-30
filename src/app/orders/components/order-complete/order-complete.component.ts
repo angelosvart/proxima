@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
-import { getOrderById, resetSelectedOrder } from "../../actions/order.actions";
+import { getOrderById, resetOrders } from "../../actions/order.actions";
 import { Order } from "../../models/Order";
 
 @Component({
@@ -53,7 +53,7 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.ordersObservable.unsubscribe();
-		this.store.dispatch(resetSelectedOrder());
+		this.store.dispatch(resetOrders());
 	}
 
 	getStoreInfo() {

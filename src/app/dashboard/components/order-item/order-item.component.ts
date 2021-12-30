@@ -7,7 +7,7 @@ import { AppState } from "src/app/app.reducer";
 import {
 	editOrder,
 	getOrderById,
-	resetSelectedOrder,
+	resetOrders,
 } from "src/app/orders/actions/order.actions";
 import { Order } from "src/app/orders/models/Order";
 
@@ -51,7 +51,7 @@ export class DashboardOrderItemComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.ordersObservable.unsubscribe();
-		this.store.dispatch(resetSelectedOrder());
+		this.store.dispatch(resetOrders());
 	}
 
 	markAsDelivered() {
@@ -61,7 +61,11 @@ export class DashboardOrderItemComponent implements OnInit, OnDestroy {
 		button.disabled = true;
 		button.classList.add("loading");
 		this.store.dispatch(
-			editOrder({ orderId: this.order._id, isDelivered: true })
+			editOrder({
+				orderId: this.order._id,
+				isDelivered: true,
+				delivered: Date.now(),
+			})
 		);
 	}
 

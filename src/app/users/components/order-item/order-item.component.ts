@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 import { AppState } from "src/app/app.reducer";
 import {
 	getOrderById,
-	resetSelectedOrder,
+	resetOrders,
 } from "src/app/orders/actions/order.actions";
 import { Order } from "src/app/orders/models/Order";
 
@@ -54,7 +54,7 @@ export class OrderItemComponent implements OnInit {
 
 	ngOnDestroy(): void {
 		this.ordersObservable.unsubscribe();
-		this.store.dispatch(resetSelectedOrder());
+		this.store.dispatch(resetOrders());
 	}
 
 	getStoreInfo() {

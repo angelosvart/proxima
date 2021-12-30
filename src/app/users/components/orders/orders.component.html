@@ -14,7 +14,10 @@
 		<div class="orders__list">
 			<ng-container *ngIf="orders && orders.length">
 				<ng-container *ngFor="let order of orders">
-					<div class="orders__item">
+					<div
+						class="orders__item"
+						routerLink="/account/orders/{{ order._id }}"
+					>
 						<img
 							class="orders__image"
 							src="{{ order.products[0].productId.image }}"

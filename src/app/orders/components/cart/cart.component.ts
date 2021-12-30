@@ -89,6 +89,7 @@ export class CartComponent implements OnInit, OnDestroy {
 				}
 			});
 		});
+		this.subTotal = Math.round((this.subTotal + Number.EPSILON) * 100) / 100;
 	}
 
 	getProductData() {

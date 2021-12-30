@@ -16,9 +16,26 @@
 				<div class="order__details">
 					<p class="order__orderNumber">Pedido #{{ order.orderNumber }}</p>
 					<p>Realizado el {{ order.created | date: "dd/MM/yyyy" }}</p>
-					<p *ngIf="order.isDelivered">
-						Entregado el {{ order.delivered | date: "dd/MM/yyyy" }}
-					</p>
+					<div
+						class="order__status order__status--pending"
+						*ngIf="!order.isDelivered"
+					>
+						<p>Pendiente de entrega</p>
+						<img
+							src="../../../../assets/images/icons/warning-circle.svg"
+							class="order__statusIcon"
+						/>
+					</div>
+					<div
+						class="order__status order__status--delivered"
+						*ngIf="order.isDelivered"
+					>
+						<p>Entregado el {{ order.delivered | date: "dd/MM/yyyy" }}</p>
+						<img
+							src="../../../../assets/images/icons/check-circle.svg"
+							class="order__statusIcon"
+						/>
+					</div>
 				</div>
 				<div class="order__methods">
 					<div class="order__method">
@@ -28,6 +45,13 @@
 					<div class="order__method">
 						<p class="order__bold">Método de pago:</p>
 						<p>{{ order.paymentMethod["name"] }}</p>
+						<p class="order__status">
+							<span class="order__bold">Estado:&nbsp;</span>
+							<span class="order__success" *ngIf="order.isPaid">Pagado</span>
+							<span class="order__warning" *ngIf="!order.isPaid"
+								>Pendiente de Pago</span
+							>
+						</p>
 					</div>
 				</div>
 			</div>

@@ -36,7 +36,8 @@ export class UsersService {
 
 	logout() {
 		this.tokenService.removeToken();
-		this.router.navigate(["/login"]);
+		localStorage.removeItem("postCode");
+		this.router.navigate(["/"]);
 	}
 
 	initSession() {

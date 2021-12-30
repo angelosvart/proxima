@@ -92,6 +92,27 @@
 		background-color: $color-footer;
 		border-radius: $border-radius;
 	}
+	&__status {
+		display: flex;
+		align-items: center;
+		&--pending {
+			color: $color-danger;
+		}
+		&--delivered {
+			color: $color-success;
+		}
+	}
+	&__statusIcon {
+		width: 18px;
+		height: 18px;
+		margin-left: 0.25rem;
+	}
+	&__success {
+		color: $color-success;
+	}
+	&__warning {
+		color: $color-warning;
+	}
 	@media (min-width: $desktop) {
 		display: grid;
 		grid-template-columns: 1fr 3fr;

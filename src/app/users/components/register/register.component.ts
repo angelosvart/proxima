@@ -167,6 +167,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				this.postCodesServing.clearValidators();
 				this.postCodesServing.updateValueAndValidity();
 			} else {
+				console.log("hola");
 				clientUserFieldsets?.forEach((fieldset) => {
 					fieldset.classList.add("hidden");
 				});

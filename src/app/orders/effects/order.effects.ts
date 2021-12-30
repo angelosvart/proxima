@@ -56,17 +56,19 @@ export class OrderEffects {
 	editOrder$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(OrderActions.editOrder),
-			exhaustMap(({ orderId, isDelivered, isPaid }) =>
-				this.orderService.editOrder(orderId, isDelivered, isPaid).pipe(
-					map((response) =>
-						OrderActions.editOrderSuccess({
-							selectedOrder: response,
-						})
-					),
-					catchError((error) =>
-						of(OrderActions.editOrderFailure({ payload: error }))
+			exhaustMap(({ orderId, isDelivered, delivered, isPaid }) =>
+				this.orderService
+					.editOrder(orderId, isDelivered, delivered, isPaid)
+					.pipe(
+						map((response) =>
+							OrderActions.editOrderSuccess({
+								selectedOrder: response,
+							})
+						),
+						catchError((error) =>
+							of(OrderActions.editOrderFailure({ payload: error }))
+						)
 					)
-				)
 			)
 		)
 	);

@@ -26,10 +26,12 @@ export class OrderService {
 	editOrder(
 		orderId: string,
 		isDelivered?: boolean,
+		delivered?: any,
 		isPaid?: boolean
 	): Observable<any> {
 		return this.http.put<Order>(`${this.orderApi}/${orderId}`, {
 			isDelivered,
+			delivered,
 			isPaid,
 		});
 	}

@@ -12,7 +12,7 @@ import {
 	getOrders,
 	getOrdersFailure,
 	getOrdersSuccess,
-	resetSelectedOrder,
+	resetOrders,
 } from "../actions/order.actions";
 import { Order } from "../models/Order";
 
@@ -68,9 +68,10 @@ const _orderReducer = createReducer(
 		},
 		pending: false,
 	})),
-	on(resetSelectedOrder, (state, action) => ({
+	on(resetOrders, (state, action) => ({
 		...state,
 		selectedOrder: null,
+		orders: null,
 		pending: false,
 	})),
 	on(getOrders, (state) => ({
