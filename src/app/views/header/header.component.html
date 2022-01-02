@@ -90,14 +90,17 @@
 					>
 				</li>
 			</ng-container>
-			<li class="header__category mobileOnly" (click)="closeModal()">
-				<a routerLink="/account"
+			<li
+				class="header__category mobileOnly"
+				(click)="closeModal()"
+				routerLink="/account"
+			>
+				<a routerLink="/account" (click)="closeModal()"
 					>Mi Cuenta
 					<img
 						class="header__userIcon"
 						alt="Mi cuenta"
 						src="../../../assets/images/icons/user.svg"
-						routerLink="/account"
 				/></a>
 			</li>
 			<li class="header__category mobileOnly" (click)="closeModal()">
