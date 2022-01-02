@@ -1,13 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 import { CartItem } from "../models/CartItem";
 
 @Injectable({
 	providedIn: "root",
 })
 export class CartService {
-	private cartApi = "https://proxima-backend.herokuapp.com/api/cart";
-
 	constructor(private http: HttpClient) {}
 
 	getCart(): CartItem[] {

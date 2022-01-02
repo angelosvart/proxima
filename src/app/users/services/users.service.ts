@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { ClientUser } from "../models/ClientUser";
 import { Credentials } from "../models/Credentials";
 import { StoreUser } from "../models/StoreUser";
@@ -11,8 +12,9 @@ import { TokenService } from "./token.service";
 	providedIn: "root",
 })
 export class UsersService {
-	private usersApi = "https://proxima-backend.herokuapp.com/api/users";
-	private storesApi = "https://proxima-backend.herokuapp.com/api/stores";
+	private API_URL = environment.API_URL;
+	private usersApi = `${this.API_URL}/api/users`;
+	private storesApi = `${this.API_URL}/api/stores`;
 
 	constructor(
 		private http: HttpClient,

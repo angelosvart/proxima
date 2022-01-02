@@ -1,13 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { Order } from "../models/Order";
 
 @Injectable({
 	providedIn: "root",
 })
 export class OrderService {
-	private orderApi = "https://proxima-backend.herokuapp.com/api/orders";
+	private API_URL = environment.API_URL;
+	private orderApi = `${this.API_URL}/api/orders`;
 
 	constructor(private http: HttpClient) {}
 

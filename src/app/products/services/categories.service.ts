@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Category } from "../models/Category";
+import { environment } from "src/environments/environment";
 
 @Injectable({
 	providedIn: "root",
 })
 export class CategoriesService {
-	private categoriesApi =
-		"https://proxima-backend.herokuapp.com/api/categories";
+	private API_URL = environment.API_URL;
+	private categoriesApi = `${this.API_URL}/api/categories`;
 
 	httpOptions = {
 		headers: new HttpHeaders({ "Content-Type": "application/json" }),
